@@ -1,0 +1,11 @@
+4.1. Hardware and Model Configurations
+We evaluated Edge-LLM across two distinct edge compute platforms: Platform A (NVIDIA Jetson Orin Nano with 6-core ARM Cortex-A78AE CPU, 1024-core Ampere GPU with 32 Tensor Cores, 8 GB unified LPDDR5 RAM, 15W TDP) and Platform B (Raspberry Pi 5 with Quad-core ARM Cortex-A76 at 2.4 GHz, 8 GB LPDDR4X RAM, 5W TDP). We benchmarked five compact language models: Qwen2.5-0.5B, TinyLlama-1.1B, Llama-3.2-1B, Qwen2.5-1.5B, and Llama-3.2-3B across FP16, INT8, and INT4 precision configurations.
+
+4.2. Inference Latency and Throughput Analysis
+Token generation speeds on the Jetson Orin Nano show that quantizing Llama-3.2-1B to INT4 achieves 48.5 tokens/s on the GPU---representing a 3.15x speedup over unquantized FP16. On the Raspberry Pi 5 CPU, the INT4 model produces 14.2 tokens/s, synthesizing a full 50-token diagnostic summary in approximately 3.5 seconds. Time to First Token (TTFT) on the Jetson GPU remains below 25 ms across all evaluated models up to 3B parameters, enabling near-instantaneous reasoning upon anomaly detection.
+
+4.3. Memory Allocation and Quantization Efficiency
+In FP16 precision, a 3B model consumes over 6.4 GB, triggering out-of-memory errors on boards running graphical desktops or concurrent services. INT4 quantization compresses memory allocation to 280 MB for Qwen2.5-0.5B, 672 MB for Llama-3.2-1B, and 1792 MB for Llama-3.2-3B, ensuring comfortable deployment within budget industrial hardware.
+
+4.4. Diagnostic Accuracy and Case Study
+Diagnostic evaluation across four representative failure cases (bearing inner-race spalling, stator winding insulation degradation, centrifugal pump cavitation, and dynamic shaft coupling misalignment) confirms the trade-off. While the 1D-CNN baseline executes rapidly (8.5 ms) with an 89.8% F1-score, it yields only an opaque numerical classification lacking explanatory rationale. Cloud-hosted GPT-4o attains a 97.1% F1-score but averages 1420 ms in response latency while routing proprietary telemetry over the public internet. Conversely, our local Edge-LLM (Llama-3.2-1B INT4) achieves a 94.2% F1-score (and 95.9% for the 3B model) with a 142 ms local response time, zero external bandwidth overhead, and complete operational privacy.

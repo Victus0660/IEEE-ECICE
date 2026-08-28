@@ -1,0 +1,15 @@
+Continuous operation in modern manufacturing hinges on rotating equipment---from multi-stage centrifugal pumps and induction motors to high-speed spindles and gearboxes. Under relentless mechanical loading, minor wear develops rapidly into severe failures. Plant maintenance crews routinely instrument these machines with piezoelectric vibration pickups, fiber optic strain sensors, infrared pyrometers, and current transducers to implement condition-based maintenance (CBM).
+
+However, translating high-rate raw sensor streams into swift, informed maintenance actions presents a stubborn dilemma:
+
+- Opaque Local TinyML Classifiers: Lightweight 1D convolutional neural networks and support vector machines run within milliseconds on microcontrollers. Unfortunately, they function as rigid black boxes. When an inner bearing raceway begins to spall, these models only emit an obscure code like 'Fault Class 3' or an anomaly score of 0.88. Maintenance technicians are still forced to stop what they are doing, open complex spectral plots, and dig through paper manuals to determine if the asset requires an immediate shutdown.
+
+- Cloud LLM Bottlenecks and Privacy Risks: While commercial cloud-hosted LLMs exhibit strong diagnostic reasoning, streaming raw shop-floor telemetry over public networks incurs unpredictable latency (frequently exceeding 1.5 s), risks factory internet disconnects, and breaches strict intellectual property policies guarding proprietary manufacturing data.
+
+To overcome both limitations simultaneously, we developed Edge-LLM. Rather than sending data outward, our architecture deploys post-training quantized Small Language Models (SLMs)---principally Llama-3.2 (1B/3B) and Qwen2.5 (0.5B/1.5B)---directly onto industrial edge gateways. Instead of swamping the model with raw sensor waveforms, Edge-LLM condenses high-frequency signals into statistical descriptors, queries an onboard vector manual database via offline Retrieval-Augmented Generation (RAG), and outputs concise, interpretable JSON repair instructions.
+
+The principal contributions of our study include:
+1. We introduce a standalone, air-gapped edge framework that performs generative anomaly reasoning on local hardware with zero external API calls.
+2. We construct a sliding-window statistical encoder that converts multi-modal vibration, optoelectronic, and thermal time series into compact semantic prompts, substantially curtailing prompt evaluation latency.
+3. We systematically evaluate memory footprint, token generation speed, and prompt prefill latency across FP16, INT8, and INT4 (Q4_K_M) quantization on both GPU (NVIDIA Jetson Orin Nano) and CPU (Raspberry Pi 5) architectures.
+4. We validate through multi-fault empirical scenarios that an INT4-quantized 1B SLM delivers a 94.6% diagnostic F1-score with 142 ms response latency, offering an optimal balance between edge hardware constraints and diagnostic precision.

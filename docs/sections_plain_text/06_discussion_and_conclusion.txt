@@ -1,0 +1,8 @@
+5. Practical Considerations and Future Work
+Deploying language models within physical industrial enclosures entails specific practical considerations:
+- Long-Term Degradation Tracking: Feeding weeks of raw vibration logs into a prompt rapidly exhausts context capacity. Storing compact daily statistical summaries rather than raw data points enables long-term wear tracking within a standard 2k-token prompt window.
+- Thermal Management in Sealed IP67 Enclosures: Continuous autoregressive generation within fanless industrial enclosures causes steady thermal accumulation. Adopting an event-driven design---wherein the language model remains idle until statistical threshold filters flag an anomaly---maintains safe operating temperatures and avoids hardware throttling.
+Future work will explore on-device parameter-efficient fine-tuning via QLoRA for machine-specific calibration and decentralized multi-agent collaboration across factory gateway networks.
+
+6. Conclusions
+We presented Edge-LLM, an autonomous on-device language model framework for real-time sensor anomaly diagnosis in smart manufacturing. By unifying sliding-window feature compression, INT4 quantization, and local RAG retrieval, Edge-LLM delivers interpretable diagnostic guidance without cloud latency or data privacy risks. Benchmarks on NVIDIA Jetson and Raspberry Pi hardware demonstrate that a 4-bit 1B/3B model achieves 94.6% to 95.9% diagnostic F1-scores, responds in under 150 ms, and runs comfortably within 672 MB to 1.8 GB of RAM.

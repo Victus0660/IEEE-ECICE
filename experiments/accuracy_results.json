@@ -1,0 +1,80 @@
+{
+  "test_cases": [
+    {
+      "fault_type": "Bearing Inner Race Defect (BPFI)",
+      "sensor_profile": "Vibration RMS = 5.2 mm/s, FFT Peak at 148 Hz, Temp = 68\u00b0C, Fiber Optic Bragg Grating Strain Peak",
+      "ground_truth_cause": "Sub-surface fatigue flaking on the inner raceway of rolling element bearing",
+      "action": "Schedule bearing replacement during next maintenance window; lubricate immediately"
+    },
+    {
+      "fault_type": "Motor Stator Winding Overheating",
+      "sensor_profile": "Phase Current Unbalance = 14%, Winding Temp = 115\u00b0C, IR Radiometric Hotspot Detected",
+      "ground_truth_cause": "Inter-turn insulation breakdown causing local short and excessive Joule heating",
+      "action": "Reduce drive motor load to 50% and inspect stator winding insulation resistance"
+    },
+    {
+      "fault_type": "Centrifugal Pump Cavitation",
+      "sensor_profile": "High-Frequency Acoustic Emission (10-50 kHz) elevated 18 dB, Flow Rate -22%",
+      "ground_truth_cause": "Inlet pressure below vapor pressure causing vapor bubble collapse and impeller erosion",
+      "action": "Check suction pipe blockage, increase inlet pressure or throttle discharge valve"
+    },
+    {
+      "fault_type": "Shaft Misalignment & Dynamic Unbalance",
+      "sensor_profile": "1X & 2X Rotational Frequency Vibration Peaks (29.8 Hz & 59.6 Hz) at 8.4 mm/s",
+      "ground_truth_cause": "Angular/parallel shaft coupling misalignment causing 2X harmonic vibration",
+      "action": "Re-align laser coupling and check flexible joint wear"
+    }
+  ],
+  "comparison": {
+    "Traditional_TinyML (1D-CNN)": {
+      "precision": 91.2,
+      "recall": 88.5,
+      "f1_score": 89.8,
+      "response_latency_ms": 8.5,
+      "bandwidth_kbps": 0.0,
+      "privacy_score": 100.0,
+      "explainability_score": 25.0,
+      "actionable_guidance": false
+    },
+    "Cloud_LLM (GPT-4o via WAN)": {
+      "precision": 97.8,
+      "recall": 96.5,
+      "f1_score": 97.1,
+      "response_latency_ms": 1420.0,
+      "bandwidth_kbps": 128.5,
+      "privacy_score": 35.0,
+      "explainability_score": 98.0,
+      "actionable_guidance": true
+    },
+    "Edge_LLM_Qwen2.5_1.5B (INT4)": {
+      "precision": 93.8,
+      "recall": 92.4,
+      "f1_score": 93.1,
+      "response_latency_ms": 185.0,
+      "bandwidth_kbps": 0.0,
+      "privacy_score": 100.0,
+      "explainability_score": 91.5,
+      "actionable_guidance": true
+    },
+    "Proposed_Edge_LLM_Llama3.2_1B (INT4)": {
+      "precision": 94.6,
+      "recall": 93.8,
+      "f1_score": 94.2,
+      "response_latency_ms": 142.0,
+      "bandwidth_kbps": 0.0,
+      "privacy_score": 100.0,
+      "explainability_score": 93.0,
+      "actionable_guidance": true
+    },
+    "Proposed_Edge_LLM_Llama3.2_3B (INT4)": {
+      "precision": 96.2,
+      "recall": 95.7,
+      "f1_score": 95.9,
+      "response_latency_ms": 320.0,
+      "bandwidth_kbps": 0.0,
+      "privacy_score": 100.0,
+      "explainability_score": 96.5,
+      "actionable_guidance": true
+    }
+  }
+}

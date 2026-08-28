@@ -1,0 +1,8 @@
+2.1. Embedded Classifiers and TinyML in IIoT
+Deploying machine learning models directly onto sensor edge devices eliminates bandwidth consumption and guarantees low-latency alert triggers. In industrial predictive maintenance, 1D-CNNs and autoencoders are widely executed on microcontrollers to flag abnormal vibration bursts. However, because these compact models only predict categorical class IDs, they cannot describe physical failure modes or provide actionable repair steps for on-site personnel.
+
+2.2. Generative IoT and Industrial Edge Intelligence
+The convergence of generative AI and physical IoT environments---often termed Generative IoT (GIoT)---has become a prominent area of research. Recent efforts investigate LLMs for summarizing maintenance logs or pairing computer vision with natural language descriptions, such as LLMYOLOEdge. Nonetheless, virtually all current implementations outsource the language generation phase to remote cloud clusters, exposing factory operations to communication latency jitter and wide-area network dropouts.
+
+2.3. Post-Training Quantization for Edge Transformers
+Fitting autoregressive transformer architectures onto embedded processors with only 4 GB to 8 GB of shared RAM necessitates aggressive precision reduction. Techniques such as AWQ, GPTQ, and GGUF runtimes compress 16-bit floating-point weights into 4-bit and 8-bit integers while preserving diagnostic reasoning fidelity. Parallel developments in speculative decoding and distributed microcontroller inference further accelerate token generation. Building upon these quantization mechanisms, our work realizes a responsive, self-contained diagnostic engine on commodity edge hardware.
