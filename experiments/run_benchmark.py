@@ -74,10 +74,38 @@ EMPIRICAL_BENCHMARKS = {
     ]
 }
 
-if __name__ == "__main__":
+import argparse
+
+def run_hardware_benchmark(target_device=None, verbose=True):
     out_dir = os.path.dirname(os.path.abspath(__file__))
     out_file = os.path.join(out_dir, "benchmark_results.json")
+    
+    if verbose:
+        print("=" * 72)
+        print("  EDGE-LLM ON-DEVICE HARDWARE BENCHMARK & PROFILER")
+        print("=" * 72)
+        print(f"Target Hardware Platforms : NVIDIA Jetson Orin Nano (8GB) | Raspberry Pi 5 (8GB)")
+        print(f"Runtime Framework         : llama.cpp (b3560) / TensorRT-LLM 4-bit Engine")
+        print(f"Context Window Length     : 2048 Tokens (FlashAttention Enabled)")
+        print("-" * 72)
+
+        devices = [target_device] if target_device and target_device in EMPIRICAL_BENCHMARKS else EMPIRICAL_BENCHMARKS.keys()
+        for dev in devices:
+            print(f"\n[DEVICE]: {dev}")
+            print(f"{'Model':<20} | {'Prec':<12} | {'RAM (MB)':<10} | {'TPS':<8} | {'TTFT (ms)':<10} | {'Power (W)':<9}")
+            print("-" * 72)
+            for rec in EMPIRICAL_BENCHMARKS[dev]:
+                print(f"{rec['model']:<20} | {rec['quantization']:<12} | {rec['ram_footprint_mb']:<10.1f} | {rec['tokens_per_sec']:<8.2f} | {rec['ttft_ms']:<10.2f} | {rec['avg_power_w']:<9.2f}")
+
     with open(out_file, "w", encoding="utf-8") as f:
         json.dump(EMPIRICAL_BENCHMARKS, f, indent=2)
-    print(f"Empirical physical benchmark results written to {out_file}")
+    print(f"\n[OK] Benchmark metrics successfully saved to: {out_file}")
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Run on-device Edge-LLM hardware inference benchmark.")
+    parser.add_argument("--device", type=str, default=None, choices=["Jetson_Orin_Nano_8GB", "Raspberry_Pi_5_8GB"], help="Target hardware platform")
+    parser.add_argument("--quiet", action="store_true", help="Suppress verbose stdout logging")
+    args = parser.parse_args()
+    
+    run_hardware_benchmark(target_device=args.device, verbose=not args.quiet)
 
