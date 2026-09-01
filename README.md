@@ -18,14 +18,14 @@ Official open-source research dataset, empirical hardware profiling logs, multi-
 
 Unplanned machine breakdowns stall production lines and cost factories dearly. To catch faults before catastrophic failures occur, industrial plants monitor assets using vibration accelerometers, fiber Bragg grating (FBG) optical strain gauges, infrared thermal probes, and phase current sensors. Yet, conventional edge-deployed TinyML models merely flag anomalies with unhelpful numerical indices or binary alarms—failing to diagnose the underlying physics or instruct technicians on how to respond.
 
-Offloading sensor data to cloud-based language models introduces unacceptable transmission delays (>1.5 s), high cloud API bills, and data confidentiality hazards. Here, we present **Edge-LLM**, an on-premise generative diagnostic framework running 4-bit quantized small language models locally on factory-floor compute nodes.
+Offloading sensor data to cloud-based language models introduces unacceptable transmission delays (>1.4 s), high cloud API bills, and data confidentiality hazards. Here, we present **Edge-LLM**, an on-premise generative diagnostic framework running 4-bit quantized small language models locally on factory-floor compute nodes.
 
 ```
-+------------------------+      +--------------------------+      +-------------------------+      +------------------------+
-| 1. Industrial Sensors  | ---> | 2. Context Compression   | ---> | 3. Quantized SLM Engine | ---> | 4. Actionable JSON     |
-| (12.8 kHz Vibration,   |      | (FFT Harmonics, RMS,     |      | (4-Bit Q4_K_M Kernels,  |      | (Root-Cause, Severity, |
-|  FBG Strain, IR Temp)  |      |  ISO 10816 Thresholds)   |      |  Local Vector RAG)      |      |  Prescribed Steps)     |
-+------------------------+      +--------------------------+      +-------------------------+      +------------------------+
++--------------------------+      +--------------------------+      +-------------------------+      +------------------------+
+| 1. Multi-Modal Sensors   | ---> | 2. Context Compression   | ---> | 3. Quantized SLM Engine | ---> | 4. Actionable JSON     |
+| (12.8 kHz Accel, FBG     |      | (FFT Harmonics, RMS,     |      | (4-Bit Q4_K_M Kernels,  |      | (Triage: 142 ms,       |
+|  Optical Strain, IR Py)  |      |  ISO 10816 Thresholds)   |      |  Local Vector RAG)      |      |  Full Guide: 1.18 s)   |
++--------------------------+      +--------------------------+      +-------------------------+      +------------------------+
 ```
 
 ---
@@ -33,9 +33,9 @@ Offloading sensor data to cloud-based language models introduces unacceptable tr
 ## Key Highlights & Innovations
 
 - **100% Air-Gapped Operational Security**: Operates completely on-device with zero external API calls or wide-area network dependency, eliminating proprietary telemetry leakage.
-- **Ultra-Low Response Latency**: 4-bit quantized Llama-3.2-1B delivers **42.65 tokens/sec** with **13.75 ms TTFT** on NVIDIA Jetson Orin Nano (end-to-end diagnosis in **142 ms**).
-- **Compact Memory Footprint**: Entire system operates within **958 MB RAM** (inclusive of weights, 2048-token KV cache, and CUDA runtime buffers), reserving ample headroom for OS and background tasks.
-- **High Explanatory Accuracy**: Achieves **94.2% to 95.9% F1-score** across bearing inner-race spalling, stator winding breakdown, pump cavitation, and shaft coupling misalignment.
+- **Two-Tier Low-Latency Diagnostics**: 4-bit quantized Llama-3.2-1B delivers **42.65 tokens/sec** with **13.75 ms TTFT** on NVIDIA Jetson Orin Nano—completing real-time triage diagnosis (fault identification & severity) in **142 ms**, followed by complete step-by-step repair guidance within **1.18 s**.
+- **Compact Memory Footprint**: Entire system operates within **958 MB RAM** (inclusive of weights, 2048-token KV cache, and runtime context), reserving ample headroom for OS and concurrent industrial services.
+- **High Explanatory Accuracy**: Achieves **94.2% to 95.9% macro-average F1-score** across bearing inner-race spalling (BPFI), stator winding breakdown, pump cavitation, and shaft coupling misalignment.
 
 ---
 
@@ -54,7 +54,7 @@ Offloading sensor data to cloud-based language models introduces unacceptable tr
 
 ### 2. Diagnostic Performance Comparison against Baselines
 
-| Diagnostic Method | Precision (%) | Recall (%) | F1-Score (%) | Latency (ms) | Bandwidth (kbps) | Privacy (%)* | Explainability |
+| Diagnostic Method | Precision (%) | Recall (%) | F1-Score (%) | Latency (ms) | Bandwidth (kbps) | Privacy (%)* | Output Format |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **1D-CNN (TinyML Baseline)** | 91.2% | 88.5% | 89.8% | **8.5 ms** | 0.0 kbps | 100.0% | Opaque Code Only |
 | **Cloud GPT-4o (WAN)** | **97.8%** | **96.5%** | **97.1%** | 1420.0 ms | 128.5 kbps | 35.0% | Full Natural Language |
@@ -74,10 +74,10 @@ data/
 │   ├── hardware_profiling_jetson_orin_nano.csv  # 10 trials per model (RAM, VRAM, TTFT, TPS, Power, Temp)
 │   └── hardware_profiling_raspberry_pi_5.csv    # 10 trials per model (RAM, TTFT, TPS, CPU Util, Power)
 ├── sensor_telemetry/
-│   ├── case_00_normal_baseline.csv              # ISO 10816 Class I/II baseline telemetry
+│   ├── case_00_normal_baseline.csv              # ISO 10816 Class I/II baseline telemetry (12.8 kHz NI-9234)
 │   ├── case_01_bearing_spall_bpfi.csv           # Bearing inner-race fault (BPFI 148 Hz impact bursts)
 │   ├── case_02_stator_winding_insulation.csv    # Stator inter-turn insulation breakdown (14% unbalance)
-│   ├── case_03_pump_cavitation.csv              # Pump cavitation broadband acoustic emission
+│   ├── case_03_pump_cavitation.csv              # Centrifugal pump cavitation broadband spectral spikes
 │   └── case_04_shaft_misalignment.csv           # 1X & 2X rotational harmonic coupling misalignment
 ├── rag_knowledge_base/
 │   ├── maintenance_manuals.json                 # Offline maintenance SOPs & repair checklists
