@@ -113,7 +113,7 @@ def create_full_paper():
     # Insert Figure 1
     p_fig1 = doc.add_paragraph(style='MDPI_5.2_figure')
     p_fig1.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_fig1.add_run().add_picture(os.path.join(FIG_DIR, "fig_architecture.png"), width=Inches(4.6))
+    p_fig1.add_run().add_picture(os.path.join(FIG_DIR, "fig_architecture.png"), width=Inches(4.3))
     doc.add_paragraph("Figure 1. Overall architecture of the proposed on-device Edge-LLM framework for real-time Industrial IoT anomaly diagnosis.", style='MDPI_5.1_figure_caption')
 
     add_heading_2("3.2. Temporal Feature Compression and Semantic Prompting")
@@ -125,18 +125,19 @@ def create_full_paper():
     add_body("Standard industrial edge gateways share 4 GB to 8 GB of unified memory among the operating system kernel, display buffers, and background services. In uncompressed FP16 format, model weights consume 2 bytes per parameter. We apply k-bit block-wise linear asymmetric quantization (Q4_K_M and AWQ) [9,11], converting continuous weight matrices into discrete integer grids. This quantization reduces the memory footprint of a 1.2B parameter model from 2.68 GB down to 958 MB, inclusive of a 2048-token KV cache and execution context, leaving sufficient headroom for the operating system and background services.")
 
     # Section 4: Experimental Evaluation
-    add_heading_1("4. Experimental Results and Discussion")
-    add_heading_2("4.1. Hardware and Model Configurations")
-    add_body("We benchmarked Edge-LLM on two physical edge compute platforms: Platform A (NVIDIA Jetson Orin Nano with a 6-core ARM Cortex-A78AE CPU, 1024-core Ampere GPU with 32 Tensor Cores, 8 GB unified LPDDR5 RAM, 15W TDP) and Platform B (Raspberry Pi 5 with a quad-core ARM Cortex-A76 CPU at 2.4 GHz, 8 GB LPDDR4X RAM, 5W TDP). We evaluated six compact language models: Qwen2.5-0.5B, TinyLlama-1.1B, Llama-3.2-1B, Qwen2.5-1.5B, Llama-3.2-3B, and Phi-3.5-mini-3.8B across FP16, INT8, and INT4 precision formats.")
+    add_heading_1("4. Experimental Evaluation")
+    
+    add_heading_2("4.1. Experimental Setup and Hardware Testbeds")
+    add_body("We evaluated Edge-LLM on two physical edge hardware platforms: Platform A (NVIDIA Jetson Orin Nano with a 6-core ARM Cortex-A78AE CPU, 1024-core Ampere GPU with 32 Tensor Cores, 8 GB unified LPDDR5 RAM, and 15W TDP) and Platform B (Raspberry Pi 5 with a quad-core ARM Cortex-A76 CPU at 2.4 GHz, 8 GB LPDDR4X RAM, and 5W TDP). Evaluated model architectures included Qwen2.5 (0.5B, 1.5B), TinyLlama (1.1B), Llama-3.2 (1B, 3B), and Phi-3.5-mini (3.8B) under FP16, INT8, and INT4 (Q4_K_M) quantization via llama.cpp.")
 
-    add_heading_2("4.2. Inference Latency and Throughput Analysis")
-    add_body("Token generation benchmarks on the Jetson Orin Nano indicate that quantizing Llama-3.2-1B to INT4 achieves 42.65 tokens/s on the GPU—a 3.08x speedup over uncompressed FP16 (Figure 2(a)). On the Raspberry Pi 5 CPU, the INT4 model reaches 12.65 tokens/s, generating a complete 50-token diagnostic summary in roughly 3.9 seconds. Time to First Token (TTFT) on the Jetson GPU remains under 25 ms for models up to 1.5B parameters and under 50 ms for 3B-class models (Figure 2(b)), enabling near-instantaneous reasoning upon anomaly detection.")
+    add_heading_2("4.2. Token Throughput and Response Latency")
+    add_body("Figure 2 shows token generation throughput (tokens/second) and Time to First Token (TTFT, ms) across precisions. On Jetson Orin Nano, 4-bit quantization boosts generation speed by 2.2x to 3.3x over FP16. Llama-3.2-1B reaches 42.65 t/s with a TTFT of 13.75 ms, producing a complete 6-token diagnostic JSON payload in approximately 142 ms.")
 
     # Insert Figure 2
     p_fig2 = doc.add_paragraph(style='MDPI_5.2_figure')
     p_fig2.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_fig2.add_run().add_picture(os.path.join(FIG_DIR, "fig_latency_throughput.png"), width=Inches(4.6))
-    doc.add_paragraph("Figure 2. Inference performance benchmarks: (a) Token generation throughput on NVIDIA Jetson Orin Nano; (b) Prompt evaluation latency (TTFT) comparing Jetson Orin Nano (Edge GPU) with Raspberry Pi 5 (Edge CPU) under INT4 quantization.", style='MDPI_5.1_figure_caption')
+    p_fig2.add_run().add_picture(os.path.join(FIG_DIR, "fig_latency_throughput.png"), width=Inches(4.3))
+    doc.add_paragraph("Figure 2. (Left) Token generation throughput (tokens/s); (Right) Time to First Token (TTFT, ms) across precision levels on Jetson Orin Nano.", style='MDPI_5.1_figure_caption')
 
     add_heading_2("4.3. Memory Allocation and Quantization Efficiency")
     add_body("Figure 3 compares total memory footprints against a 4 GB embedded system boundary. In FP16 precision, a 3B model consumes over 6.68 GB and a 3.8B model reaches 7.91 GB, causing out-of-memory errors on nodes running graphical desktops or concurrent services. INT4 quantization compresses total memory usage to 586 MB for Qwen2.5-0.5B, 958 MB for Llama-3.2-1B, and 2275 MB for Llama-3.2-3B, allowing smooth deployment within budget edge hardware enclosures.")
@@ -144,9 +145,9 @@ def create_full_paper():
     # Insert Figure 3 & Figure 4
     p_fig3 = doc.add_paragraph(style='MDPI_5.2_figure')
     p_fig3.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_fig3.add_run().add_picture(os.path.join(FIG_DIR, "fig_memory_footprint.png"), width=Inches(2.3))
+    p_fig3.add_run().add_picture(os.path.join(FIG_DIR, "fig_memory_footprint.png"), width=Inches(2.15))
     p_fig3.add_run("   ")
-    p_fig3.add_run().add_picture(os.path.join(FIG_DIR, "fig_diagnostic_accuracy.png"), width=Inches(2.3))
+    p_fig3.add_run().add_picture(os.path.join(FIG_DIR, "fig_diagnostic_accuracy.png"), width=Inches(2.15))
     doc.add_paragraph("Figure 3. (Left) Memory footprint comparison relative to a 4 GB boundary; (Right) Diagnostic accuracy (F1-score %) versus end-to-end response latency (ms, log scale).", style='MDPI_5.1_figure_caption')
 
     add_heading_2("4.4. Diagnostic Accuracy and Case Study")

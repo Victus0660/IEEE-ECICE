@@ -1,4 +1,4 @@
-# Edge-LLM: On-Device Lightweight Large Language Model Framework for Industrial IoT Sensor Anomaly Diagnosis
+# Edge-LLM: An On-Device Lightweight Large Language Model Framework for Real-Time Industrial IoT Sensor Anomaly Diagnosis
 
 [![Conference](https://img.shields.io/badge/IEEE-ECICE%202026-00629B?style=for-the-badge&logo=ieee&logoColor=white)](https://2026.ecice.org/)
 [![Hardware](https://img.shields.io/badge/Platform-NVIDIA%20Jetson%20%7C%20Raspberry%20Pi-76B900?style=for-the-badge&logo=nvidia&logoColor=white)](https://developer.nvidia.com/embedded/jetson-orin-nano-developer-kit)
@@ -6,13 +6,15 @@
 [![Quantization](https://img.shields.io/badge/Precision-INT4%20%2F%20INT8%20%2F%20FP16-FF6F00?style=for-the-badge&logo=tensorflow&logoColor=white)](https://github.com/ggerganov/llama.cpp)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 
-An autonomous, 100% air-gapped on-device generative diagnostic engine delivering **94.2% F1-score** with **142 ms local response latency** on industrial edge compute nodes.
+Official open-source research dataset, empirical hardware profiling logs, multi-modal telemetry waveforms, and reproducible edge benchmark scripts for the paper:
+> **"Edge-LLM: An On-Device Lightweight Large Language Model Framework for Real-Time Industrial IoT Sensor Anomaly Diagnosis"**  
+> *Presented at the 8th Eurasia Conference on IoT, Communication and Engineering (IEEE ECICE 2026)*
 
-[Read Full Paper (PDF)](ECICE2026_FullPaper_YiChunTeng.pdf) | [Word Manuscript (DOCX)](ECICE2026_FullPaper_YiChunTeng.docx) | [Overleaf Package (ZIP)](paper.zip) | [Open Dataset (Data)](data/)
+[Explore Dataset (data/)](data/) | [Hardware Benchmark Suite](experiments/) | [Citation](#citation)
 
 ---
 
-## Abstract & Overview
+## Abstract & System Overview
 
 Unplanned machine breakdowns stall production lines and cost factories dearly. To catch faults before catastrophic failures occur, industrial plants monitor assets using vibration accelerometers, fiber Bragg grating (FBG) optical strain gauges, infrared thermal probes, and phase current sensors. Yet, conventional edge-deployed TinyML models merely flag anomalies with unhelpful numerical indices or binary alarms—failing to diagnose the underlying physics or instruct technicians on how to respond.
 
@@ -37,7 +39,7 @@ Offloading sensor data to cloud-based language models introduces unacceptable tr
 
 ---
 
-## Benchmark Results
+## Empirical Benchmark Results
 
 ### 1. Edge Hardware Throughput & Latency (NVIDIA Jetson Orin Nano vs. Raspberry Pi 5)
 
@@ -64,68 +66,48 @@ Offloading sensor data to cloud-based language models introduces unacceptable tr
 
 ---
 
-## Repository Structure
+## 📂 Open-Source Dataset Catalog (`data/`)
 
 ```
-IEEE-ECICE/
-├── ECICE2026_FullPaper_YiChunTeng.docx  # Official MDPI Word Paper (6 Pages)
-├── ECICE2026_FullPaper_YiChunTeng.pdf   # Official PDF Paper (6 Pages)
-├── paper.zip                            # Overleaf-ready LaTeX Bundle
-├── README.md                            # Main Project Documentation
-├── LICENSE                              # MIT Open-Source License
-├── CITATION.cff                         # GitHub Native Citation Metadata
-├── requirements.txt                     # Core Python Dependencies
-├── data/                                # Open-Source Research Dataset & Logs
-│   ├── benchmark_logs/                  # Raw Hardware Profiling Logs (CSV)
-│   ├── sensor_telemetry/                # 12.8 kHz Multi-Modal Telemetry (CSV)
-│   ├── rag_knowledge_base/              # Maintenance Manuals & Fault Taxonomy (JSON)
-│   └── diagnostic_eval_cases/           # 100 Test Scenarios & Predictions (JSON)
-├── experiments/                         # Python Experiment Suite & Compilers
-│   ├── run_benchmark.py                 # Hardware Profiling & Benchmark Runner
-│   ├── sensor_anomaly_eval.py           # Anomaly Diagnostic Metric Evaluator
-│   ├── plot_results.py                  # IEEE Publication Chart Generator
-│   ├── plot_architecture.py             # System Architecture Diagram Generator
-│   ├── generate_official_word_paper.py  # Official MDPI DOCX Paper Compiler
-│   └── verify_project_integrity.py      # Automated Syntax & Integrity Validator
-└── paper/                               # LaTeX Source Files & Figures
-    ├── main.tex                         # Full LaTeX Manuscript
-    ├── references.bib                   # BibTeX Literature Database
-    ├── IEEEtran.cls                     # IEEE LaTeX Class File
-    └── figures/                         # High-Resolution Publication Figures (.pdf/.png)
+data/
+├── benchmark_logs/
+│   ├── hardware_profiling_jetson_orin_nano.csv  # 10 trials per model (RAM, VRAM, TTFT, TPS, Power, Temp)
+│   └── hardware_profiling_raspberry_pi_5.csv    # 10 trials per model (RAM, TTFT, TPS, CPU Util, Power)
+├── sensor_telemetry/
+│   ├── case_00_normal_baseline.csv              # ISO 10816 Class I/II baseline telemetry
+│   ├── case_01_bearing_spall_bpfi.csv           # Bearing inner-race fault (BPFI 148 Hz impact bursts)
+│   ├── case_02_stator_winding_insulation.csv    # Stator inter-turn insulation breakdown (14% unbalance)
+│   ├── case_03_pump_cavitation.csv              # Pump cavitation broadband acoustic emission
+│   └── case_04_shaft_misalignment.csv           # 1X & 2X rotational harmonic coupling misalignment
+├── rag_knowledge_base/
+│   ├── maintenance_manuals.json                 # Offline maintenance SOPs & repair checklists
+│   └── fault_taxonomy_and_guidelines.json       # ISO 10816 vibration severity zones & fault taxonomy
+└── diagnostic_eval_cases/
+    ├── 100_industrial_scenarios_ground_truth.json # 100 test cases with prompts and ground truth
+    └── model_predictions_comparison.json        # Detailed precision, recall, F1, latency breakdown
 ```
 
 ---
 
-## Quick Start & Reproducibility
+## 🚀 Quick Start & Reproducibility
 
 ### 1. Setup Environment
 ```bash
-# Clone the repository
+# Clone repository
 git clone https://github.com/Victus0660/IEEE-ECICE.git
 cd IEEE-ECICE
 
-# Install required dependencies
+# Install lightweight dependencies
 pip install -r requirements.txt
 ```
 
-### 2. Run Benchmarks & Generate Figures
+### 2. Run Benchmarks & Diagnostic Evaluation
 ```bash
-# 1. Run inference throughput and latency profiling
+# Run hardware inference profiler
 python experiments/run_benchmark.py
 
-# 2. Run diagnostic evaluation across 100 test cases
+# Run diagnostic accuracy evaluator across 100 test cases
 python experiments/sensor_anomaly_eval.py
-
-# 3. Generate high-resolution publication charts
-python experiments/plot_architecture.py
-python experiments/plot_results.py
-```
-
-### 3. Compile Word & PDF Manuscripts
-```bash
-# Generate official 6-page Word manuscript and verify integrity
-python experiments/generate_official_word_paper.py
-python experiments/verify_project_integrity.py
 ```
 
 ---
@@ -148,7 +130,7 @@ python experiments/verify_project_integrity.py
 
 ## Author & Contact
 
-- **Author**: Yi-Chun Teng
-- **Affiliation**: Department of Opto-Electronic Engineering, National Dong Hwa University (NDHU), Hualien 97401, Taiwan
+- **Author**: Yi-Chun Teng (National Dong Hwa University, Hualien, Taiwan)
 - **Email**: victus0110@gmail.com
 - **Conference**: [IEEE ECICE 2026 (8th Eurasia Conference on IoT, Communication and Engineering)](https://2026.ecice.org/)
+- **Repository**: [https://github.com/Victus0660/IEEE-ECICE](https://github.com/Victus0660/IEEE-ECICE)
