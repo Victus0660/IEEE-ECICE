@@ -36,10 +36,15 @@ def generate_architecture_diagram():
                                   fc=c_iot, ec=border_blue, lw=1.4)
     ax.add_patch(rect1)
     ax.text(12, 43, "1. Industrial IoT\nSensors & Telemetry", weight='bold', ha='center', va='center', color='#1B4F72', fontsize=8.5)
-    
-    sensor_items = ["• Tri-axial Vibration", "• Acoustic Emission", "• IR Thermal Imaging", "• Fiber Bragg Sensors", "• Stator Current (MCSA)", "• Local SCADA Logs"]
+    sensor_items = [
+        "• Tri-axial Accel (g)",
+        "• FBG Optical Strain",
+        "• IR Pyrometer (°C)",
+        "• 3-Phase Current (A)",
+        "• 12.8 kHz NI-9234 DAQ"
+    ]
     for i, item in enumerate(sensor_items):
-        ax.text(3.5, 34 - i * 5.2, item, fontsize=7.2, color='#2C3E50')
+        ax.text(3.5, 33 - i * 6.2, item, fontsize=7.5, color='#2C3E50')
 
     # 2. Block: Edge Context Compression & Feature Encoder
     rect2 = patches.FancyBboxPatch((27, 4), 22, 43, boxstyle="round,pad=0.4", 
