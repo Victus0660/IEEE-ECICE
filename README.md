@@ -18,13 +18,13 @@ Unplanned machine breakdowns stall production lines and cost factories dearly. T
 
 Offloading sensor data to cloud-based language models introduces unacceptable transmission delays (>1.5 s), high cloud API bills, and data confidentiality hazards. Here, we present **Edge-LLM**, an on-premise generative diagnostic framework running 4-bit quantized small language models locally on factory-floor compute nodes.
 
-`
+```
 +------------------------+      +--------------------------+      +-------------------------+      +------------------------+
 | 1. Industrial Sensors  | ---> | 2. Context Compression   | ---> | 3. Quantized SLM Engine | ---> | 4. Actionable JSON     |
 | (12.8 kHz Vibration,   |      | (FFT Harmonics, RMS,     |      | (4-Bit Q4_K_M Kernels,  |      | (Root-Cause, Severity, |
 |  FBG Strain, IR Temp)  |      |  ISO 10816 Thresholds)   |      |  Local Vector RAG)      |      |  Prescribed Steps)     |
 +------------------------+      +--------------------------+      +-------------------------+      +------------------------+
-`
+```
 
 ---
 
@@ -66,12 +66,15 @@ Offloading sensor data to cloud-based language models introduces unacceptable tr
 
 ## Repository Structure
 
-`
+```
 IEEE-ECICE/
 ├── ECICE2026_FullPaper_YiChunTeng.docx  # Official MDPI Word Paper (6 Pages)
 ├── ECICE2026_FullPaper_YiChunTeng.pdf   # Official PDF Paper (6 Pages)
 ├── paper.zip                            # Overleaf-ready LaTeX Bundle
 ├── README.md                            # Main Project Documentation
+├── LICENSE                              # MIT Open-Source License
+├── CITATION.cff                         # GitHub Native Citation Metadata
+├── requirements.txt                     # Core Python Dependencies
 ├── data/                                # Open-Source Research Dataset & Logs
 │   ├── benchmark_logs/                  # Raw Hardware Profiling Logs (CSV)
 │   ├── sensor_telemetry/                # 12.8 kHz Multi-Modal Telemetry (CSV)
@@ -89,24 +92,24 @@ IEEE-ECICE/
     ├── references.bib                   # BibTeX Literature Database
     ├── IEEEtran.cls                     # IEEE LaTeX Class File
     └── figures/                         # High-Resolution Publication Figures (.pdf/.png)
-`
+```
 
 ---
 
 ## Quick Start & Reproducibility
 
 ### 1. Setup Environment
-`ash
+```bash
 # Clone the repository
 git clone https://github.com/Victus0660/IEEE-ECICE.git
 cd IEEE-ECICE
 
 # Install required dependencies
-pip install python-docx matplotlib numpy
-`
+pip install -r requirements.txt
+```
 
 ### 2. Run Benchmarks & Generate Figures
-`ash
+```bash
 # 1. Run inference throughput and latency profiling
 python experiments/run_benchmark.py
 
@@ -116,20 +119,20 @@ python experiments/sensor_anomaly_eval.py
 # 3. Generate high-resolution publication charts
 python experiments/plot_architecture.py
 python experiments/plot_results.py
-`
+```
 
 ### 3. Compile Word & PDF Manuscripts
-`ash
+```bash
 # Generate official 6-page Word manuscript and verify integrity
 python experiments/generate_official_word_paper.py
 python experiments/verify_project_integrity.py
-`
+```
 
 ---
 
 ## Citation
 
-`ibtex
+```bibtex
 @inproceedings{teng2026edgellm,
   author    = {Teng, Yi-Chun},
   title     = {Edge-{LLM}: An On-Device Lightweight Large Language Model Framework for Real-Time Industrial {IoT} Sensor Anomaly Diagnosis},
@@ -139,7 +142,7 @@ python experiments/verify_project_integrity.py
   address   = {Yunlin, Taiwan},
   month     = {November}
 }
-`
+```
 
 ---
 
