@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+*.class
+*.so
+.Python
+env/
+venv/
+.venv/
+
+# Temporary Microsoft Office Files
+~$*.docx
+~$*.doc
+~$*.pptx
+~$*.xlsx
+
+# LaTeX Temporary Compilation Files
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+# OS Generated
+.DS_Store
+Thumbs.db

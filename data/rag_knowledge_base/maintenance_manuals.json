@@ -1,0 +1,58 @@
+[
+  {
+    "doc_id": "SOP-MECH-041",
+    "equipment_type": "Three-Phase Induction Motor (400V, 55kW)",
+    "subsystem": "Rolling Element Bearings (SKF 6210/C3)",
+    "fault_pattern": "BPFI (148 Hz impact bursts), high-frequency envelope elevation, local thermal spike >65C",
+    "root_cause_analysis": "Micro-spalling on inner raceway due to contaminated grease or excessive dynamic axial preload.",
+    "severity_level": "Moderate to High",
+    "action_checklist": [
+      "1. Check grease condition and replenish with ISO VG 100 polyurea lubricant.",
+      "2. Monitor vibration RMS hourly; if RMS exceeds 7.1 mm/s (ISO 10816 Zone C), schedule planned replacement.",
+      "3. Verify laser coupling alignment to prevent excessive radial preloading."
+    ],
+    "estimated_downtime_hours": 2.5
+  },
+  {
+    "doc_id": "SOP-ELEC-018",
+    "equipment_type": "Stator Winding System",
+    "subsystem": "Class H Insulation & Slot Liners",
+    "fault_pattern": "Phase current unbalance > 10%, winding temperature > 110C, 2X supply line frequency sidebands (120 Hz)",
+    "root_cause_analysis": "Inter-turn insulation breakdown caused by thermal aging and repeated voltage spikes.",
+    "severity_level": "Critical",
+    "action_checklist": [
+      "1. Immediately throttle motor load to below 50% to prevent full phase-to-ground flashover.",
+      "2. Conduct insulation resistance test (Megger 1000V DC) and polarization index (PI) measurement.",
+      "3. If insulation resistance < 5 MOhm, execute emergency controlled shutdown for stator rewinding."
+    ],
+    "estimated_downtime_hours": 8.0
+  },
+  {
+    "doc_id": "SOP-HYDR-029",
+    "equipment_type": "Multi-Stage Centrifugal Pump (ISO 5199)",
+    "subsystem": "Suction Impeller & Volute Casing",
+    "fault_pattern": "High-frequency broadband acoustic emissions (10-50 kHz), erratic flow rate drop > 20%, suction pressure < NPSHr",
+    "root_cause_analysis": "Net Positive Suction Head available (NPSHa) lower than required, causing vapor cavity implosions on impeller vane surfaces.",
+    "severity_level": "High",
+    "action_checklist": [
+      "1. Inspect suction strainer and inlet valve for partial clogging or debris accumulation.",
+      "2. Verify liquid level in supply tank and de-aerate suction piping.",
+      "3. Throttle discharge regulating valve to shift pump operating point back toward Best Efficiency Point (BEP)."
+    ],
+    "estimated_downtime_hours": 1.5
+  },
+  {
+    "doc_id": "SOP-MECH-012",
+    "equipment_type": "Flexible Shaft Coupling (Elastomeric / Disc Pack)",
+    "subsystem": "Drive Shaft & Intermediate Support Bearing",
+    "fault_pattern": "Pronounced 2X rotational frequency harmonic (59.6 Hz) accompanied by high axial vibration (>6.5 mm/s)",
+    "root_cause_analysis": "Angular and parallel misalignment between driver and driven shafts, causing cyclical bending moment on flexible disc.",
+    "severity_level": "Moderate",
+    "action_checklist": [
+      "1. Perform dial indicator or dual-laser coupling alignment check in cold and hot operating states.",
+      "2. Inspect elastomeric insert or metal disc pack for shear tearing or fretting corrosion.",
+      "3. Torque all foundation hold-down bolts to specified rating (180 Nm) to eliminate soft-foot condition."
+    ],
+    "estimated_downtime_hours": 3.0
+  }
+]

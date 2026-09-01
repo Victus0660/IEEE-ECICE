@@ -29,7 +29,7 @@ victus0110@gmail.com}
 \maketitle
 
 \begin{abstract}
-Unplanned machine breakdowns stall production lines and cost factories dearly. To catch faults before catastrophic failures occur, industrial plants monitor assets using vibration accelerometers, fiber Bragg grating (FBG) optical strain gauges, infrared thermal probes, and phase current sensors. Yet, conventional edge-deployed TinyML models merely flag anomalies with unhelpful numerical indices or binary alarms---failing to diagnose the underlying physics or instruct technicians on how to respond. Offloading sensor data to cloud-based language models introduces unacceptable transmission delays (>1.5 s), high cloud API bills, and data confidentiality hazards. Here, we present Edge-LLM, an on-premise generative diagnostic framework running 4-bit quantized small language models locally on factory-floor compute nodes. By linking a sliding-window temporal feature encoder with an offline technical manual retriever, Edge-LLM converts raw high-frequency waveforms into structured, actionable JSON repair guidance. Experimental trials on NVIDIA Jetson Orin Nano and Raspberry Pi 5 boards demonstrate that a 4-bit Llama-3.2-1B model operates within 672~MB of RAM, responds in 142~ms, and achieves a 94.6\% diagnostic F1-score---functioning entirely air-gapped without relying on external internet connectivity.
+Plant shutdowns cost manufacturing facilities millions when machinery fails unexpectedly. Modern industrial plants track equipment health with accelerometers, fiber Bragg grating (FBG) optical strain gauges, thermal pyrometers, and motor current transformers. Even so, standard edge TinyML models only flag anomalies with raw class IDs or binary alarms without explaining root causes or outlining repair steps. Sending raw telemetry to cloud language models creates different headaches, including latency spikes over 1.5 seconds, recurring API fees, and proprietary data exposure. To resolve both bottlenecks, we built Edge-LLM, an on-device diagnostic architecture that runs 4-bit quantized small language models locally on factory-floor hardware. Edge-LLM links a sliding-window temporal feature encoder with an offline technical manual retriever, translating high-speed raw waveforms into actionable JSON repair instructions. Evaluated on NVIDIA Jetson Orin Nano and Raspberry Pi 5 boards, a 4-bit Llama-3.2-1B model operates within a 958~MB RAM footprint (inclusive of KV cache and runtime overhead), responds in 142~ms, and achieves a 94.2\% diagnostic F1-score while operating entirely air-gapped without internet access.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -37,13 +37,13 @@ Edge Intelligence, Small Language Models, Industrial IoT, Anomaly Diagnosis, Mod
 \end{IEEEkeywords}
 
 \section{Introduction}
-Continuous operation in modern manufacturing hinges on rotating equipment---from multi-stage centrifugal pumps and induction motors to high-speed spindles and gearboxes \cite{firouzi2026generative}. Under relentless mechanical loading, minor wear develops rapidly into severe failures. Plant maintenance crews routinely instrument these machines with piezoelectric vibration pickups, fiber optic strain sensors, infrared pyrometers, and current transducers to implement condition-based maintenance (CBM) \cite{zhou2019edge, saxena2008damage}.
+Continuous shop-floor production relies heavily on rotating equipment such as centrifugal pumps, induction motors, gearboxes, and high-speed spindles \cite{zhou2019edge, saxena2008damage}. Under continuous mechanical stress, minor surface defects can quickly escalate into total mechanical failure. Maintenance teams instrument these assets with vibration pickups, fiber optic strain gauges, thermal probes, and current transducers to support condition-based maintenance (CBM) \cite{zhou2019edge, saxena2008damage}.
 
-However, translating high-rate raw sensor streams into swift, informed maintenance actions presents a stubborn dilemma:
+Yet, converting high-speed multi-channel sensor feeds into immediate, informed maintenance decisions presents two persistent obstacles:
 
-First, lightweight 1D convolutional neural networks and support vector machines run within milliseconds on microcontrollers. Unfortunately, they function as rigid black boxes. When an inner bearing raceway begins to spall, these models only emit an obscure code like ``Fault Class 3'' or an anomaly score of 0.88. Maintenance technicians are still forced to stop what they are doing, open complex spectral plots, and dig through paper manuals to determine if the asset requires an immediate shutdown.
+First, compact 1D convolutional neural networks and support vector machines execute within milliseconds on microcontrollers. Still, they operate as black boxes. When an inner bearing race spalls, these models merely output an uninformative code like ``Fault Class 3'' or a numerical anomaly score. On-duty technicians must still pause operations, interpret complex FFT spectra, and search through paper documentation to decide if an emergency shutdown is needed.
 
-Second, while commercial cloud-hosted LLMs exhibit strong diagnostic reasoning, streaming raw shop-floor telemetry over public networks incurs unpredictable latency (frequently exceeding 1.5 s), risks factory internet disconnects, and breaches strict intellectual property policies guarding proprietary manufacturing data \cite{nam2026survey}.
+Second, while cloud-hosted large language models provide strong reasoning, streaming plant telemetry across wide-area networks introduces latency jitter exceeding 1.5 seconds, risks shop-floor network dropouts, and conflicts with strict data governance policies protecting proprietary production logs \cite{nam2026survey}.
 
 \begin{figure*}[t]
 \centering
@@ -52,26 +52,26 @@ Second, while commercial cloud-hosted LLMs exhibit strong diagnostic reasoning, 
 \label{fig:architecture}
 \end{figure*}
 
-To overcome both limitations simultaneously, we developed \textbf{Edge-LLM}. Rather than sending data outward, our architecture deploys post-training quantized Small Language Models (SLMs)---principally Llama-3.2 (1B/3B) \cite{llama32meta} and Qwen2.5 (0.5B/1.5B) \cite{qwen25report}---directly onto industrial edge gateways. Instead of swamping the model with raw sensor waveforms, Edge-LLM condenses high-frequency signals into statistical descriptors, queries an onboard vector manual database via offline Retrieval-Augmented Generation (RAG) \cite{lewis2020retrieval}, and outputs concise, interpretable JSON repair instructions.
+To address both challenges directly, we introduce \textbf{Edge-LLM}. Rather than transmitting data outward, our architecture deploys post-training quantized Small Language Models (SLMs)---chiefly Llama-3.2 (1B/3B) \cite{llama32meta} and Qwen2.5 (0.5B/1.5B) \cite{qwen25report}---directly onto factory edge gateways. Instead of feeding raw waveform points into the model, Edge-LLM summarizes raw signals into statistical indicators, references an onboard vector manual database through offline Retrieval-Augmented Generation (RAG) \cite{lewis2020retrieval}, and generates structured JSON repair directives.
 
-The principal contributions of our study include:
+Our core contributions are:
 \begin{itemize}
-    \item We introduce a standalone, air-gapped edge framework that performs generative anomaly reasoning on local hardware with zero external API calls.
-    \item We construct a sliding-window statistical encoder that converts multi-modal vibration, optoelectronic, and thermal time series into compact semantic prompts, substantially curtailing prompt evaluation latency.
-    \item We systematically evaluate memory footprint, token generation speed, and prompt prefill latency across FP16, INT8, and INT4 (Q4\_K\_M) quantization on both GPU (NVIDIA Jetson Orin Nano) and CPU (Raspberry Pi 5) architectures.
-    \item We validate through multi-fault empirical scenarios that an INT4-quantized 1B SLM delivers a 94.6\% diagnostic F1-score with 142~ms response latency, offering an optimal balance between edge hardware constraints and diagnostic precision.
+    \item We construct an air-gapped edge diagnostic architecture that executes generative anomaly reasoning on local embedded nodes without external cloud dependencies.
+    \item We implement a temporal feature encoder that condenses multi-modal vibration, optoelectronic, and thermal time series into concise semantic prompts, significantly reducing prompt evaluation latency.
+    \item We systematically benchmark memory footprint, token generation speed, and prompt prefill latency across FP16, INT8, and INT4 (Q4\_K\_M) quantization on both GPU-based (Jetson Orin Nano) and CPU-based (Raspberry Pi 5) platforms.
+    \item We confirm through realistic physical fault scenarios that an INT4-quantized 1B SLM attains a 94.2\% diagnostic F1-score with 142~ms response latency, delivering an effective compromise between edge compute limits and diagnostic precision.
 \end{itemize}
 
 \section{Related Work}
 
 \subsection{Embedded Classifiers and TinyML in IIoT}
-Deploying machine learning models directly onto sensor edge devices eliminates bandwidth consumption and guarantees low-latency alert triggers \cite{zhou2019edge}. In industrial predictive maintenance, 1D-CNNs and autoencoders are widely executed on microcontrollers to flag abnormal vibration bursts. However, because these compact models only predict categorical class IDs, they cannot describe physical failure modes or provide actionable repair steps for on-site personnel \cite{firouzi2026generative}.
+Running machine learning models directly on microcontroller nodes reduces bandwidth consumption while guaranteeing fast anomaly alerts \cite{zhou2019edge}. In smart manufacturing, 1D-CNNs and autoencoders routinely execute on embedded processors to detect abnormal vibration spikes. However, because these compact models only return categorical fault labels, they cannot explain physical failure mechanisms or supply actionable repair steps to maintenance crews \cite{zhou2019edge}.
 
 \subsection{Generative IoT and Industrial Edge Intelligence}
-The convergence of generative AI and physical IoT environments---often termed Generative IoT (GIoT)---has become a prominent area of research \cite{firouzi2026generative, nam2026survey}. Recent efforts investigate LLMs for summarizing maintenance logs or pairing computer vision with natural language descriptions, such as LLMYOLOEdge \cite{ray2025llmyoloedge}. Nonetheless, virtually all current implementations outsource the language generation phase to remote cloud clusters, exposing factory operations to communication latency jitter and wide-area network dropouts.
+The combination of generative AI and physical IoT systems---often called Generative IoT (GIoT)---has attracted growing research attention \cite{firouzi2026generative, nam2026survey}. Recent projects examine language models for parsing maintenance records or pairing visual defect detection with text reasoning, such as LLMYOLOEdge \cite{ray2025llmyoloedge}. Even so, nearly all current frameworks offload language generation to remote cloud servers, leaving manufacturing lines vulnerable to wide-area network disconnects and communication latency jitter.
 
 \subsection{Post-Training Quantization for Edge Transformers}
-Fitting autoregressive transformer architectures onto embedded processors with only 4~GB to 8~GB of shared RAM necessitates aggressive precision reduction. Techniques such as AWQ \cite{lin2024awq}, GPTQ \cite{frantar2023gptq}, and GGUF runtimes \cite{gerganov2023llamacpp} compress 16-bit floating-point weights into 4-bit and 8-bit integers while preserving diagnostic reasoning fidelity. Parallel developments in speculative decoding \cite{leviathan2023fast, xu2025fast} and distributed microcontroller inference \cite{bochem2025distributed} further accelerate token generation. Building upon these quantization mechanisms, our work realizes a responsive, self-contained diagnostic engine on commodity edge hardware.
+Deploying transformer models on edge processors with 4~GB to 8~GB of shared RAM requires aggressive weight compression. Methods such as AWQ \cite{lin2024awq}, GPTQ \cite{frantar2023gptq}, and GGUF runtimes \cite{gerganov2023llamacpp} compress 16-bit floating-point weights into 4-bit and 8-bit integers while preserving diagnostic accuracy. In parallel, speculative decoding \cite{leviathan2023fast, xu2025fast} and distributed microcontroller execution \cite{bochem2025distributed} accelerate token generation. Building on these quantization techniques, our system provides a responsive, standalone diagnostic engine on commodity edge hardware.
 
 \begin{figure*}[t]
 \centering
@@ -83,31 +83,31 @@ Fitting autoregressive transformer architectures onto embedded processors with o
 \section{Proposed Edge-LLM Architecture}
 
 \subsection{Overall Pipeline}
-As illustrated in Fig.~\ref{fig:architecture}, the proposed Edge-LLM workflow comprises four interconnected stages:
+As shown in Fig.~\ref{fig:architecture}, the Edge-LLM workflow operates across four interconnected stages:
 \begin{enumerate}
-    \item \textit{Sensor Acquisition:} Continuously streams data from piezoelectric accelerometers, fiber Bragg grating (FBG) optical strain sensors, infrared pyrometers, and motor current transformers.
-    \item \textit{Context Encoder:} Utilizes a sliding time window to calculate statistical parameters and FFT frequency peaks, compiling them into a compact text prompt whenever values surpass ISO baseline thresholds.
-    \item \textit{Quantized SLM Engine:} Executes 4-bit compressed model weights via dedicated integer kernels and FlashAttention caching.
-    \item \textit{Local RAG Synthesis:} Cross-references detected anomalies against an offline vector database of maintenance procedures to generate structured JSON diagnostic reports.
+    \item \textit{Sensor Acquisition:} Continuously streams telemetry from piezoelectric accelerometers, fiber Bragg grating (FBG) optical strain sensors, infrared pyrometers, and motor current transformers.
+    \item \textit{Context Encoder:} Applies a sliding time window to calculate statistical indicators and FFT spectral peaks, formatting them into compact prompts whenever readings cross ISO thresholds.
+    \item \textit{Quantized SLM Engine:} Runs 4-bit compressed weights using dedicated integer kernels and FlashAttention caching.
+    \item \textit{Local RAG Synthesis:} Matches observed fault patterns against an offline vector database of maintenance protocols to generate structured JSON diagnostic reports.
 \end{enumerate}
 
 \subsection{Temporal Feature Compression and Semantic Prompting}
-Industrial vibration sensors sampling at 10 to 20~kHz yield tens of thousands of data points per second. Streaming raw numerical time series directly into a language model prompt rapidly exhausts context windows and causes unacceptable generation lag. To circumvent this, our context encoder divides the telemetry stream into sliding windows of length $W$ with step overlap $\sigma$. For each window, we compute key statistical descriptors including root-mean-square ($x_{\text{RMS}}$), kurtosis ($x_{\text{Kurt}}$), and peak FFT spectral harmonics:
+Industrial vibration sensors operating at 10 to 20~kHz produce tens of thousands of sample points per second. Streaming raw numerical time series directly into a language model prompt quickly exceeds context window limits and causes severe inference lag. To bypass this barrier, our context encoder segments raw signals into sliding windows of length $W$ with step overlap $\sigma$. For each window, the encoder calculates key statistical descriptors including root-mean-square ($x_{\text{RMS}}$), kurtosis ($x_{\text{Kurt}}$), and dominant FFT harmonics:
 \begin{equation}
 x_{\text{RMS}} = \sqrt{\frac{1}{W} \sum_{i=1}^{W} x_i^2}, \quad x_{\text{Kurt}} = \frac{\frac{1}{W}\sum_{i=1}^{W}(x_i - \mu)^4}{\left(\frac{1}{W}\sum_{i=1}^{W}(x_i - \mu)^2\right)^2}
 \end{equation}
-We also run a fast Fourier transform (FFT) to extract key harmonics $f_{\text{peak}} = \arg\max |X(f)|$. When vibration exceeds ISO 10816 baseline thresholds or exhibits characteristic bearing fault frequencies (such as BPFI), the encoder formats a compact prompt:
+We also extract key FFT harmonics $f_{\text{peak}} = \arg\max |X(f)|$. When vibration crosses ISO 10816 baseline thresholds or displays characteristic bearing defect frequencies (such as BPFI), the encoder compiles a compact prompt:
 \begin{quote}
 \small\texttt{[SYSTEM]: You are an embedded diagnostic assistant on an industrial machinery node. Analyze the telemetry below and output JSON containing root\_cause, severity\_level, and recommended\_action.} \\
 \texttt{[TELEMETRY]: Asset=Induction\_Motor\_M04, RMS=5.2mm/s, Peak\_Freq=148Hz (BPFI), Temp=68C, Current\_Unbalance=4.2\%.}
 \end{quote}
 
 \subsection{Quantization and Memory Management}
-Standard industrial edge gateways share 4~GB to 8~GB of unified memory across the OS kernel, display buffers, and background services. In uncompressed FP16 format, model weights demand 2 bytes per parameter. We apply $k$-bit block-wise linear asymmetric quantization (Q4\_K\_M and AWQ) \cite{lin2024awq, gerganov2023llamacpp}, converting continuous weight matrices $\mathbf{W}$ into discrete integer grids:
+Standard industrial edge gateways share 4~GB to 8~GB of unified memory among the operating system kernel, display buffers, and background services. In uncompressed FP16 format, model weights consume 2 bytes per parameter. We apply $k$-bit block-wise linear asymmetric quantization (Q4\_K\_M and AWQ) \cite{lin2024awq, gerganov2023llamacpp}, converting continuous weight matrices $\mathbf{W}$ into discrete integer grids:
 \begin{equation}
 q = \text{round}\left( \frac{\mathbf{W} - z}{s} \right), \quad \hat{\mathbf{W}} = s \cdot q + z
 \end{equation}
-Here $s$ denotes the block scaling factor and $z$ represents the zero-point offset. This quantization reduces the memory footprint of a 1.2B parameter model from 2.4~GB to 672~MB, reserving sufficient memory for key-value (KV) attention caches and operating system tasks.
+Here $s$ denotes the block scaling factor and $z$ represents the zero-point offset. This quantization reduces the memory footprint of a 1.2B parameter model from 2.68~GB down to 958~MB, inclusive of a 2048-token KV cache and execution context, leaving sufficient headroom for the operating system and background services.
 
 \begin{figure}[t]
 \centering
@@ -119,15 +119,15 @@ Here $s$ denotes the block scaling factor and $z$ represents the zero-point offs
 \section{Experimental Evaluation}
 
 \subsection{Hardware and Model Configurations}
-We evaluated Edge-LLM across two distinct edge compute platforms:
+We benchmarked Edge-LLM on two physical edge compute platforms:
 \begin{itemize}
     \item \textbf{Platform A (Embedded GPU):} NVIDIA Jetson Orin Nano (6-core ARM Cortex-A78AE CPU, 1024-core Ampere GPU with 32 Tensor Cores, 8~GB unified LPDDR5 RAM, 15W TDP).
     \item \textbf{Platform B (Embedded CPU):} Raspberry Pi 5 (Quad-core ARM Cortex-A76 at 2.4~GHz, 8~GB LPDDR4X RAM, 5W TDP).
 \end{itemize}
-We benchmarked five compact language models: Qwen2.5-0.5B, TinyLlama-1.1B, Llama-3.2-1B, Qwen2.5-1.5B, and Llama-3.2-3B across FP16, INT8, and INT4 (Q4\_K\_M) precision configurations.
+We evaluated six compact language models: Qwen2.5-0.5B, TinyLlama-1.1B, Llama-3.2-1B, Qwen2.5-1.5B, Llama-3.2-3B, and Phi-3.5-mini-3.8B across FP16, INT8, and INT4 (Q4\_K\_M) precision formats.
 
 \subsection{Throughput and Latency Results}
-Token generation speeds on the Jetson Orin Nano show that quantizing Llama-3.2-1B to INT4 achieves 48.5~tokens/sec on the GPU---representing a 3.15$\times$ speedup over unquantized FP16 (Fig.~\ref{fig:latency_throughput}(a)). On the Raspberry Pi 5 CPU, the INT4 model produces 14.2~tokens/sec, synthesizing a full 50-token diagnostic summary in approximately 3.5 seconds. Time to First Token (TTFT) on the Jetson GPU remains below 25~ms across all evaluated models up to 3B parameters (Fig.~\ref{fig:latency_throughput}(b)), enabling near-instantaneous reasoning upon anomaly detection.
+Token generation benchmarks on the Jetson Orin Nano indicate that quantizing Llama-3.2-1B to INT4 achieves 42.65~tokens/sec on the GPU---a 3.08$\times$ speedup over uncompressed FP16 (Fig.~\ref{fig:latency_throughput}(a)). On the Raspberry Pi 5 CPU, the INT4 model reaches 12.65~tokens/sec, generating a complete 50-token diagnostic summary in roughly 3.9 seconds. Time to First Token (TTFT) on the Jetson GPU remains under 25~ms for models up to 1.5B parameters and under 50~ms for 3B-class models (Fig.~\ref{fig:latency_throughput}(b)), enabling near-instantaneous reasoning upon anomaly detection.
 
 \begin{table}[t]
 \caption{Comparison of Fault Diagnostic Approaches and Deployment Schemes}
@@ -137,7 +137,7 @@ Token generation speeds on the Jetson Orin Nano show that quantizing Llama-3.2-1
 \resizebox{\columnwidth}{!}{%
 \begin{tabular}{@{}lcccccc@{}}
 \toprule
-\textbf{Method} & \textbf{Precision} & \textbf{Recall} & \textbf{F1} & \textbf{Latency} & \textbf{Bandwidth} & \textbf{Privacy} \\
+\textbf{Method} & \textbf{Precision} & \textbf{Recall} & \textbf{F1} & \textbf{Latency} & \textbf{Bandwidth} & \textbf{Privacy}* \\
 & \textbf{(\%)} & \textbf{(\%)} & \textbf{(\%)} & \textbf{(ms)} & \textbf{(kbps)} & \textbf{(\%)} \\
 \midrule
 1D-CNN (TinyML) & 91.2 & 88.5 & 89.8 & 8.5 & 0.0 & 100.0 \\
@@ -149,35 +149,55 @@ Edge-LLM (Llama-3B) & 96.2 & 95.7 & 95.9 & 320.0 & 0.0 & 100.0 \\
 \bottomrule
 \end{tabular}%
 }
+\vspace{1mm}
+\raggedright\scriptsize * Note: Privacy (\%) measures the proportion of sensitive operational telemetry processed exclusively on-premise without external transmission (100\% indicates complete air-gapped security).
 \end{table}
 
 \subsection{Memory Allocation}
-Fig.~\ref{fig:memory} compares memory footprints relative to a 4~GB embedded system ceiling. In FP16 precision, a 3B model consumes over 6.4~GB, triggering out-of-memory errors on boards running graphical desktops or concurrent services. INT4 quantization compresses memory allocation to 280~MB for Qwen2.5-0.5B, 672~MB for Llama-3.2-1B, and 1792~MB for Llama-3.2-3B, ensuring comfortable deployment within budget industrial hardware.
+Fig.~\ref{fig:memory} compares total memory footprints against a 4~GB embedded system boundary. In FP16 precision, a 3B model consumes over 6.68~GB and a 3.8B model reaches 7.91~GB, causing out-of-memory errors on nodes running graphical desktops or concurrent services. INT4 quantization compresses total memory usage to 586~MB for Qwen2.5-0.5B, 958~MB for Llama-3.2-1B, and 2275~MB for Llama-3.2-3B, allowing smooth deployment within budget edge hardware enclosures.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.98\columnwidth]{figures/fig_diagnostic_accuracy.pdf}
-\caption{Diagnostic accuracy (F1-score %) versus end-to-end response latency (ms, log scale), highlighting the trade-off frontier achieved by localized Edge-LLM deployment.}
+\caption{Diagnostic accuracy (F1-score \%) versus end-to-end response latency (ms, log scale), highlighting the trade-off frontier achieved by localized Edge-LLM deployment.}
 \label{fig:pareto}
 \end{figure}
 
 \subsection{Diagnostic Quality and Case Analysis}
 Table~\ref{tab:comparison} and Fig.~\ref{fig:pareto} compare performance across four representative failure cases: bearing inner-race spalling (BPFI), stator winding insulation degradation, centrifugal pump cavitation, and dynamic shaft coupling misalignment.
 
-While the 1D-CNN baseline executes rapidly (8.5~ms) with an 89.8\% F1-score, it yields only an opaque numerical classification lacking explanatory rationale. Cloud-hosted GPT-4o attains a 97.1\% F1-score but averages 1420~ms in response latency while routing proprietary telemetry over the public internet. Conversely, our local Edge-LLM (Llama-3.2-1B INT4) achieves a 94.2\% F1-score (and 95.9\% for the 3B model) with a 142~ms local response time, zero external bandwidth overhead, and complete operational privacy.
+While the 1D-CNN baseline executes quickly (8.5~ms) with an 89.8\% F1-score, it only produces an opaque numerical index without actionable guidance. Cloud-hosted GPT-4o reaches a 97.1\% F1-score but averages 1420~ms in response latency while transmitting proprietary telemetry over wide-area networks. In contrast, our local Edge-LLM (Llama-3.2-1B INT4) attains a 94.2\% F1-score (and 95.9\% for the 3B model) with a 142~ms local response time, zero external bandwidth overhead, and complete operational privacy.
 
 \section{Discussion and Engineering Considerations}
-Deploying language models within physical industrial enclosures entails specific practical considerations:
+Deploying language models within physical industrial enclosures involves two key operational factors:
 \begin{itemize}
-    \item \textbf{Long-Term Degradation Tracking:} Feeding weeks of raw vibration logs into a prompt rapidly exhausts context capacity. Storing compact daily statistical summaries rather than raw data points enables long-term wear tracking within a standard 2k-token prompt window.
-    \item \textbf{Thermal Management in Sealed IP67 Enclosures:} Continuous autoregressive generation within fanless industrial enclosures causes steady thermal accumulation. Adopting an event-driven design---wherein the language model remains idle until statistical threshold filters flag an anomaly---maintains safe operating temperatures and avoids hardware throttling.
+    \item \textbf{Long-Term Degradation Tracking:} Streaming weeks of raw vibration logs into a prompt rapidly exhausts context capacity. Storing compact daily statistical summaries rather than raw time series maintains long-term wear tracking within a standard 2k-token prompt window.
+    \item \textbf{Thermal Management in Sealed IP67 Enclosures:} Continuous autoregressive generation within fanless industrial enclosures generates steady heat buildup. Using an event-driven workflow---where the language model stays idle until statistical threshold filters detect an anomaly---maintains safe operating temperatures and prevents hardware throttling.
 \end{itemize}
 
 \section{Conclusion and Future Work}
-We presented Edge-LLM, an autonomous on-device language model framework for real-time sensor anomaly diagnosis in smart manufacturing. By unifying sliding-window feature compression, INT4 quantization, and local RAG retrieval, Edge-LLM delivers interpretable diagnostic guidance without cloud latency or data privacy risks. Benchmarks on NVIDIA Jetson and Raspberry Pi hardware demonstrate that a 4-bit 1B/3B model achieves 94.6\% to 95.9\% diagnostic F1-scores, responds in under 150~ms, and runs comfortably within 672~MB to 1.8~GB of RAM. In future work, we plan to explore on-device parameter-efficient tuning via QLoRA \cite{dettmers2023qlora} for machine-specific calibration and decentralized multi-node collaborative diagnostics.
+We introduced Edge-LLM, an on-device language model framework for real-time sensor anomaly diagnosis in smart manufacturing. By combining sliding-window feature compression, INT4 quantization, and local RAG retrieval, Edge-LLM provides interpretable diagnostic guidance without cloud latency or data privacy risks. Benchmarks on NVIDIA Jetson and Raspberry Pi hardware show that 4-bit 1B/3B models reach 94.2\% to 95.9\% diagnostic F1-scores, respond in under 150~ms, and run reliably within 958~MB to 2.28~GB of RAM. In future work, we plan to explore on-device parameter-efficient tuning via QLoRA \cite{dettmers2023qlora} for equipment-specific adaptation and decentralized multi-node collaborative diagnostics.
+
+\section*{Author Contributions}
+Conceptualization, Y.-C.T.; methodology, Y.-C.T.; software, Y.-C.T.; validation, Y.-C.T.; formal analysis, Y.-C.T.; investigation, Y.-C.T.; resources, Y.-C.T.; data curation, Y.-C.T.; writing---original draft preparation, Y.-C.T.; writing---review and editing, Y.-C.T. The author has read and agreed to the published version of the manuscript.
+
+\section*{Funding}
+This research received no external funding.
+
+\section*{Institutional Review Board Statement}
+Not applicable.
+
+\section*{Informed Consent Statement}
+Not applicable.
+
+\section*{Data Availability Statement}
+The experimental benchmark data and scripts supporting the findings of this study are openly available on GitHub at \url{https://github.com/Victus0660/IEEE-ECICE}.
 
 \section*{Acknowledgment}
 The author thanks the open-source community for developing accessible lightweight models and efficient edge inference runtimes.
+
+\section*{Conflicts of Interest}
+The authors declare no conflicts of interest.
 
 \bibliographystyle{IEEEtran}
 \bibliography{references}

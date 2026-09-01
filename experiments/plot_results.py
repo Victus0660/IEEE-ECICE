@@ -46,8 +46,8 @@ def load_data():
     return bench_data, acc_data
 
 def plot_latency_throughput(bench_data):
-    models = ["Qwen-0.5B", "Llama3.2-1B", "Qwen-1.5B", "Llama3.2-3B", "Phi-3.5-3.8B"]
-    raw_models = ["Qwen2.5-0.5B", "Llama-3.2-1B", "Qwen2.5-1.5B", "Llama-3.2-3B", "Phi-3.5-mini-3.8B"]
+    models = ["Qwen-0.5B", "TinyLlama-1.1B", "Llama3.2-1B", "Qwen-1.5B", "Llama3.2-3B", "Phi-3.5-3.8B"]
+    raw_models = ["Qwen2.5-0.5B", "TinyLlama-1.1B", "Llama-3.2-1B", "Qwen2.5-1.5B", "Llama-3.2-3B", "Phi-3.5-mini-3.8B"]
     
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(7.0, 2.7), dpi=300)
     

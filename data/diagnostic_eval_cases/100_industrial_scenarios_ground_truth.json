@@ -1,0 +1,1602 @@
+[
+  {
+    "scenario_id": "SCN-001",
+    "category": "BPFI_Bearing_Fault",
+    "telemetry_features": {
+      "vibration_rms_mms": 6.2,
+      "dominant_freq_hz": 148.2,
+      "temperature_celsius": 68.5,
+      "current_unbalance_pct": 3.0
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-001, RMS=6.2mm/s, Peak_Freq=148.2Hz, Temp=68.5C, Current_Unbalance=3.0%.",
+    "ground_truth": {
+      "root_cause": "Sub-surface fatigue flaking on bearing inner raceway.",
+      "severity": "High",
+      "recommended_action": "Schedule bearing replacement; replenish polyurea grease."
+    }
+  },
+  {
+    "scenario_id": "SCN-002",
+    "category": "Stator_Insulation_Degradation",
+    "telemetry_features": {
+      "vibration_rms_mms": 3.26,
+      "dominant_freq_hz": 120.0,
+      "temperature_celsius": 107.7,
+      "current_unbalance_pct": 15.2
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-002, RMS=3.26mm/s, Peak_Freq=120.0Hz, Temp=107.7C, Current_Unbalance=15.2%.",
+    "ground_truth": {
+      "root_cause": "Inter-turn stator winding insulation breakdown.",
+      "severity": "Critical",
+      "recommended_action": "De-rate motor load immediately and test insulation resistance."
+    }
+  },
+  {
+    "scenario_id": "SCN-003",
+    "category": "Pump_Cavitation",
+    "telemetry_features": {
+      "vibration_rms_mms": 4.01,
+      "dominant_freq_hz": 18500.0,
+      "temperature_celsius": 56.8,
+      "current_unbalance_pct": 2.5
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-003, RMS=4.01mm/s, Peak_Freq=18500.0Hz, Temp=56.8C, Current_Unbalance=2.5%.",
+    "ground_truth": {
+      "root_cause": "NPSHa drop causing suction vapor bubble collapse.",
+      "severity": "High",
+      "recommended_action": "Inspect suction filter and adjust discharge throttle valve."
+    }
+  },
+  {
+    "scenario_id": "SCN-004",
+    "category": "Shaft_Misalignment",
+    "telemetry_features": {
+      "vibration_rms_mms": 7.69,
+      "dominant_freq_hz": 59.6,
+      "temperature_celsius": 76.2,
+      "current_unbalance_pct": 3.3
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-004, RMS=7.69mm/s, Peak_Freq=59.6Hz, Temp=76.2C, Current_Unbalance=3.3%.",
+    "ground_truth": {
+      "root_cause": "Dynamic angular/parallel coupling misalignment.",
+      "severity": "Moderate",
+      "recommended_action": "Perform laser coupling alignment and torque hold-down bolts."
+    }
+  },
+  {
+    "scenario_id": "SCN-005",
+    "category": "Normal_Baseline",
+    "telemetry_features": {
+      "vibration_rms_mms": 1.59,
+      "dominant_freq_hz": 29.8,
+      "temperature_celsius": 41.4,
+      "current_unbalance_pct": 1.3
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-005, RMS=1.59mm/s, Peak_Freq=29.8Hz, Temp=41.4C, Current_Unbalance=1.3%.",
+    "ground_truth": {
+      "root_cause": "Asset operating within normal nominal parameters.",
+      "severity": "Normal",
+      "recommended_action": "Continue routine periodic telemetry logging."
+    }
+  },
+  {
+    "scenario_id": "SCN-006",
+    "category": "BPFI_Bearing_Fault",
+    "telemetry_features": {
+      "vibration_rms_mms": 5.67,
+      "dominant_freq_hz": 148.2,
+      "temperature_celsius": 74.0,
+      "current_unbalance_pct": 1.6
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-006, RMS=5.67mm/s, Peak_Freq=148.2Hz, Temp=74.0C, Current_Unbalance=1.6%.",
+    "ground_truth": {
+      "root_cause": "Sub-surface fatigue flaking on bearing inner raceway.",
+      "severity": "High",
+      "recommended_action": "Schedule bearing replacement; replenish polyurea grease."
+    }
+  },
+  {
+    "scenario_id": "SCN-007",
+    "category": "Stator_Insulation_Degradation",
+    "telemetry_features": {
+      "vibration_rms_mms": 4.45,
+      "dominant_freq_hz": 120.0,
+      "temperature_celsius": 109.9,
+      "current_unbalance_pct": 11.5
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-007, RMS=4.45mm/s, Peak_Freq=120.0Hz, Temp=109.9C, Current_Unbalance=11.5%.",
+    "ground_truth": {
+      "root_cause": "Inter-turn stator winding insulation breakdown.",
+      "severity": "Critical",
+      "recommended_action": "De-rate motor load immediately and test insulation resistance."
+    }
+  },
+  {
+    "scenario_id": "SCN-008",
+    "category": "Pump_Cavitation",
+    "telemetry_features": {
+      "vibration_rms_mms": 5.52,
+      "dominant_freq_hz": 18500.0,
+      "temperature_celsius": 51.3,
+      "current_unbalance_pct": 2.4
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-008, RMS=5.52mm/s, Peak_Freq=18500.0Hz, Temp=51.3C, Current_Unbalance=2.4%.",
+    "ground_truth": {
+      "root_cause": "NPSHa drop causing suction vapor bubble collapse.",
+      "severity": "High",
+      "recommended_action": "Inspect suction filter and adjust discharge throttle valve."
+    }
+  },
+  {
+    "scenario_id": "SCN-009",
+    "category": "Shaft_Misalignment",
+    "telemetry_features": {
+      "vibration_rms_mms": 6.9,
+      "dominant_freq_hz": 59.6,
+      "temperature_celsius": 76.4,
+      "current_unbalance_pct": 3.9
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-009, RMS=6.9mm/s, Peak_Freq=59.6Hz, Temp=76.4C, Current_Unbalance=3.9%.",
+    "ground_truth": {
+      "root_cause": "Dynamic angular/parallel coupling misalignment.",
+      "severity": "Moderate",
+      "recommended_action": "Perform laser coupling alignment and torque hold-down bolts."
+    }
+  },
+  {
+    "scenario_id": "SCN-010",
+    "category": "Normal_Baseline",
+    "telemetry_features": {
+      "vibration_rms_mms": 0.76,
+      "dominant_freq_hz": 29.8,
+      "temperature_celsius": 40.8,
+      "current_unbalance_pct": 0.5
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-010, RMS=0.76mm/s, Peak_Freq=29.8Hz, Temp=40.8C, Current_Unbalance=0.5%.",
+    "ground_truth": {
+      "root_cause": "Asset operating within normal nominal parameters.",
+      "severity": "Normal",
+      "recommended_action": "Continue routine periodic telemetry logging."
+    }
+  },
+  {
+    "scenario_id": "SCN-011",
+    "category": "BPFI_Bearing_Fault",
+    "telemetry_features": {
+      "vibration_rms_mms": 5.53,
+      "dominant_freq_hz": 148.2,
+      "temperature_celsius": 71.7,
+      "current_unbalance_pct": 1.6
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-011, RMS=5.53mm/s, Peak_Freq=148.2Hz, Temp=71.7C, Current_Unbalance=1.6%.",
+    "ground_truth": {
+      "root_cause": "Sub-surface fatigue flaking on bearing inner raceway.",
+      "severity": "High",
+      "recommended_action": "Schedule bearing replacement; replenish polyurea grease."
+    }
+  },
+  {
+    "scenario_id": "SCN-012",
+    "category": "Stator_Insulation_Degradation",
+    "telemetry_features": {
+      "vibration_rms_mms": 4.66,
+      "dominant_freq_hz": 120.0,
+      "temperature_celsius": 106.1,
+      "current_unbalance_pct": 11.2
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-012, RMS=4.66mm/s, Peak_Freq=120.0Hz, Temp=106.1C, Current_Unbalance=11.2%.",
+    "ground_truth": {
+      "root_cause": "Inter-turn stator winding insulation breakdown.",
+      "severity": "Critical",
+      "recommended_action": "De-rate motor load immediately and test insulation resistance."
+    }
+  },
+  {
+    "scenario_id": "SCN-013",
+    "category": "Pump_Cavitation",
+    "telemetry_features": {
+      "vibration_rms_mms": 3.85,
+      "dominant_freq_hz": 18500.0,
+      "temperature_celsius": 52.8,
+      "current_unbalance_pct": 2.0
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-013, RMS=3.85mm/s, Peak_Freq=18500.0Hz, Temp=52.8C, Current_Unbalance=2.0%.",
+    "ground_truth": {
+      "root_cause": "NPSHa drop causing suction vapor bubble collapse.",
+      "severity": "High",
+      "recommended_action": "Inspect suction filter and adjust discharge throttle valve."
+    }
+  },
+  {
+    "scenario_id": "SCN-014",
+    "category": "Shaft_Misalignment",
+    "telemetry_features": {
+      "vibration_rms_mms": 5.85,
+      "dominant_freq_hz": 59.6,
+      "temperature_celsius": 78.0,
+      "current_unbalance_pct": 4.5
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-014, RMS=5.85mm/s, Peak_Freq=59.6Hz, Temp=78.0C, Current_Unbalance=4.5%.",
+    "ground_truth": {
+      "root_cause": "Dynamic angular/parallel coupling misalignment.",
+      "severity": "Moderate",
+      "recommended_action": "Perform laser coupling alignment and torque hold-down bolts."
+    }
+  },
+  {
+    "scenario_id": "SCN-015",
+    "category": "Normal_Baseline",
+    "telemetry_features": {
+      "vibration_rms_mms": 1.17,
+      "dominant_freq_hz": 29.8,
+      "temperature_celsius": 41.4,
+      "current_unbalance_pct": 1.9
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-015, RMS=1.17mm/s, Peak_Freq=29.8Hz, Temp=41.4C, Current_Unbalance=1.9%.",
+    "ground_truth": {
+      "root_cause": "Asset operating within normal nominal parameters.",
+      "severity": "Normal",
+      "recommended_action": "Continue routine periodic telemetry logging."
+    }
+  },
+  {
+    "scenario_id": "SCN-016",
+    "category": "BPFI_Bearing_Fault",
+    "telemetry_features": {
+      "vibration_rms_mms": 6.11,
+      "dominant_freq_hz": 148.2,
+      "temperature_celsius": 65.8,
+      "current_unbalance_pct": 3.0
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-016, RMS=6.11mm/s, Peak_Freq=148.2Hz, Temp=65.8C, Current_Unbalance=3.0%.",
+    "ground_truth": {
+      "root_cause": "Sub-surface fatigue flaking on bearing inner raceway.",
+      "severity": "High",
+      "recommended_action": "Schedule bearing replacement; replenish polyurea grease."
+    }
+  },
+  {
+    "scenario_id": "SCN-017",
+    "category": "Stator_Insulation_Degradation",
+    "telemetry_features": {
+      "vibration_rms_mms": 3.62,
+      "dominant_freq_hz": 120.0,
+      "temperature_celsius": 113.6,
+      "current_unbalance_pct": 13.9
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-017, RMS=3.62mm/s, Peak_Freq=120.0Hz, Temp=113.6C, Current_Unbalance=13.9%.",
+    "ground_truth": {
+      "root_cause": "Inter-turn stator winding insulation breakdown.",
+      "severity": "Critical",
+      "recommended_action": "De-rate motor load immediately and test insulation resistance."
+    }
+  },
+  {
+    "scenario_id": "SCN-018",
+    "category": "Pump_Cavitation",
+    "telemetry_features": {
+      "vibration_rms_mms": 5.09,
+      "dominant_freq_hz": 18500.0,
+      "temperature_celsius": 51.5,
+      "current_unbalance_pct": 1.3
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-018, RMS=5.09mm/s, Peak_Freq=18500.0Hz, Temp=51.5C, Current_Unbalance=1.3%.",
+    "ground_truth": {
+      "root_cause": "NPSHa drop causing suction vapor bubble collapse.",
+      "severity": "High",
+      "recommended_action": "Inspect suction filter and adjust discharge throttle valve."
+    }
+  },
+  {
+    "scenario_id": "SCN-019",
+    "category": "Shaft_Misalignment",
+    "telemetry_features": {
+      "vibration_rms_mms": 8.36,
+      "dominant_freq_hz": 59.6,
+      "temperature_celsius": 76.3,
+      "current_unbalance_pct": 3.3
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-019, RMS=8.36mm/s, Peak_Freq=59.6Hz, Temp=76.3C, Current_Unbalance=3.3%.",
+    "ground_truth": {
+      "root_cause": "Dynamic angular/parallel coupling misalignment.",
+      "severity": "Moderate",
+      "recommended_action": "Perform laser coupling alignment and torque hold-down bolts."
+    }
+  },
+  {
+    "scenario_id": "SCN-020",
+    "category": "Normal_Baseline",
+    "telemetry_features": {
+      "vibration_rms_mms": 1.33,
+      "dominant_freq_hz": 29.8,
+      "temperature_celsius": 42.3,
+      "current_unbalance_pct": 1.2
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-020, RMS=1.33mm/s, Peak_Freq=29.8Hz, Temp=42.3C, Current_Unbalance=1.2%.",
+    "ground_truth": {
+      "root_cause": "Asset operating within normal nominal parameters.",
+      "severity": "Normal",
+      "recommended_action": "Continue routine periodic telemetry logging."
+    }
+  },
+  {
+    "scenario_id": "SCN-021",
+    "category": "BPFI_Bearing_Fault",
+    "telemetry_features": {
+      "vibration_rms_mms": 5.24,
+      "dominant_freq_hz": 148.2,
+      "temperature_celsius": 69.3,
+      "current_unbalance_pct": 3.4
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-021, RMS=5.24mm/s, Peak_Freq=148.2Hz, Temp=69.3C, Current_Unbalance=3.4%.",
+    "ground_truth": {
+      "root_cause": "Sub-surface fatigue flaking on bearing inner raceway.",
+      "severity": "High",
+      "recommended_action": "Schedule bearing replacement; replenish polyurea grease."
+    }
+  },
+  {
+    "scenario_id": "SCN-022",
+    "category": "Stator_Insulation_Degradation",
+    "telemetry_features": {
+      "vibration_rms_mms": 4.71,
+      "dominant_freq_hz": 120.0,
+      "temperature_celsius": 114.3,
+      "current_unbalance_pct": 12.2
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-022, RMS=4.71mm/s, Peak_Freq=120.0Hz, Temp=114.3C, Current_Unbalance=12.2%.",
+    "ground_truth": {
+      "root_cause": "Inter-turn stator winding insulation breakdown.",
+      "severity": "Critical",
+      "recommended_action": "De-rate motor load immediately and test insulation resistance."
+    }
+  },
+  {
+    "scenario_id": "SCN-023",
+    "category": "Pump_Cavitation",
+    "telemetry_features": {
+      "vibration_rms_mms": 5.4,
+      "dominant_freq_hz": 18500.0,
+      "temperature_celsius": 56.4,
+      "current_unbalance_pct": 1.9
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-023, RMS=5.4mm/s, Peak_Freq=18500.0Hz, Temp=56.4C, Current_Unbalance=1.9%.",
+    "ground_truth": {
+      "root_cause": "NPSHa drop causing suction vapor bubble collapse.",
+      "severity": "High",
+      "recommended_action": "Inspect suction filter and adjust discharge throttle valve."
+    }
+  },
+  {
+    "scenario_id": "SCN-024",
+    "category": "Shaft_Misalignment",
+    "telemetry_features": {
+      "vibration_rms_mms": 5.87,
+      "dominant_freq_hz": 59.6,
+      "temperature_celsius": 75.5,
+      "current_unbalance_pct": 2.8
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-024, RMS=5.87mm/s, Peak_Freq=59.6Hz, Temp=75.5C, Current_Unbalance=2.8%.",
+    "ground_truth": {
+      "root_cause": "Dynamic angular/parallel coupling misalignment.",
+      "severity": "Moderate",
+      "recommended_action": "Perform laser coupling alignment and torque hold-down bolts."
+    }
+  },
+  {
+    "scenario_id": "SCN-025",
+    "category": "Normal_Baseline",
+    "telemetry_features": {
+      "vibration_rms_mms": 1.27,
+      "dominant_freq_hz": 29.8,
+      "temperature_celsius": 41.4,
+      "current_unbalance_pct": 1.5
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-025, RMS=1.27mm/s, Peak_Freq=29.8Hz, Temp=41.4C, Current_Unbalance=1.5%.",
+    "ground_truth": {
+      "root_cause": "Asset operating within normal nominal parameters.",
+      "severity": "Normal",
+      "recommended_action": "Continue routine periodic telemetry logging."
+    }
+  },
+  {
+    "scenario_id": "SCN-026",
+    "category": "BPFI_Bearing_Fault",
+    "telemetry_features": {
+      "vibration_rms_mms": 5.71,
+      "dominant_freq_hz": 148.2,
+      "temperature_celsius": 70.9,
+      "current_unbalance_pct": 1.2
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-026, RMS=5.71mm/s, Peak_Freq=148.2Hz, Temp=70.9C, Current_Unbalance=1.2%.",
+    "ground_truth": {
+      "root_cause": "Sub-surface fatigue flaking on bearing inner raceway.",
+      "severity": "High",
+      "recommended_action": "Schedule bearing replacement; replenish polyurea grease."
+    }
+  },
+  {
+    "scenario_id": "SCN-027",
+    "category": "Stator_Insulation_Degradation",
+    "telemetry_features": {
+      "vibration_rms_mms": 4.4,
+      "dominant_freq_hz": 120.0,
+      "temperature_celsius": 108.9,
+      "current_unbalance_pct": 13.2
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-027, RMS=4.4mm/s, Peak_Freq=120.0Hz, Temp=108.9C, Current_Unbalance=13.2%.",
+    "ground_truth": {
+      "root_cause": "Inter-turn stator winding insulation breakdown.",
+      "severity": "Critical",
+      "recommended_action": "De-rate motor load immediately and test insulation resistance."
+    }
+  },
+  {
+    "scenario_id": "SCN-028",
+    "category": "Pump_Cavitation",
+    "telemetry_features": {
+      "vibration_rms_mms": 4.72,
+      "dominant_freq_hz": 18500.0,
+      "temperature_celsius": 56.9,
+      "current_unbalance_pct": 2.5
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-028, RMS=4.72mm/s, Peak_Freq=18500.0Hz, Temp=56.9C, Current_Unbalance=2.5%.",
+    "ground_truth": {
+      "root_cause": "NPSHa drop causing suction vapor bubble collapse.",
+      "severity": "High",
+      "recommended_action": "Inspect suction filter and adjust discharge throttle valve."
+    }
+  },
+  {
+    "scenario_id": "SCN-029",
+    "category": "Shaft_Misalignment",
+    "telemetry_features": {
+      "vibration_rms_mms": 7.83,
+      "dominant_freq_hz": 59.6,
+      "temperature_celsius": 69.0,
+      "current_unbalance_pct": 3.0
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-029, RMS=7.83mm/s, Peak_Freq=59.6Hz, Temp=69.0C, Current_Unbalance=3.0%.",
+    "ground_truth": {
+      "root_cause": "Dynamic angular/parallel coupling misalignment.",
+      "severity": "Moderate",
+      "recommended_action": "Perform laser coupling alignment and torque hold-down bolts."
+    }
+  },
+  {
+    "scenario_id": "SCN-030",
+    "category": "Normal_Baseline",
+    "telemetry_features": {
+      "vibration_rms_mms": 0.91,
+      "dominant_freq_hz": 29.8,
+      "temperature_celsius": 40.4,
+      "current_unbalance_pct": 1.5
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-030, RMS=0.91mm/s, Peak_Freq=29.8Hz, Temp=40.4C, Current_Unbalance=1.5%.",
+    "ground_truth": {
+      "root_cause": "Asset operating within normal nominal parameters.",
+      "severity": "Normal",
+      "recommended_action": "Continue routine periodic telemetry logging."
+    }
+  },
+  {
+    "scenario_id": "SCN-031",
+    "category": "BPFI_Bearing_Fault",
+    "telemetry_features": {
+      "vibration_rms_mms": 5.13,
+      "dominant_freq_hz": 148.2,
+      "temperature_celsius": 69.5,
+      "current_unbalance_pct": 3.2
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-031, RMS=5.13mm/s, Peak_Freq=148.2Hz, Temp=69.5C, Current_Unbalance=3.2%.",
+    "ground_truth": {
+      "root_cause": "Sub-surface fatigue flaking on bearing inner raceway.",
+      "severity": "High",
+      "recommended_action": "Schedule bearing replacement; replenish polyurea grease."
+    }
+  },
+  {
+    "scenario_id": "SCN-032",
+    "category": "Stator_Insulation_Degradation",
+    "telemetry_features": {
+      "vibration_rms_mms": 4.52,
+      "dominant_freq_hz": 120.0,
+      "temperature_celsius": 119.5,
+      "current_unbalance_pct": 15.7
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-032, RMS=4.52mm/s, Peak_Freq=120.0Hz, Temp=119.5C, Current_Unbalance=15.7%.",
+    "ground_truth": {
+      "root_cause": "Inter-turn stator winding insulation breakdown.",
+      "severity": "Critical",
+      "recommended_action": "De-rate motor load immediately and test insulation resistance."
+    }
+  },
+  {
+    "scenario_id": "SCN-033",
+    "category": "Pump_Cavitation",
+    "telemetry_features": {
+      "vibration_rms_mms": 4.52,
+      "dominant_freq_hz": 18500.0,
+      "temperature_celsius": 57.6,
+      "current_unbalance_pct": 1.3
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-033, RMS=4.52mm/s, Peak_Freq=18500.0Hz, Temp=57.6C, Current_Unbalance=1.3%.",
+    "ground_truth": {
+      "root_cause": "NPSHa drop causing suction vapor bubble collapse.",
+      "severity": "High",
+      "recommended_action": "Inspect suction filter and adjust discharge throttle valve."
+    }
+  },
+  {
+    "scenario_id": "SCN-034",
+    "category": "Shaft_Misalignment",
+    "telemetry_features": {
+      "vibration_rms_mms": 5.69,
+      "dominant_freq_hz": 59.6,
+      "temperature_celsius": 71.3,
+      "current_unbalance_pct": 2.5
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-034, RMS=5.69mm/s, Peak_Freq=59.6Hz, Temp=71.3C, Current_Unbalance=2.5%.",
+    "ground_truth": {
+      "root_cause": "Dynamic angular/parallel coupling misalignment.",
+      "severity": "Moderate",
+      "recommended_action": "Perform laser coupling alignment and torque hold-down bolts."
+    }
+  },
+  {
+    "scenario_id": "SCN-035",
+    "category": "Normal_Baseline",
+    "telemetry_features": {
+      "vibration_rms_mms": 1.17,
+      "dominant_freq_hz": 29.8,
+      "temperature_celsius": 39.1,
+      "current_unbalance_pct": 2.0
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-035, RMS=1.17mm/s, Peak_Freq=29.8Hz, Temp=39.1C, Current_Unbalance=2.0%.",
+    "ground_truth": {
+      "root_cause": "Asset operating within normal nominal parameters.",
+      "severity": "Normal",
+      "recommended_action": "Continue routine periodic telemetry logging."
+    }
+  },
+  {
+    "scenario_id": "SCN-036",
+    "category": "BPFI_Bearing_Fault",
+    "telemetry_features": {
+      "vibration_rms_mms": 6.25,
+      "dominant_freq_hz": 148.2,
+      "temperature_celsius": 74.8,
+      "current_unbalance_pct": 3.0
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-036, RMS=6.25mm/s, Peak_Freq=148.2Hz, Temp=74.8C, Current_Unbalance=3.0%.",
+    "ground_truth": {
+      "root_cause": "Sub-surface fatigue flaking on bearing inner raceway.",
+      "severity": "High",
+      "recommended_action": "Schedule bearing replacement; replenish polyurea grease."
+    }
+  },
+  {
+    "scenario_id": "SCN-037",
+    "category": "Stator_Insulation_Degradation",
+    "telemetry_features": {
+      "vibration_rms_mms": 4.91,
+      "dominant_freq_hz": 120.0,
+      "temperature_celsius": 112.4,
+      "current_unbalance_pct": 13.7
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-037, RMS=4.91mm/s, Peak_Freq=120.0Hz, Temp=112.4C, Current_Unbalance=13.7%.",
+    "ground_truth": {
+      "root_cause": "Inter-turn stator winding insulation breakdown.",
+      "severity": "Critical",
+      "recommended_action": "De-rate motor load immediately and test insulation resistance."
+    }
+  },
+  {
+    "scenario_id": "SCN-038",
+    "category": "Pump_Cavitation",
+    "telemetry_features": {
+      "vibration_rms_mms": 4.23,
+      "dominant_freq_hz": 18500.0,
+      "temperature_celsius": 56.4,
+      "current_unbalance_pct": 2.6
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-038, RMS=4.23mm/s, Peak_Freq=18500.0Hz, Temp=56.4C, Current_Unbalance=2.6%.",
+    "ground_truth": {
+      "root_cause": "NPSHa drop causing suction vapor bubble collapse.",
+      "severity": "High",
+      "recommended_action": "Inspect suction filter and adjust discharge throttle valve."
+    }
+  },
+  {
+    "scenario_id": "SCN-039",
+    "category": "Shaft_Misalignment",
+    "telemetry_features": {
+      "vibration_rms_mms": 7.15,
+      "dominant_freq_hz": 59.6,
+      "temperature_celsius": 71.0,
+      "current_unbalance_pct": 3.3
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-039, RMS=7.15mm/s, Peak_Freq=59.6Hz, Temp=71.0C, Current_Unbalance=3.3%.",
+    "ground_truth": {
+      "root_cause": "Dynamic angular/parallel coupling misalignment.",
+      "severity": "Moderate",
+      "recommended_action": "Perform laser coupling alignment and torque hold-down bolts."
+    }
+  },
+  {
+    "scenario_id": "SCN-040",
+    "category": "Normal_Baseline",
+    "telemetry_features": {
+      "vibration_rms_mms": 0.67,
+      "dominant_freq_hz": 29.8,
+      "temperature_celsius": 42.3,
+      "current_unbalance_pct": 1.2
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-040, RMS=0.67mm/s, Peak_Freq=29.8Hz, Temp=42.3C, Current_Unbalance=1.2%.",
+    "ground_truth": {
+      "root_cause": "Asset operating within normal nominal parameters.",
+      "severity": "Normal",
+      "recommended_action": "Continue routine periodic telemetry logging."
+    }
+  },
+  {
+    "scenario_id": "SCN-041",
+    "category": "BPFI_Bearing_Fault",
+    "telemetry_features": {
+      "vibration_rms_mms": 6.33,
+      "dominant_freq_hz": 148.2,
+      "temperature_celsius": 74.2,
+      "current_unbalance_pct": 1.3
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-041, RMS=6.33mm/s, Peak_Freq=148.2Hz, Temp=74.2C, Current_Unbalance=1.3%.",
+    "ground_truth": {
+      "root_cause": "Sub-surface fatigue flaking on bearing inner raceway.",
+      "severity": "High",
+      "recommended_action": "Schedule bearing replacement; replenish polyurea grease."
+    }
+  },
+  {
+    "scenario_id": "SCN-042",
+    "category": "Stator_Insulation_Degradation",
+    "telemetry_features": {
+      "vibration_rms_mms": 4.99,
+      "dominant_freq_hz": 120.0,
+      "temperature_celsius": 124.4,
+      "current_unbalance_pct": 14.4
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-042, RMS=4.99mm/s, Peak_Freq=120.0Hz, Temp=124.4C, Current_Unbalance=14.4%.",
+    "ground_truth": {
+      "root_cause": "Inter-turn stator winding insulation breakdown.",
+      "severity": "Critical",
+      "recommended_action": "De-rate motor load immediately and test insulation resistance."
+    }
+  },
+  {
+    "scenario_id": "SCN-043",
+    "category": "Pump_Cavitation",
+    "telemetry_features": {
+      "vibration_rms_mms": 5.29,
+      "dominant_freq_hz": 18500.0,
+      "temperature_celsius": 50.2,
+      "current_unbalance_pct": 2.9
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-043, RMS=5.29mm/s, Peak_Freq=18500.0Hz, Temp=50.2C, Current_Unbalance=2.9%.",
+    "ground_truth": {
+      "root_cause": "NPSHa drop causing suction vapor bubble collapse.",
+      "severity": "High",
+      "recommended_action": "Inspect suction filter and adjust discharge throttle valve."
+    }
+  },
+  {
+    "scenario_id": "SCN-044",
+    "category": "Shaft_Misalignment",
+    "telemetry_features": {
+      "vibration_rms_mms": 7.01,
+      "dominant_freq_hz": 59.6,
+      "temperature_celsius": 77.1,
+      "current_unbalance_pct": 3.0
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-044, RMS=7.01mm/s, Peak_Freq=59.6Hz, Temp=77.1C, Current_Unbalance=3.0%.",
+    "ground_truth": {
+      "root_cause": "Dynamic angular/parallel coupling misalignment.",
+      "severity": "Moderate",
+      "recommended_action": "Perform laser coupling alignment and torque hold-down bolts."
+    }
+  },
+  {
+    "scenario_id": "SCN-045",
+    "category": "Normal_Baseline",
+    "telemetry_features": {
+      "vibration_rms_mms": 1.47,
+      "dominant_freq_hz": 29.8,
+      "temperature_celsius": 40.5,
+      "current_unbalance_pct": 1.0
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-045, RMS=1.47mm/s, Peak_Freq=29.8Hz, Temp=40.5C, Current_Unbalance=1.0%.",
+    "ground_truth": {
+      "root_cause": "Asset operating within normal nominal parameters.",
+      "severity": "Normal",
+      "recommended_action": "Continue routine periodic telemetry logging."
+    }
+  },
+  {
+    "scenario_id": "SCN-046",
+    "category": "BPFI_Bearing_Fault",
+    "telemetry_features": {
+      "vibration_rms_mms": 6.41,
+      "dominant_freq_hz": 148.2,
+      "temperature_celsius": 71.7,
+      "current_unbalance_pct": 3.1
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-046, RMS=6.41mm/s, Peak_Freq=148.2Hz, Temp=71.7C, Current_Unbalance=3.1%.",
+    "ground_truth": {
+      "root_cause": "Sub-surface fatigue flaking on bearing inner raceway.",
+      "severity": "High",
+      "recommended_action": "Schedule bearing replacement; replenish polyurea grease."
+    }
+  },
+  {
+    "scenario_id": "SCN-047",
+    "category": "Stator_Insulation_Degradation",
+    "telemetry_features": {
+      "vibration_rms_mms": 4.18,
+      "dominant_freq_hz": 120.0,
+      "temperature_celsius": 123.4,
+      "current_unbalance_pct": 15.1
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-047, RMS=4.18mm/s, Peak_Freq=120.0Hz, Temp=123.4C, Current_Unbalance=15.1%.",
+    "ground_truth": {
+      "root_cause": "Inter-turn stator winding insulation breakdown.",
+      "severity": "Critical",
+      "recommended_action": "De-rate motor load immediately and test insulation resistance."
+    }
+  },
+  {
+    "scenario_id": "SCN-048",
+    "category": "Pump_Cavitation",
+    "telemetry_features": {
+      "vibration_rms_mms": 3.93,
+      "dominant_freq_hz": 18500.0,
+      "temperature_celsius": 57.7,
+      "current_unbalance_pct": 1.2
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-048, RMS=3.93mm/s, Peak_Freq=18500.0Hz, Temp=57.7C, Current_Unbalance=1.2%.",
+    "ground_truth": {
+      "root_cause": "NPSHa drop causing suction vapor bubble collapse.",
+      "severity": "High",
+      "recommended_action": "Inspect suction filter and adjust discharge throttle valve."
+    }
+  },
+  {
+    "scenario_id": "SCN-049",
+    "category": "Shaft_Misalignment",
+    "telemetry_features": {
+      "vibration_rms_mms": 8.24,
+      "dominant_freq_hz": 59.6,
+      "temperature_celsius": 71.3,
+      "current_unbalance_pct": 3.5
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-049, RMS=8.24mm/s, Peak_Freq=59.6Hz, Temp=71.3C, Current_Unbalance=3.5%.",
+    "ground_truth": {
+      "root_cause": "Dynamic angular/parallel coupling misalignment.",
+      "severity": "Moderate",
+      "recommended_action": "Perform laser coupling alignment and torque hold-down bolts."
+    }
+  },
+  {
+    "scenario_id": "SCN-050",
+    "category": "Normal_Baseline",
+    "telemetry_features": {
+      "vibration_rms_mms": 1.42,
+      "dominant_freq_hz": 29.8,
+      "temperature_celsius": 41.8,
+      "current_unbalance_pct": 1.5
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-050, RMS=1.42mm/s, Peak_Freq=29.8Hz, Temp=41.8C, Current_Unbalance=1.5%.",
+    "ground_truth": {
+      "root_cause": "Asset operating within normal nominal parameters.",
+      "severity": "Normal",
+      "recommended_action": "Continue routine periodic telemetry logging."
+    }
+  },
+  {
+    "scenario_id": "SCN-051",
+    "category": "BPFI_Bearing_Fault",
+    "telemetry_features": {
+      "vibration_rms_mms": 6.32,
+      "dominant_freq_hz": 148.2,
+      "temperature_celsius": 68.1,
+      "current_unbalance_pct": 2.4
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-051, RMS=6.32mm/s, Peak_Freq=148.2Hz, Temp=68.1C, Current_Unbalance=2.4%.",
+    "ground_truth": {
+      "root_cause": "Sub-surface fatigue flaking on bearing inner raceway.",
+      "severity": "High",
+      "recommended_action": "Schedule bearing replacement; replenish polyurea grease."
+    }
+  },
+  {
+    "scenario_id": "SCN-052",
+    "category": "Stator_Insulation_Degradation",
+    "telemetry_features": {
+      "vibration_rms_mms": 3.51,
+      "dominant_freq_hz": 120.0,
+      "temperature_celsius": 114.4,
+      "current_unbalance_pct": 11.8
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-052, RMS=3.51mm/s, Peak_Freq=120.0Hz, Temp=114.4C, Current_Unbalance=11.8%.",
+    "ground_truth": {
+      "root_cause": "Inter-turn stator winding insulation breakdown.",
+      "severity": "Critical",
+      "recommended_action": "De-rate motor load immediately and test insulation resistance."
+    }
+  },
+  {
+    "scenario_id": "SCN-053",
+    "category": "Pump_Cavitation",
+    "telemetry_features": {
+      "vibration_rms_mms": 4.94,
+      "dominant_freq_hz": 18500.0,
+      "temperature_celsius": 53.2,
+      "current_unbalance_pct": 2.7
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-053, RMS=4.94mm/s, Peak_Freq=18500.0Hz, Temp=53.2C, Current_Unbalance=2.7%.",
+    "ground_truth": {
+      "root_cause": "NPSHa drop causing suction vapor bubble collapse.",
+      "severity": "High",
+      "recommended_action": "Inspect suction filter and adjust discharge throttle valve."
+    }
+  },
+  {
+    "scenario_id": "SCN-054",
+    "category": "Shaft_Misalignment",
+    "telemetry_features": {
+      "vibration_rms_mms": 6.63,
+      "dominant_freq_hz": 59.6,
+      "temperature_celsius": 70.9,
+      "current_unbalance_pct": 3.2
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-054, RMS=6.63mm/s, Peak_Freq=59.6Hz, Temp=70.9C, Current_Unbalance=3.2%.",
+    "ground_truth": {
+      "root_cause": "Dynamic angular/parallel coupling misalignment.",
+      "severity": "Moderate",
+      "recommended_action": "Perform laser coupling alignment and torque hold-down bolts."
+    }
+  },
+  {
+    "scenario_id": "SCN-055",
+    "category": "Normal_Baseline",
+    "telemetry_features": {
+      "vibration_rms_mms": 0.79,
+      "dominant_freq_hz": 29.8,
+      "temperature_celsius": 39.2,
+      "current_unbalance_pct": 1.7
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-055, RMS=0.79mm/s, Peak_Freq=29.8Hz, Temp=39.2C, Current_Unbalance=1.7%.",
+    "ground_truth": {
+      "root_cause": "Asset operating within normal nominal parameters.",
+      "severity": "Normal",
+      "recommended_action": "Continue routine periodic telemetry logging."
+    }
+  },
+  {
+    "scenario_id": "SCN-056",
+    "category": "BPFI_Bearing_Fault",
+    "telemetry_features": {
+      "vibration_rms_mms": 5.65,
+      "dominant_freq_hz": 148.2,
+      "temperature_celsius": 66.3,
+      "current_unbalance_pct": 1.1
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-056, RMS=5.65mm/s, Peak_Freq=148.2Hz, Temp=66.3C, Current_Unbalance=1.1%.",
+    "ground_truth": {
+      "root_cause": "Sub-surface fatigue flaking on bearing inner raceway.",
+      "severity": "High",
+      "recommended_action": "Schedule bearing replacement; replenish polyurea grease."
+    }
+  },
+  {
+    "scenario_id": "SCN-057",
+    "category": "Stator_Insulation_Degradation",
+    "telemetry_features": {
+      "vibration_rms_mms": 4.04,
+      "dominant_freq_hz": 120.0,
+      "temperature_celsius": 119.9,
+      "current_unbalance_pct": 12.9
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-057, RMS=4.04mm/s, Peak_Freq=120.0Hz, Temp=119.9C, Current_Unbalance=12.9%.",
+    "ground_truth": {
+      "root_cause": "Inter-turn stator winding insulation breakdown.",
+      "severity": "Critical",
+      "recommended_action": "De-rate motor load immediately and test insulation resistance."
+    }
+  },
+  {
+    "scenario_id": "SCN-058",
+    "category": "Pump_Cavitation",
+    "telemetry_features": {
+      "vibration_rms_mms": 4.25,
+      "dominant_freq_hz": 18500.0,
+      "temperature_celsius": 54.0,
+      "current_unbalance_pct": 2.9
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-058, RMS=4.25mm/s, Peak_Freq=18500.0Hz, Temp=54.0C, Current_Unbalance=2.9%.",
+    "ground_truth": {
+      "root_cause": "NPSHa drop causing suction vapor bubble collapse.",
+      "severity": "High",
+      "recommended_action": "Inspect suction filter and adjust discharge throttle valve."
+    }
+  },
+  {
+    "scenario_id": "SCN-059",
+    "category": "Shaft_Misalignment",
+    "telemetry_features": {
+      "vibration_rms_mms": 6.9,
+      "dominant_freq_hz": 59.6,
+      "temperature_celsius": 70.6,
+      "current_unbalance_pct": 3.4
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-059, RMS=6.9mm/s, Peak_Freq=59.6Hz, Temp=70.6C, Current_Unbalance=3.4%.",
+    "ground_truth": {
+      "root_cause": "Dynamic angular/parallel coupling misalignment.",
+      "severity": "Moderate",
+      "recommended_action": "Perform laser coupling alignment and torque hold-down bolts."
+    }
+  },
+  {
+    "scenario_id": "SCN-060",
+    "category": "Normal_Baseline",
+    "telemetry_features": {
+      "vibration_rms_mms": 1.49,
+      "dominant_freq_hz": 29.8,
+      "temperature_celsius": 38.1,
+      "current_unbalance_pct": 1.3
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-060, RMS=1.49mm/s, Peak_Freq=29.8Hz, Temp=38.1C, Current_Unbalance=1.3%.",
+    "ground_truth": {
+      "root_cause": "Asset operating within normal nominal parameters.",
+      "severity": "Normal",
+      "recommended_action": "Continue routine periodic telemetry logging."
+    }
+  },
+  {
+    "scenario_id": "SCN-061",
+    "category": "BPFI_Bearing_Fault",
+    "telemetry_features": {
+      "vibration_rms_mms": 6.22,
+      "dominant_freq_hz": 148.2,
+      "temperature_celsius": 66.4,
+      "current_unbalance_pct": 3.3
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-061, RMS=6.22mm/s, Peak_Freq=148.2Hz, Temp=66.4C, Current_Unbalance=3.3%.",
+    "ground_truth": {
+      "root_cause": "Sub-surface fatigue flaking on bearing inner raceway.",
+      "severity": "High",
+      "recommended_action": "Schedule bearing replacement; replenish polyurea grease."
+    }
+  },
+  {
+    "scenario_id": "SCN-062",
+    "category": "Stator_Insulation_Degradation",
+    "telemetry_features": {
+      "vibration_rms_mms": 4.24,
+      "dominant_freq_hz": 120.0,
+      "temperature_celsius": 115.3,
+      "current_unbalance_pct": 16.3
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-062, RMS=4.24mm/s, Peak_Freq=120.0Hz, Temp=115.3C, Current_Unbalance=16.3%.",
+    "ground_truth": {
+      "root_cause": "Inter-turn stator winding insulation breakdown.",
+      "severity": "Critical",
+      "recommended_action": "De-rate motor load immediately and test insulation resistance."
+    }
+  },
+  {
+    "scenario_id": "SCN-063",
+    "category": "Pump_Cavitation",
+    "telemetry_features": {
+      "vibration_rms_mms": 4.03,
+      "dominant_freq_hz": 18500.0,
+      "temperature_celsius": 57.4,
+      "current_unbalance_pct": 2.7
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-063, RMS=4.03mm/s, Peak_Freq=18500.0Hz, Temp=57.4C, Current_Unbalance=2.7%.",
+    "ground_truth": {
+      "root_cause": "NPSHa drop causing suction vapor bubble collapse.",
+      "severity": "High",
+      "recommended_action": "Inspect suction filter and adjust discharge throttle valve."
+    }
+  },
+  {
+    "scenario_id": "SCN-064",
+    "category": "Shaft_Misalignment",
+    "telemetry_features": {
+      "vibration_rms_mms": 7.11,
+      "dominant_freq_hz": 59.6,
+      "temperature_celsius": 68.1,
+      "current_unbalance_pct": 3.3
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-064, RMS=7.11mm/s, Peak_Freq=59.6Hz, Temp=68.1C, Current_Unbalance=3.3%.",
+    "ground_truth": {
+      "root_cause": "Dynamic angular/parallel coupling misalignment.",
+      "severity": "Moderate",
+      "recommended_action": "Perform laser coupling alignment and torque hold-down bolts."
+    }
+  },
+  {
+    "scenario_id": "SCN-065",
+    "category": "Normal_Baseline",
+    "telemetry_features": {
+      "vibration_rms_mms": 0.77,
+      "dominant_freq_hz": 29.8,
+      "temperature_celsius": 41.4,
+      "current_unbalance_pct": 1.6
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-065, RMS=0.77mm/s, Peak_Freq=29.8Hz, Temp=41.4C, Current_Unbalance=1.6%.",
+    "ground_truth": {
+      "root_cause": "Asset operating within normal nominal parameters.",
+      "severity": "Normal",
+      "recommended_action": "Continue routine periodic telemetry logging."
+    }
+  },
+  {
+    "scenario_id": "SCN-066",
+    "category": "BPFI_Bearing_Fault",
+    "telemetry_features": {
+      "vibration_rms_mms": 5.7,
+      "dominant_freq_hz": 148.2,
+      "temperature_celsius": 70.9,
+      "current_unbalance_pct": 1.3
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-066, RMS=5.7mm/s, Peak_Freq=148.2Hz, Temp=70.9C, Current_Unbalance=1.3%.",
+    "ground_truth": {
+      "root_cause": "Sub-surface fatigue flaking on bearing inner raceway.",
+      "severity": "High",
+      "recommended_action": "Schedule bearing replacement; replenish polyurea grease."
+    }
+  },
+  {
+    "scenario_id": "SCN-067",
+    "category": "Stator_Insulation_Degradation",
+    "telemetry_features": {
+      "vibration_rms_mms": 3.37,
+      "dominant_freq_hz": 120.0,
+      "temperature_celsius": 122.0,
+      "current_unbalance_pct": 11.3
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-067, RMS=3.37mm/s, Peak_Freq=120.0Hz, Temp=122.0C, Current_Unbalance=11.3%.",
+    "ground_truth": {
+      "root_cause": "Inter-turn stator winding insulation breakdown.",
+      "severity": "Critical",
+      "recommended_action": "De-rate motor load immediately and test insulation resistance."
+    }
+  },
+  {
+    "scenario_id": "SCN-068",
+    "category": "Pump_Cavitation",
+    "telemetry_features": {
+      "vibration_rms_mms": 4.31,
+      "dominant_freq_hz": 18500.0,
+      "temperature_celsius": 59.4,
+      "current_unbalance_pct": 2.0
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-068, RMS=4.31mm/s, Peak_Freq=18500.0Hz, Temp=59.4C, Current_Unbalance=2.0%.",
+    "ground_truth": {
+      "root_cause": "NPSHa drop causing suction vapor bubble collapse.",
+      "severity": "High",
+      "recommended_action": "Inspect suction filter and adjust discharge throttle valve."
+    }
+  },
+  {
+    "scenario_id": "SCN-069",
+    "category": "Shaft_Misalignment",
+    "telemetry_features": {
+      "vibration_rms_mms": 7.73,
+      "dominant_freq_hz": 59.6,
+      "temperature_celsius": 70.2,
+      "current_unbalance_pct": 2.7
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-069, RMS=7.73mm/s, Peak_Freq=59.6Hz, Temp=70.2C, Current_Unbalance=2.7%.",
+    "ground_truth": {
+      "root_cause": "Dynamic angular/parallel coupling misalignment.",
+      "severity": "Moderate",
+      "recommended_action": "Perform laser coupling alignment and torque hold-down bolts."
+    }
+  },
+  {
+    "scenario_id": "SCN-070",
+    "category": "Normal_Baseline",
+    "telemetry_features": {
+      "vibration_rms_mms": 1.16,
+      "dominant_freq_hz": 29.8,
+      "temperature_celsius": 41.8,
+      "current_unbalance_pct": 1.9
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-070, RMS=1.16mm/s, Peak_Freq=29.8Hz, Temp=41.8C, Current_Unbalance=1.9%.",
+    "ground_truth": {
+      "root_cause": "Asset operating within normal nominal parameters.",
+      "severity": "Normal",
+      "recommended_action": "Continue routine periodic telemetry logging."
+    }
+  },
+  {
+    "scenario_id": "SCN-071",
+    "category": "BPFI_Bearing_Fault",
+    "telemetry_features": {
+      "vibration_rms_mms": 5.78,
+      "dominant_freq_hz": 148.2,
+      "temperature_celsius": 65.1,
+      "current_unbalance_pct": 1.9
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-071, RMS=5.78mm/s, Peak_Freq=148.2Hz, Temp=65.1C, Current_Unbalance=1.9%.",
+    "ground_truth": {
+      "root_cause": "Sub-surface fatigue flaking on bearing inner raceway.",
+      "severity": "High",
+      "recommended_action": "Schedule bearing replacement; replenish polyurea grease."
+    }
+  },
+  {
+    "scenario_id": "SCN-072",
+    "category": "Stator_Insulation_Degradation",
+    "telemetry_features": {
+      "vibration_rms_mms": 3.64,
+      "dominant_freq_hz": 120.0,
+      "temperature_celsius": 110.1,
+      "current_unbalance_pct": 13.8
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-072, RMS=3.64mm/s, Peak_Freq=120.0Hz, Temp=110.1C, Current_Unbalance=13.8%.",
+    "ground_truth": {
+      "root_cause": "Inter-turn stator winding insulation breakdown.",
+      "severity": "Critical",
+      "recommended_action": "De-rate motor load immediately and test insulation resistance."
+    }
+  },
+  {
+    "scenario_id": "SCN-073",
+    "category": "Pump_Cavitation",
+    "telemetry_features": {
+      "vibration_rms_mms": 4.37,
+      "dominant_freq_hz": 18500.0,
+      "temperature_celsius": 52.9,
+      "current_unbalance_pct": 2.9
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-073, RMS=4.37mm/s, Peak_Freq=18500.0Hz, Temp=52.9C, Current_Unbalance=2.9%.",
+    "ground_truth": {
+      "root_cause": "NPSHa drop causing suction vapor bubble collapse.",
+      "severity": "High",
+      "recommended_action": "Inspect suction filter and adjust discharge throttle valve."
+    }
+  },
+  {
+    "scenario_id": "SCN-074",
+    "category": "Shaft_Misalignment",
+    "telemetry_features": {
+      "vibration_rms_mms": 7.43,
+      "dominant_freq_hz": 59.6,
+      "temperature_celsius": 70.6,
+      "current_unbalance_pct": 2.7
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-074, RMS=7.43mm/s, Peak_Freq=59.6Hz, Temp=70.6C, Current_Unbalance=2.7%.",
+    "ground_truth": {
+      "root_cause": "Dynamic angular/parallel coupling misalignment.",
+      "severity": "Moderate",
+      "recommended_action": "Perform laser coupling alignment and torque hold-down bolts."
+    }
+  },
+  {
+    "scenario_id": "SCN-075",
+    "category": "Normal_Baseline",
+    "telemetry_features": {
+      "vibration_rms_mms": 1.49,
+      "dominant_freq_hz": 29.8,
+      "temperature_celsius": 43.3,
+      "current_unbalance_pct": 1.5
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-075, RMS=1.49mm/s, Peak_Freq=29.8Hz, Temp=43.3C, Current_Unbalance=1.5%.",
+    "ground_truth": {
+      "root_cause": "Asset operating within normal nominal parameters.",
+      "severity": "Normal",
+      "recommended_action": "Continue routine periodic telemetry logging."
+    }
+  },
+  {
+    "scenario_id": "SCN-076",
+    "category": "BPFI_Bearing_Fault",
+    "telemetry_features": {
+      "vibration_rms_mms": 5.53,
+      "dominant_freq_hz": 148.2,
+      "temperature_celsius": 72.4,
+      "current_unbalance_pct": 3.3
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-076, RMS=5.53mm/s, Peak_Freq=148.2Hz, Temp=72.4C, Current_Unbalance=3.3%.",
+    "ground_truth": {
+      "root_cause": "Sub-surface fatigue flaking on bearing inner raceway.",
+      "severity": "High",
+      "recommended_action": "Schedule bearing replacement; replenish polyurea grease."
+    }
+  },
+  {
+    "scenario_id": "SCN-077",
+    "category": "Stator_Insulation_Degradation",
+    "telemetry_features": {
+      "vibration_rms_mms": 3.5,
+      "dominant_freq_hz": 120.0,
+      "temperature_celsius": 122.2,
+      "current_unbalance_pct": 15.7
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-077, RMS=3.5mm/s, Peak_Freq=120.0Hz, Temp=122.2C, Current_Unbalance=15.7%.",
+    "ground_truth": {
+      "root_cause": "Inter-turn stator winding insulation breakdown.",
+      "severity": "Critical",
+      "recommended_action": "De-rate motor load immediately and test insulation resistance."
+    }
+  },
+  {
+    "scenario_id": "SCN-078",
+    "category": "Pump_Cavitation",
+    "telemetry_features": {
+      "vibration_rms_mms": 4.46,
+      "dominant_freq_hz": 18500.0,
+      "temperature_celsius": 52.9,
+      "current_unbalance_pct": 2.2
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-078, RMS=4.46mm/s, Peak_Freq=18500.0Hz, Temp=52.9C, Current_Unbalance=2.2%.",
+    "ground_truth": {
+      "root_cause": "NPSHa drop causing suction vapor bubble collapse.",
+      "severity": "High",
+      "recommended_action": "Inspect suction filter and adjust discharge throttle valve."
+    }
+  },
+  {
+    "scenario_id": "SCN-079",
+    "category": "Shaft_Misalignment",
+    "telemetry_features": {
+      "vibration_rms_mms": 6.4,
+      "dominant_freq_hz": 59.6,
+      "temperature_celsius": 69.5,
+      "current_unbalance_pct": 4.4
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-079, RMS=6.4mm/s, Peak_Freq=59.6Hz, Temp=69.5C, Current_Unbalance=4.4%.",
+    "ground_truth": {
+      "root_cause": "Dynamic angular/parallel coupling misalignment.",
+      "severity": "Moderate",
+      "recommended_action": "Perform laser coupling alignment and torque hold-down bolts."
+    }
+  },
+  {
+    "scenario_id": "SCN-080",
+    "category": "Normal_Baseline",
+    "telemetry_features": {
+      "vibration_rms_mms": 1.14,
+      "dominant_freq_hz": 29.8,
+      "temperature_celsius": 40.8,
+      "current_unbalance_pct": 0.7
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-080, RMS=1.14mm/s, Peak_Freq=29.8Hz, Temp=40.8C, Current_Unbalance=0.7%.",
+    "ground_truth": {
+      "root_cause": "Asset operating within normal nominal parameters.",
+      "severity": "Normal",
+      "recommended_action": "Continue routine periodic telemetry logging."
+    }
+  },
+  {
+    "scenario_id": "SCN-081",
+    "category": "BPFI_Bearing_Fault",
+    "telemetry_features": {
+      "vibration_rms_mms": 5.66,
+      "dominant_freq_hz": 148.2,
+      "temperature_celsius": 72.2,
+      "current_unbalance_pct": 1.6
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-081, RMS=5.66mm/s, Peak_Freq=148.2Hz, Temp=72.2C, Current_Unbalance=1.6%.",
+    "ground_truth": {
+      "root_cause": "Sub-surface fatigue flaking on bearing inner raceway.",
+      "severity": "High",
+      "recommended_action": "Schedule bearing replacement; replenish polyurea grease."
+    }
+  },
+  {
+    "scenario_id": "SCN-082",
+    "category": "Stator_Insulation_Degradation",
+    "telemetry_features": {
+      "vibration_rms_mms": 3.86,
+      "dominant_freq_hz": 120.0,
+      "temperature_celsius": 108.6,
+      "current_unbalance_pct": 13.0
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-082, RMS=3.86mm/s, Peak_Freq=120.0Hz, Temp=108.6C, Current_Unbalance=13.0%.",
+    "ground_truth": {
+      "root_cause": "Inter-turn stator winding insulation breakdown.",
+      "severity": "Critical",
+      "recommended_action": "De-rate motor load immediately and test insulation resistance."
+    }
+  },
+  {
+    "scenario_id": "SCN-083",
+    "category": "Pump_Cavitation",
+    "telemetry_features": {
+      "vibration_rms_mms": 5.35,
+      "dominant_freq_hz": 18500.0,
+      "temperature_celsius": 52.4,
+      "current_unbalance_pct": 1.3
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-083, RMS=5.35mm/s, Peak_Freq=18500.0Hz, Temp=52.4C, Current_Unbalance=1.3%.",
+    "ground_truth": {
+      "root_cause": "NPSHa drop causing suction vapor bubble collapse.",
+      "severity": "High",
+      "recommended_action": "Inspect suction filter and adjust discharge throttle valve."
+    }
+  },
+  {
+    "scenario_id": "SCN-084",
+    "category": "Shaft_Misalignment",
+    "telemetry_features": {
+      "vibration_rms_mms": 7.27,
+      "dominant_freq_hz": 59.6,
+      "temperature_celsius": 73.8,
+      "current_unbalance_pct": 2.8
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-084, RMS=7.27mm/s, Peak_Freq=59.6Hz, Temp=73.8C, Current_Unbalance=2.8%.",
+    "ground_truth": {
+      "root_cause": "Dynamic angular/parallel coupling misalignment.",
+      "severity": "Moderate",
+      "recommended_action": "Perform laser coupling alignment and torque hold-down bolts."
+    }
+  },
+  {
+    "scenario_id": "SCN-085",
+    "category": "Normal_Baseline",
+    "telemetry_features": {
+      "vibration_rms_mms": 1.31,
+      "dominant_freq_hz": 29.8,
+      "temperature_celsius": 38.2,
+      "current_unbalance_pct": 1.0
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-085, RMS=1.31mm/s, Peak_Freq=29.8Hz, Temp=38.2C, Current_Unbalance=1.0%.",
+    "ground_truth": {
+      "root_cause": "Asset operating within normal nominal parameters.",
+      "severity": "Normal",
+      "recommended_action": "Continue routine periodic telemetry logging."
+    }
+  },
+  {
+    "scenario_id": "SCN-086",
+    "category": "BPFI_Bearing_Fault",
+    "telemetry_features": {
+      "vibration_rms_mms": 5.05,
+      "dominant_freq_hz": 148.2,
+      "temperature_celsius": 66.5,
+      "current_unbalance_pct": 2.0
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-086, RMS=5.05mm/s, Peak_Freq=148.2Hz, Temp=66.5C, Current_Unbalance=2.0%.",
+    "ground_truth": {
+      "root_cause": "Sub-surface fatigue flaking on bearing inner raceway.",
+      "severity": "High",
+      "recommended_action": "Schedule bearing replacement; replenish polyurea grease."
+    }
+  },
+  {
+    "scenario_id": "SCN-087",
+    "category": "Stator_Insulation_Degradation",
+    "telemetry_features": {
+      "vibration_rms_mms": 4.09,
+      "dominant_freq_hz": 120.0,
+      "temperature_celsius": 106.9,
+      "current_unbalance_pct": 11.6
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-087, RMS=4.09mm/s, Peak_Freq=120.0Hz, Temp=106.9C, Current_Unbalance=11.6%.",
+    "ground_truth": {
+      "root_cause": "Inter-turn stator winding insulation breakdown.",
+      "severity": "Critical",
+      "recommended_action": "De-rate motor load immediately and test insulation resistance."
+    }
+  },
+  {
+    "scenario_id": "SCN-088",
+    "category": "Pump_Cavitation",
+    "telemetry_features": {
+      "vibration_rms_mms": 5.01,
+      "dominant_freq_hz": 18500.0,
+      "temperature_celsius": 54.0,
+      "current_unbalance_pct": 1.5
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-088, RMS=5.01mm/s, Peak_Freq=18500.0Hz, Temp=54.0C, Current_Unbalance=1.5%.",
+    "ground_truth": {
+      "root_cause": "NPSHa drop causing suction vapor bubble collapse.",
+      "severity": "High",
+      "recommended_action": "Inspect suction filter and adjust discharge throttle valve."
+    }
+  },
+  {
+    "scenario_id": "SCN-089",
+    "category": "Shaft_Misalignment",
+    "telemetry_features": {
+      "vibration_rms_mms": 6.28,
+      "dominant_freq_hz": 59.6,
+      "temperature_celsius": 75.2,
+      "current_unbalance_pct": 2.1
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-089, RMS=6.28mm/s, Peak_Freq=59.6Hz, Temp=75.2C, Current_Unbalance=2.1%.",
+    "ground_truth": {
+      "root_cause": "Dynamic angular/parallel coupling misalignment.",
+      "severity": "Moderate",
+      "recommended_action": "Perform laser coupling alignment and torque hold-down bolts."
+    }
+  },
+  {
+    "scenario_id": "SCN-090",
+    "category": "Normal_Baseline",
+    "telemetry_features": {
+      "vibration_rms_mms": 1.16,
+      "dominant_freq_hz": 29.8,
+      "temperature_celsius": 40.2,
+      "current_unbalance_pct": 1.7
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-090, RMS=1.16mm/s, Peak_Freq=29.8Hz, Temp=40.2C, Current_Unbalance=1.7%.",
+    "ground_truth": {
+      "root_cause": "Asset operating within normal nominal parameters.",
+      "severity": "Normal",
+      "recommended_action": "Continue routine periodic telemetry logging."
+    }
+  },
+  {
+    "scenario_id": "SCN-091",
+    "category": "BPFI_Bearing_Fault",
+    "telemetry_features": {
+      "vibration_rms_mms": 6.14,
+      "dominant_freq_hz": 148.2,
+      "temperature_celsius": 71.6,
+      "current_unbalance_pct": 2.0
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-091, RMS=6.14mm/s, Peak_Freq=148.2Hz, Temp=71.6C, Current_Unbalance=2.0%.",
+    "ground_truth": {
+      "root_cause": "Sub-surface fatigue flaking on bearing inner raceway.",
+      "severity": "High",
+      "recommended_action": "Schedule bearing replacement; replenish polyurea grease."
+    }
+  },
+  {
+    "scenario_id": "SCN-092",
+    "category": "Stator_Insulation_Degradation",
+    "telemetry_features": {
+      "vibration_rms_mms": 4.34,
+      "dominant_freq_hz": 120.0,
+      "temperature_celsius": 117.8,
+      "current_unbalance_pct": 12.8
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-092, RMS=4.34mm/s, Peak_Freq=120.0Hz, Temp=117.8C, Current_Unbalance=12.8%.",
+    "ground_truth": {
+      "root_cause": "Inter-turn stator winding insulation breakdown.",
+      "severity": "Critical",
+      "recommended_action": "De-rate motor load immediately and test insulation resistance."
+    }
+  },
+  {
+    "scenario_id": "SCN-093",
+    "category": "Pump_Cavitation",
+    "telemetry_features": {
+      "vibration_rms_mms": 5.38,
+      "dominant_freq_hz": 18500.0,
+      "temperature_celsius": 59.8,
+      "current_unbalance_pct": 1.8
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-093, RMS=5.38mm/s, Peak_Freq=18500.0Hz, Temp=59.8C, Current_Unbalance=1.8%.",
+    "ground_truth": {
+      "root_cause": "NPSHa drop causing suction vapor bubble collapse.",
+      "severity": "High",
+      "recommended_action": "Inspect suction filter and adjust discharge throttle valve."
+    }
+  },
+  {
+    "scenario_id": "SCN-094",
+    "category": "Shaft_Misalignment",
+    "telemetry_features": {
+      "vibration_rms_mms": 8.14,
+      "dominant_freq_hz": 59.6,
+      "temperature_celsius": 73.0,
+      "current_unbalance_pct": 3.2
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-094, RMS=8.14mm/s, Peak_Freq=59.6Hz, Temp=73.0C, Current_Unbalance=3.2%.",
+    "ground_truth": {
+      "root_cause": "Dynamic angular/parallel coupling misalignment.",
+      "severity": "Moderate",
+      "recommended_action": "Perform laser coupling alignment and torque hold-down bolts."
+    }
+  },
+  {
+    "scenario_id": "SCN-095",
+    "category": "Normal_Baseline",
+    "telemetry_features": {
+      "vibration_rms_mms": 1.03,
+      "dominant_freq_hz": 29.8,
+      "temperature_celsius": 39.8,
+      "current_unbalance_pct": 1.9
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-095, RMS=1.03mm/s, Peak_Freq=29.8Hz, Temp=39.8C, Current_Unbalance=1.9%.",
+    "ground_truth": {
+      "root_cause": "Asset operating within normal nominal parameters.",
+      "severity": "Normal",
+      "recommended_action": "Continue routine periodic telemetry logging."
+    }
+  },
+  {
+    "scenario_id": "SCN-096",
+    "category": "BPFI_Bearing_Fault",
+    "telemetry_features": {
+      "vibration_rms_mms": 6.06,
+      "dominant_freq_hz": 148.2,
+      "temperature_celsius": 68.8,
+      "current_unbalance_pct": 2.9
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-096, RMS=6.06mm/s, Peak_Freq=148.2Hz, Temp=68.8C, Current_Unbalance=2.9%.",
+    "ground_truth": {
+      "root_cause": "Sub-surface fatigue flaking on bearing inner raceway.",
+      "severity": "High",
+      "recommended_action": "Schedule bearing replacement; replenish polyurea grease."
+    }
+  },
+  {
+    "scenario_id": "SCN-097",
+    "category": "Stator_Insulation_Degradation",
+    "telemetry_features": {
+      "vibration_rms_mms": 4.49,
+      "dominant_freq_hz": 120.0,
+      "temperature_celsius": 110.3,
+      "current_unbalance_pct": 12.0
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-097, RMS=4.49mm/s, Peak_Freq=120.0Hz, Temp=110.3C, Current_Unbalance=12.0%.",
+    "ground_truth": {
+      "root_cause": "Inter-turn stator winding insulation breakdown.",
+      "severity": "Critical",
+      "recommended_action": "De-rate motor load immediately and test insulation resistance."
+    }
+  },
+  {
+    "scenario_id": "SCN-098",
+    "category": "Pump_Cavitation",
+    "telemetry_features": {
+      "vibration_rms_mms": 5.31,
+      "dominant_freq_hz": 18500.0,
+      "temperature_celsius": 58.1,
+      "current_unbalance_pct": 3.0
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-098, RMS=5.31mm/s, Peak_Freq=18500.0Hz, Temp=58.1C, Current_Unbalance=3.0%.",
+    "ground_truth": {
+      "root_cause": "NPSHa drop causing suction vapor bubble collapse.",
+      "severity": "High",
+      "recommended_action": "Inspect suction filter and adjust discharge throttle valve."
+    }
+  },
+  {
+    "scenario_id": "SCN-099",
+    "category": "Shaft_Misalignment",
+    "telemetry_features": {
+      "vibration_rms_mms": 5.56,
+      "dominant_freq_hz": 59.6,
+      "temperature_celsius": 73.4,
+      "current_unbalance_pct": 3.8
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-099, RMS=5.56mm/s, Peak_Freq=59.6Hz, Temp=73.4C, Current_Unbalance=3.8%.",
+    "ground_truth": {
+      "root_cause": "Dynamic angular/parallel coupling misalignment.",
+      "severity": "Moderate",
+      "recommended_action": "Perform laser coupling alignment and torque hold-down bolts."
+    }
+  },
+  {
+    "scenario_id": "SCN-100",
+    "category": "Normal_Baseline",
+    "telemetry_features": {
+      "vibration_rms_mms": 1.24,
+      "dominant_freq_hz": 29.8,
+      "temperature_celsius": 42.3,
+      "current_unbalance_pct": 0.7
+    },
+    "input_prompt": "[SYSTEM]: Embedded IIoT diagnostic assistant. Analyze telemetry and output JSON.\n[TELEMETRY]: Case_ID=SCN-100, RMS=1.24mm/s, Peak_Freq=29.8Hz, Temp=42.3C, Current_Unbalance=0.7%.",
+    "ground_truth": {
+      "root_cause": "Asset operating within normal nominal parameters.",
+      "severity": "Normal",
+      "recommended_action": "Continue routine periodic telemetry logging."
+    }
+  }
+]

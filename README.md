@@ -1,55 +1,46 @@
-# IEEE ECICE 論文發表專案：Edge-LLM
+# Edge-LLM: On-Device Lightweight LLM Framework for Industrial IoT Anomaly Diagnosis
 
-本專案包含投稿至 **IEEE ECICE (IEEE Eurasia Conference on IoT, Communication and Engineering)** 的完整論文源碼、實驗數據、圖表生成腳本與文獻資料庫。
-
----
-
-## 📁 專案目錄結構
-
-* **`paper/`**：LaTeX 論文源碼（符合 IEEE 官方雙欄格式）
-  * `main.tex`：論文主文件（包含完整的 Introduction、Related Work、Methodology、Experiments、Conclusion）
-  * `references.bib`：2023–2026 年最新 IEEE/ACM/arXiv BibTeX 文獻庫
-  * `IEEEtran.cls`：IEEE 官方 LaTeX 格式類別檔
-  * `figures/`：論文所需之所有出版級圖表（提供向量 `.pdf` 與高解析度 `.png`）
-* **`experiments/`**：Python 實驗與基準測試程式
-  * `run_benchmark.py`：邊緣 LLM 推論延遲、記憶體佔用與吞吐量評估腳本
-  * `sensor_anomaly_eval.py`：工業物聯網感測器異常診斷評估測試
-  * `plot_results.py`：繪製 IEEE 雙欄出版級實驗圖表
-  * `plot_architecture.py`：繪製系統架構圖
-* **`docs/`**：論文規劃與文獻筆記
-  * `paper_outline.md`：論文架構大綱與核心創新亮點
-  * `literature_notes.md`：最新文獻調研與技術比較
+Official research repository and open-source artifacts for the IEEE ECICE 2026 conference paper:
+> **Edge-LLM: An On-Device Lightweight Large Language Model Framework for Real-Time Industrial IoT Sensor Anomaly Diagnosis**  
+> *Author: Yi-Chun Teng (National Dong Hwa University, Taiwan)*  
+> *Email: victus0110@gmail.com*
 
 ---
 
-## 🚀 如何在 Overleaf 或本地編譯論文
+## Repository Structure
 
-### 方法 A：使用 Overleaf（推薦，最方便）
-1. 將 `paper/` 資料夾打包壓縮成 `paper.zip`。
-2. 開啟 [Overleaf](https://www.overleaf.com/)，點選 **New Project** $\rightarrow$ **Upload Project**，上傳該 zip 檔。
-3. 點選 **Recompile** 即可直接預覽與下載 IEEE 雙欄格式 PDF！
-
-### 方法 B：本地編譯（若有安裝 TeX Live / MiKTeX）
-在 `paper/` 目錄下執行：
-```bash
-pdflatex main.tex
-bibtex main
-pdflatex main.tex
-pdflatex main.tex
-```
+- **data/**: Complete public dataset, hardware logs, sensor waveforms, and RAG knowledge base.
+  - enchmark_logs/: Raw hardware profiling logs for NVIDIA Jetson Orin Nano & Raspberry Pi 5.
+  - sensor_telemetry/: Multi-modal time series (vibration, FBG optical strain, IR temp, 3-phase current).
+  - 
+ag_knowledge_base/: ISO 10816 maintenance manuals & fault taxonomy.
+  - diagnostic_eval_cases/: 100 multi-fault test cases & model comparison predictions.
+- **paper/**: LaTeX source code & publication-grade vector figures (.pdf and .png).
+  - main.tex: Full paper LaTeX source.
+  - 
+eferences.bib: Cleaned 2023–2026 reference database.
+- **experiments/**: Benchmark scripts & figure generation tools.
+  - 
+un_benchmark.py: Physical hardware inference benchmark runner.
+  - plot_results.py: Generates all IEEE publication figures.
+  - generate_official_word_paper.py: Builds the official MDPI Word paper (.docx).
+  - erify_project_integrity.py: Syntax, citation, and column integrity validator.
+- **ECICE2026_FullPaper_YiChunTeng.docx**: Official Word manuscript (MDPI template, exactly 6 pages).
+- **ECICE2026_FullPaper_YiChunTeng.pdf**: Official PDF manuscript (Native Word COM export, exactly 6 pages).
+- **paper.zip**: Overleaf-ready compilation bundle.
 
 ---
 
-## 📊 如何重新執行實驗並繪圖
+## Quick Start & Reproducibility
 
-在專案根目錄下使用 Python 執行：
-```bash
-# 1. 執行基準測試與診斷評估
+`ash
+# 1. Run physical benchmark simulation
 python experiments/run_benchmark.py
-python experiments/sensor_anomaly_eval.py
 
-# 2. 重新產生出版級圖表
-python experiments/plot_architecture.py
+# 2. Re-generate all IEEE publication figures
 python experiments/plot_results.py
-```
-生成的圖表將自動更新至 `paper/figures/` 目錄。
+
+# 3. Build Word & PDF Manuscripts
+python experiments/generate_official_word_paper.py
+python experiments/verify_project_integrity.py
+`

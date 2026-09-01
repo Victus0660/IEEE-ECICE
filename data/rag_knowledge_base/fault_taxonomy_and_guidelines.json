@@ -1,0 +1,18 @@
+{
+  "standard": "ISO 10816-3 & ISO 20816-1 Mechanical Vibration Guidelines",
+  "vibration_zones": {
+    "Zone_A": "0.0 - 1.8 mm/s RMS (Newly commissioned machinery)",
+    "Zone_B": "1.8 - 4.5 mm/s RMS (Acceptable for unrestricted long-term operation)",
+    "Zone_C": "4.5 - 7.1 mm/s RMS (Unsatisfactory; continuous operation may cause damage)",
+    "Zone_D": "> 7.1 mm/s RMS (Critical; vibration causes rapid catastrophic failure)"
+  },
+  "frequency_fault_associations": {
+    "1X_RPM": "Unbalance, eccentricity, bent shaft",
+    "2X_RPM": "Angular/parallel coupling misalignment, loose foundation bolt",
+    "BPFO": "Bearing Outer Race Fault (ball pass frequency outer)",
+    "BPFI": "Bearing Inner Race Fault (ball pass frequency inner)",
+    "BSF": "Bearing Ball/Roller Spin Frequency (spalled element)",
+    "FTF": "Fundamental Train Frequency (cage wear / breakage)",
+    "10kHz_Broadband": "Pump cavitation, turbulence, micro-cracking acoustic emission"
+  }
+}
