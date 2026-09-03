@@ -37,11 +37,15 @@ def create_full_paper():
 
     # 3. Author Name
     p_author = doc.add_paragraph(style='MDPI_1.3_authornames')
-    p_author.add_run("Yi-Chun Teng")
+    p_author.add_run("Yi-Chun Teng *")
 
     # 4a. Affiliation
     p_aff = doc.add_paragraph(style='MDPI_1.6_affiliation')
-    p_aff.add_run("Department of Opto-Electronic Engineering, National Dong Hwa University, Hualien 97401, Taiwan; victus0110@gmail.com")
+    p_aff.add_run("Department of Opto-Electronic Engineering, National Dong Hwa University, Hualien 97401, Taiwan")
+
+    # 4b. Correspondence
+    p_corr = doc.add_paragraph(style='MDPI_1.6_affiliation')
+    p_corr.add_run("* \tCorrespondence: victus0110@gmail.com")
 
     # 4c. Conference footnote
     p_conf = doc.add_paragraph(style='MDPI_1.6_affiliation')
@@ -251,6 +255,14 @@ def create_full_paper():
         p_ref = doc.add_paragraph(ref, style='MDPI_8.1_references')
         p_ref.paragraph_format.space_after = Pt(0)
         p_ref.paragraph_format.space_before = Pt(0)
+
+    # Add Disclaimer/Publisher's Note
+    p_disclaimer = doc.add_paragraph(style='MDPI_3.1_text')
+    p_disclaimer.paragraph_format.space_before = Pt(12)
+    p_disclaimer.paragraph_format.space_after = Pt(12)
+    r_disc_bold = p_disclaimer.add_run("Disclaimer/Publisher’s Note: ")
+    r_disc_bold.bold = True
+    p_disclaimer.add_run("The statements, opinions and data contained in all publications are solely those of the individual author(s) and contributor(s) and not of MDPI and/or the editor(s). MDPI and/or the editor(s) disclaim responsibility for any injury to people or property resulting from any ideas, methods, instructions or products referred to in the content.")
 
     # Fix year 2025 -> 2026 in headers and footers
     for section in doc.sections:
