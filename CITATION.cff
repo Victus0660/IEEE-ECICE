@@ -1,21 +1,25 @@
 cff-version: 1.2.0
-message: "If you use this software or dataset, please cite it as below."
+message: "If you use this software or benchmark dataset, please cite it as below."
 authors:
   - family-names: "Teng"
     given-names: "Yi-Chun"
     affiliation: "Department of Opto-Electronic Engineering, National Dong Hwa University, Taiwan"
-title: "Edge-LLM: An On-Device Lightweight Large Language Model Framework for Real-Time Industrial IoT Sensor Anomaly Diagnosis"
+    email: "victus0110@gmail.com"
+title: "SensorLLM-Edge: An On-Device Lightweight Large Language Model Framework for Real-Time Industrial IoT Sensor Anomaly Diagnosis"
 version: 1.0.0
 date-released: 2026-09-01
-url: "https://github.com/Victus0660/IEEE-ECICE"
-preferred-citation:
-  type: conference-paper
-  authors:
-    - family-names: "Teng"
-      given-names: "Yi-Chun"
-  title: "Edge-LLM: An On-Device Lightweight Large Language Model Framework for Real-Time Industrial IoT Sensor Anomaly Diagnosis"
-  collection-title: "Proceedings of the 8th Eurasia Conference on IoT, Communication and Engineering (IEEE ECICE 2026)"
-  year: 2026
-  month: 11
+repository-code: "https://github.com/Victus0660/IEEE-ECICE"
+conference:
+  name: "8th Eurasia Conference on IoT, Communication and Engineering (IEEE ECICE 2026)"
   location: "Yunlin, Taiwan"
-  publisher: "IEEE"
+  date-start: 2026-11-13
+  date-end: 2026-11-15
+keywords:
+  - "Edge Intelligence"
+  - "Small Language Models"
+  - "Industrial IoT"
+  - "Anomaly Diagnosis"
+  - "Model Quantization"
+  - "Smart Manufacturing"
+  - "Opto-Electronic Sensing"
+license: "MIT"

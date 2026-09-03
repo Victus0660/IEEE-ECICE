@@ -1,4 +1,4 @@
-# Edge-LLM: An On-Device Lightweight Large Language Model Framework for Real-Time Industrial IoT Sensor Anomaly Diagnosis
+# SensorLLM-Edge: An On-Device Lightweight Large Language Model Framework for Real-Time Industrial IoT Sensor Anomaly Diagnosis
 
 [![Conference](https://img.shields.io/badge/IEEE-ECICE%202026-00629B?style=for-the-badge&logo=ieee&logoColor=white)](https://2026.ecice.org/)
 [![Hardware](https://img.shields.io/badge/Platform-NVIDIA%20Jetson%20%7C%20Raspberry%20Pi-76B900?style=for-the-badge&logo=nvidia&logoColor=white)](https://developer.nvidia.com/embedded/jetson-orin-nano-developer-kit)
@@ -7,7 +7,7 @@
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 
 Official open-source research dataset, empirical hardware profiling logs, multi-modal telemetry waveforms, and reproducible edge benchmark scripts for the paper:
-> **"Edge-LLM: An On-Device Lightweight Large Language Model Framework for Real-Time Industrial IoT Sensor Anomaly Diagnosis"**  
+> **"SensorLLM-Edge: An On-Device Lightweight Large Language Model Framework for Real-Time Industrial IoT Sensor Anomaly Diagnosis"**  
 > *Presented at the 8th Eurasia Conference on IoT, Communication and Engineering (IEEE ECICE 2026)*
 
 [Explore Dataset (data/)](data/) | [Hardware Benchmark Suite](experiments/) | [Citation](#citation)
@@ -16,15 +16,15 @@ Official open-source research dataset, empirical hardware profiling logs, multi-
 
 ## Abstract & System Overview
 
-Unplanned machine breakdowns stall production lines and cost factories dearly. To catch faults before catastrophic failures occur, industrial plants monitor assets using vibration accelerometers, fiber Bragg grating (FBG) optical strain gauges, infrared thermal probes, and phase current sensors. Yet, conventional edge-deployed TinyML models merely flag anomalies with unhelpful numerical indices or binary alarms—failing to diagnose the underlying physics or instruct technicians on how to respond.
+Unexpected mechanical breakdowns halt manufacturing lines and increase operating costs. While plants deploy accelerometers, fiber Bragg grating (FBG) optical strain sensors, infrared probes, and current transformers for early fault detection, conventional microcontroller TinyML classifiers merely output discrete fault IDs or binary flags without root-cause explanations or repair guidance. Conversely, streaming raw sensor streams to cloud LLMs incurs network latency spikes (>1.4 s), recurring costs, and severe telemetry privacy risks.
 
-Offloading sensor data to cloud-based language models introduces unacceptable transmission delays (>1.4 s), high cloud API bills, and data confidentiality hazards. Here, we present **Edge-LLM**, an on-premise generative diagnostic framework running 4-bit quantized small language models locally on factory-floor compute nodes.
+To overcome these constraints, we propose **SensorLLM-Edge**, an air-gapped framework executing 4-bit quantized small language models (SLMs) on industrial edge gateways. The pipeline couples a sliding-window temporal encoder with an onboard vector repository, converting 12.8 kS/s telemetry into structured JSON repair guidance without external connectivity.
 
 ```
 +--------------------------+      +--------------------------+      +-------------------------+      +------------------------+
-| 1. Multi-Modal Sensors   | ---> | 2. Context Compression   | ---> | 3. Quantized SLM Engine | ---> | 4. Actionable JSON     |
-| (12.8 kHz Accel, FBG     |      | (FFT Harmonics, RMS,     |      | (4-Bit Q4_K_M Kernels,  |      | (Triage: 142 ms,       |
-|  Optical Strain, IR Py)  |      |  ISO 10816 Thresholds)   |      |  Local Vector RAG)      |      |  Full Guide: 1.18 s)   |
+| 1. Multi-Modal Sensors   | ---> | 2. Context Compression   | ---> | 3. Quantized SLM Engine | ---> | 4. Local RAG Output    |
+| (12.8 kHz Accel, FBG     |      | (Sliding-window FFT,     |      | (4-Bit Q4_K_M Kernels,  |      | (Offline Vector SOPs,  |
+|  Optical Strain, IR Py)  |      |  ISO 10816 Thresholds)   |      |  FlashAttention, Cache) |      |  Triage: 142 ms)       |
 +--------------------------+      +--------------------------+      +-------------------------+      +------------------------+
 ```
 
@@ -58,9 +58,9 @@ Offloading sensor data to cloud-based language models introduces unacceptable tr
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | **1D-CNN (TinyML Baseline)** | 91.2% | 88.5% | 89.8% | **8.5 ms** | 0.0 kbps | 100.0% | Opaque Code Only |
 | **Cloud GPT-4o (WAN)** | **97.8%** | **96.5%** | **97.1%** | 1420.0 ms | 128.5 kbps | 35.0% | Full Natural Language |
-| **Edge-LLM (Qwen-1.5B INT4)** | 93.8% | 92.4% | 93.1% | 185.0 ms | **0.0 kbps** | **100.0%** | Structured JSON |
-| **Edge-LLM (Llama-1B INT4)** | 94.6% | 93.8% | **94.2%** | **142.0 ms** | **0.0 kbps** | **100.0%** | Structured JSON |
-| **Edge-LLM (Llama-3B INT4)** | 96.2% | 95.7% | **95.9%** | 320.0 ms | **0.0 kbps** | **100.0%** | Structured JSON |
+| **SensorLLM-Edge (Qwen-1.5B INT4)** | 93.8% | 92.4% | 93.1% | 185.0 ms | **0.0 kbps** | **100.0%** | Structured JSON |
+| **SensorLLM-Edge (Llama-1B INT4)** | 94.6% | 93.8% | **94.2%** | **142.0 ms** | **0.0 kbps** | **100.0%** | Structured JSON |
+| **SensorLLM-Edge (Llama-3B INT4)** | 96.2% | 95.7% | **95.9%** | 320.0 ms | **0.0 kbps** | **100.0%** | Structured JSON |
 
 *\* Note: Privacy (%) measures the proportion of sensitive operational telemetry processed exclusively on-premise without external transmission (100% indicates complete air-gapped security).*
 
@@ -115,9 +115,9 @@ python experiments/sensor_anomaly_eval.py
 ## Citation
 
 ```bibtex
-@inproceedings{teng2026edgellm,
+@inproceedings{teng2026sensorllmedge,
   author    = {Teng, Yi-Chun},
-  title     = {Edge-{LLM}: An On-Device Lightweight Large Language Model Framework for Real-Time Industrial {IoT} Sensor Anomaly Diagnosis},
+  title     = {SensorLLM-Edge: An On-Device Lightweight Large Language Model Framework for Real-Time Industrial {IoT} Sensor Anomaly Diagnosis},
   booktitle = {Proceedings of the 8th Eurasia Conference on IoT, Communication and Engineering (IEEE ECICE 2026)},
   year      = {2026},
   pages     = {1--6},

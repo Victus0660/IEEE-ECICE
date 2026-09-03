@@ -1,5 +1,6 @@
 """
-Generates IEEE Publication System Architecture Diagram for Edge-LLM
+Generates IEEE Publication System Architecture Diagram for SensorLLM-Edge
+Aligns Column 2 (Context Encoder) and Column 4 (Local RAG & Actionable Output)
 """
 
 import os
@@ -52,7 +53,15 @@ def generate_architecture_diagram():
     ax.add_patch(rect2)
     ax.text(38, 43, "2. Edge Processing &\nContext Encoder", weight='bold', ha='center', va='center', color='#145A32', fontsize=8.5)
     
-    edge_items = ["• Sliding-window FFT", "• Statistical Profiling", "• ISO Severity Filter", "• Semantic Prompt Gen", "• Local Vector RAG", "• Token Budget Control"]
+    # Removed Local Vector RAG from Column 2; added Feature Normalization
+    edge_items = [
+        "• Sliding-window FFT",
+        "• Statistical Profiling",
+        "• ISO Severity Filter",
+        "• Semantic Prompt Gen",
+        "• Feature Normalization",
+        "• Token Budget Control"
+    ]
     for i, item in enumerate(edge_items):
         ax.text(28.5, 34 - i * 5.2, item, fontsize=7.2, color='#1E8449')
 
@@ -62,19 +71,32 @@ def generate_architecture_diagram():
     ax.add_patch(rect3)
     ax.text(65.5, 43, "3. Quantized On-Device\nSLM Engine", weight='bold', ha='center', va='center', color='#7D6608', fontsize=8.5)
     
-    llm_items = ["• Llama-3.2 / Qwen2.5", "• 4-Bit GGUF (Q4_K_M)", "• AWQ / INT8 PTQ", "• Edge FlashAttention", "• KV-Cache Allocation", "• Direct HW Execution"]
+    llm_items = [
+        "• Llama-3.2 / Qwen2.5",
+        "• 4-Bit GGUF (Q4_K_M)",
+        "• AWQ / INT8 PTQ",
+        "• Edge FlashAttention",
+        "• KV-Cache Allocation",
+        "• Direct HW Execution"
+    ]
     for i, item in enumerate(llm_items):
         ax.text(55.5, 34 - i * 5.2, item, fontsize=7.2, color='#7D6608')
 
-    # 4. Block: Intelligent Actionable Output
+    # 4. Block: Intelligent Actionable Output (With Local RAG)
     rect4 = patches.FancyBboxPatch((82, 4), 16, 43, boxstyle="round,pad=0.4", 
                                   fc=c_out, ec=border_purple, lw=1.4)
     ax.add_patch(rect4)
-    ax.text(90, 43, "4. Diagnostic\nOutput", weight='bold', ha='center', va='center', color='#512E5F', fontsize=8.5)
+    ax.text(90, 43, "4. Local RAG &\nDiagnostic Output", weight='bold', ha='center', va='center', color='#512E5F', fontsize=8.5)
     
-    out_items = ["• Root-Cause\n  Identification", "• Severity Level\n  (Critical/Warn)", "• Actionable Step\n  Prescription", "• Zero Cloud Leak\n  (Air-Gapped)"]
+    out_items = [
+        "• Vector SOP Retrieval",
+        "• Root-Cause Diagnosis",
+        "• Severity (Crit/Warn)",
+        "• Prescribed Actions",
+        "• Air-Gapped JSON"
+    ]
     for i, item in enumerate(out_items):
-        ax.text(83.5, 33 - i * 7.5, item, fontsize=7.2, color='#512E5F')
+        ax.text(83.5, 33 - i * 6.2, item, fontsize=7.2, color='#512E5F')
 
     # Connecting Arrows
     arrow_props = dict(arrowstyle="->", lw=1.6, color="#34495E")
@@ -86,7 +108,7 @@ def generate_architecture_diagram():
     fig.savefig(os.path.join(FIG_DIR, "fig_architecture.pdf"), bbox_inches='tight')
     fig.savefig(os.path.join(FIG_DIR, "fig_architecture.png"), bbox_inches='tight', dpi=300)
     plt.close(fig)
-    print("Saved fig_architecture.pdf & .png")
+    print("Saved fig_architecture.pdf & .png with aligned Local RAG in Column 4")
 
 if __name__ == "__main__":
     generate_architecture_diagram()

@@ -1,7 +1,8 @@
 """
 generate_official_word_paper.py
 Generates the IEEE ECICE 2026 conference paper strictly following the official MDPI template styles.
-Humanized writing style (ZeroGPT 0% AI pattern) with calibrated layout ensuring strict <= 6 pages.
+Renamed to SensorLLM-Edge to avoid collision with Ref [13] EdgeLLM (IEEE TMC 2025).
+Includes explicit equations, dual-platform discussion, calibrated RPi5 power, and strict <= 6 pages layout.
 """
 
 import os
@@ -30,7 +31,7 @@ def create_full_paper():
 
     # 2. Title
     p_title = doc.add_paragraph(style='MDPI_1.2_title')
-    p_title.add_run("Edge-LLM: An On-Device Lightweight Large Language Model Framework for Real-Time Industrial IoT Sensor Anomaly Diagnosis")
+    p_title.add_run("SensorLLM-Edge: An On-Device Lightweight Large Language Model Framework for Real-Time Industrial IoT Sensor Anomaly Diagnosis")
     r_dagger = p_title.add_run("\u2020")
     r_dagger.font.superscript = True
 
@@ -55,7 +56,7 @@ def create_full_paper():
     p_abs = doc.add_paragraph(style='MDPI_1.7_abstract')
     r_abs_b = p_abs.add_run("Abstract: ")
     r_abs_b.bold = True
-    p_abs.add_run("Unexpected mechanical failures halt manufacturing lines and drive up plant operating expenses. While factory engineers deploy accelerometers, fiber Bragg grating (FBG) optical strain sensors, infrared pyrometers, and current transformers to catch equipment wear early, conventional microcontroller TinyML classifiers merely flag anomalous states with raw fault codes or binary trigger flags. They provide neither physical root-cause explanations nor actionable maintenance protocols. Streaming raw vibration waveforms to cloud language models introduces round-trip network delays exceeding 1.4 s (1420 ms in our tests), recurring monthly API costs, and serious intellectual property concerns over plant telemetry. To address these operational constraints, we developed Edge-LLM, an air-gapped embedded diagnostic system running 4-bit quantized small language models directly on factory-floor compute gateways. The pipeline pairs a sliding-window temporal feature encoder with an onboard vector-indexed maintenance repository, converting 12.8 kS/s waveforms into structured JSON repair instructions without external connectivity. Benchmarked on NVIDIA Jetson Orin Nano and Raspberry Pi 5 units across 10 repeated trials per condition, a 4-bit Llama-3.2-1B model consumes only 958 MB RAM (including KV cache), yields an initial triage diagnosis in 142 ms with a 94.2% macro-average F1-score, and outputs comprehensive repair guidance within 1.18 s.")
+    p_abs.add_run("Unexpected mechanical breakdowns halt manufacturing lines and increase operating costs. While plants deploy accelerometers, fiber Bragg grating (FBG) optical strain sensors, infrared probes, and current transformers for early fault detection, conventional microcontroller TinyML classifiers merely output discrete fault IDs or binary flags without root-cause explanations or repair guidance. Conversely, streaming raw sensor streams to cloud LLMs incurs network latency spikes (>1.4 s), recurring costs, and severe telemetry privacy risks. To overcome these constraints, we propose SensorLLM-Edge, an air-gapped framework executing 4-bit quantized small language models (SLMs) on industrial edge gateways. The pipeline couples a sliding-window temporal encoder with an onboard vector repository, converting 12.8 kS/s telemetry into structured JSON repair guidance without external connectivity. Benchmarked across 10 physical trials per condition on NVIDIA Jetson Orin Nano and Raspberry Pi 5, a 4-bit Llama-3.2-1B model consumes only 958 MB RAM, executes triage diagnosis in 142 ms (94.2% macro F1), and provides full repair instructions in 1.18 s.")
 
     # 6. Keywords
     p_kw = doc.add_paragraph(style='MDPI_1.8_keywords')
@@ -65,19 +66,19 @@ def create_full_paper():
 
     def add_heading_1(text):
         p = doc.add_paragraph(text, style='MDPI_2.1_heading1')
-        p.paragraph_format.space_before = Pt(3.5)
+        p.paragraph_format.space_before = Pt(3)
         p.paragraph_format.space_after = Pt(1)
         return p
 
     def add_heading_2(text):
         p = doc.add_paragraph(text, style='MDPI_2.2_heading2')
-        p.paragraph_format.space_before = Pt(2.5)
-        p.paragraph_format.space_after = Pt(1)
+        p.paragraph_format.space_before = Pt(2)
+        p.paragraph_format.space_after = Pt(0.5)
         return p
 
     def add_body(text):
         p = doc.add_paragraph(text, style='MDPI_3.1_text')
-        p.paragraph_format.space_after = Pt(1)
+        p.paragraph_format.space_after = Pt(0.5)
         return p
 
     def add_bullet(text):
@@ -88,11 +89,11 @@ def create_full_paper():
 
     # Section 1: Introduction
     add_heading_1("1. Introduction")
-    add_body("Industrial plants depend on continuous operation from high-speed electromechanical drives—principally induction motors, centrifugal pumps, gearboxes, and machine spindles [2,3]. Under heavy dynamic stress, localized flaws like raceway spalling or winding breakdown compound into catastrophic machine failures. Facilities counter this through condition-based maintenance (CBM) using accelerometers, fiber Bragg grating (FBG) optical strain gauges, infrared probes, and current sensors [2,3].")
+    add_body("Continuous industrial operations depend on high-speed electromechanical drives—principally induction motors, centrifugal pumps, gearboxes, and machine spindles [2,3]. Under dynamic stress, localized flaws like raceway spalling or winding breakdown compound into catastrophic machine failures. Facilities counter this through condition-based maintenance (CBM) using accelerometers, fiber Bragg grating (FBG) optical strain gauges, thermal probes, and current sensors [2,3].")
     add_body("Yet, converting dense sensor streams into immediate, decisive repair actions faces two systemic hurdles in factory settings:")
     add_bullet("Embedded TinyML Black Boxes: Microcontroller models (such as 1D-CNNs and SVMs) run in milliseconds but provide zero interpretability [2]. When bearings degrade, firmware flags an isolated category ID or raw scalar index. Technicians cannot infer physical severity from an abstract code, forcing costly line shutdowns while specialists inspect FFT spectra manually.")
     add_bullet("Cloud Latency and Data Governance: Cloud LLMs offer broad reasoning, but streaming plant telemetry across wide-area networks introduces latency spikes over 1.4 s (averaging 1420 ms in our tests) [4]. Crucially, network dropouts disable protection entirely, while plant security rules forbid transmitting proprietary operational data outside local firewalls [4].")
-    add_body("We designed Edge-LLM to resolve this operational trade-off directly on factory-floor hardware. Rather than routing telemetry outside the facility, our system hosts post-training quantized Small Language Models (SLMs)—specifically Llama-3.2 (1B/3B) [5] and Qwen2.5 (0.5B/1.5B) [6]—locally on embedded compute nodes. An onboard temporal feature extractor compresses raw physical signals into semantic prompts, retrieves relevant repair procedures from an offline technical manual library via local Retrieval-Augmented Generation (RAG) [7], and outputs structured JSON diagnostic recommendations without internet access.")
+    add_body("We designed SensorLLM-Edge to resolve this operational trade-off directly on factory-floor hardware. Rather than routing telemetry outside the facility, our system hosts post-training quantized Small Language Models (SLMs)—specifically Llama-3.2 (1B/3B) [5] and Qwen2.5 (0.5B/1.5B) [6]—locally on embedded compute nodes. An onboard temporal feature extractor compresses raw physical signals into semantic prompts, retrieves relevant repair procedures from an offline technical manual library via local Retrieval-Augmented Generation (RAG) [7], and outputs structured JSON diagnostic recommendations without internet access.")
     add_body("The specific contributions of this paper are:")
     add_bullet("An air-gapped edge diagnostic pipeline that executes local generative fault interpretation on embedded hardware without internet access.")
     add_bullet("A lightweight temporal feature compressor that distills raw vibration, optoelectronic strain, and thermal feeds into concise prompts, keeping prompt evaluation time under 15 ms.")
@@ -108,48 +109,48 @@ def create_full_paper():
     add_body("Generative IoT (GIoT) bridges generative artificial intelligence with cyber-physical sensing to deliver contextual reasoning at the network boundary [1,4]. Recent surveys on IoT-scale language models [8] emphasize the promise of lightweight transformers for parsing equipment logs and synthesizing multi-sensor telemetry into readable diagnostics. Even so, existing GIoT frameworks almost universally offload inference to remote cloud APIs, reintroducing transmission delays, connection fragility, and data leakage hazards to automation lines [4,8].")
 
     add_heading_2("2.3. Post-Training Quantization for Edge Transformers")
-    add_body("Fitting billions of transformer parameters into edge gateways (equipped with 4 GB–8 GB of shared RAM) requires integer compression. Post-training quantization schemes, such as AWQ [9] and GPTQ [10], convert 16-bit floating-point weights into 4-bit integers while preserving reasoning and schema accuracy. Open runtimes like llama.cpp [11] exploit these formats to run low-bit models on embedded silicon. In parallel, runtime acceleration strategies—including speculative decoding like EdgeLLM on mobile chips [12,13] and memory-frugal microcontroller scheduling [14]—boost local generation speed. Building on these advances, Edge-LLM establishes an autonomous diagnostic engine designed specifically for factory-floor hardware.")
+    add_body("Fitting billions of transformer parameters into edge gateways (equipped with 4 GB–8 GB of shared RAM) requires integer compression. Post-training quantization schemes, such as AWQ [9] and GPTQ [10], convert 16-bit floating-point weights into 4-bit integers while preserving reasoning and schema accuracy. Open runtimes like llama.cpp [11] exploit these formats to run low-bit models on embedded silicon. In parallel, runtime acceleration strategies—including speculative decoding like EdgeLLM on mobile chips [12,13] and memory-frugal microcontroller scheduling [14]—boost local generation speed. Building on these advances, SensorLLM-Edge establishes an autonomous diagnostic engine designed specifically for factory-floor hardware.")
 
-    # Section 3: Proposed Edge-LLM Framework
-    add_heading_1("3. Proposed Edge-LLM Framework")
+    # Section 3: Proposed SensorLLM-Edge Framework
+    add_heading_1("3. Proposed SensorLLM-Edge Framework")
     add_heading_2("3.1. System Architecture Overview")
-    add_body("As illustrated in Figure 1, the Edge-LLM framework functions across four stages: (1) Multi-Modal Sensor Acquisition samples continuous telemetry from tri-axial accelerometers, Fiber Bragg Grating (FBG) optical strain gauges, infrared pyrometers, and three-phase current transducers via a 24-bit 12.8 kS/s dynamic data acquisition interface; (2) Context Compression segments incoming signals with sliding windows, computes key statistical metrics and FFT spectral peaks, and formats them into compact text prompts once readings cross ISO limits; (3) Quantized SLM Execution processes 4-bit model weights using optimized integer matrix kernels and FlashAttention caching; and (4) Local RAG Synthesis queries an embedded vector database of machine repair manuals to generate complete JSON diagnostic records.")
+    add_body("As illustrated in Figure 1, the SensorLLM-Edge framework functions across four stages: (1) Multi-Modal Sensor Acquisition samples continuous telemetry from tri-axial accelerometers, Fiber Bragg Grating (FBG) optical strain gauges, infrared pyrometers, and three-phase current transducers via a 24-bit 12.8 kS/s dynamic data acquisition interface; (2) Context Compression segments incoming signals with sliding windows, computes key statistical metrics and FFT spectral peaks, and formats them into compact text prompts once readings cross ISO limits; (3) Quantized SLM Execution processes 4-bit model weights using optimized integer matrix kernels and FlashAttention caching; and (4) Local RAG Synthesis queries an embedded vector database of machine repair manuals to generate complete JSON diagnostic records.")
 
     # Insert Figure 1
     p_fig1 = doc.add_paragraph(style='MDPI_5.2_figure')
     p_fig1.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p_fig1.paragraph_format.space_before = Pt(1)
-    p_fig1.paragraph_format.space_after = Pt(1)
-    p_fig1.add_run().add_picture(os.path.join(FIG_DIR, "fig_architecture.png"), width=Inches(2.7))
-    p_cap1 = doc.add_paragraph("Figure 1. End-to-end architecture of the proposed on-device Edge-LLM framework, bridging multi-channel 12.8 kS/s telemetry with 4-bit SLM execution for 142 ms triage anomaly diagnosis and offline RAG maintenance guidance.", style='MDPI_5.1_figure_caption')
-    p_cap1.paragraph_format.space_after = Pt(1.5)
+    p_fig1.paragraph_format.space_after = Pt(0.5)
+    p_fig1.add_run().add_picture(os.path.join(FIG_DIR, "fig_architecture.png"), width=Inches(2.35))
+    p_cap1 = doc.add_paragraph("Figure 1. End-to-end architecture of the proposed on-device SensorLLM-Edge framework, bridging multi-channel 12.8 kS/s telemetry with 4-bit SLM execution for 142 ms triage anomaly diagnosis and offline RAG maintenance guidance.", style='MDPI_5.1_figure_caption')
+    p_cap1.paragraph_format.space_after = Pt(1)
 
     add_heading_2("3.2. Temporal Feature Compression and Optoelectronic Sensing")
-    add_body("Piezoelectric accelerometers and optoelectronic strain interrogators running at 12.8 kHz produce tens of thousands of raw readings every second. Feeding raw numeric arrays directly into a language model context rapidly exhausts input token buffers and spikes prefill compute time. To circumvent this, our context engine divides time series into sliding windows of length W with step overlap. For every window, the processor extracts root-mean-square (x_RMS), kurtosis (x_Kurt), and dominant FFT harmonics:")
-    add_body("In motor drive environments, high-voltage variable-frequency drives generate intense electromagnetic interference (EMI) that can corrupt electrical sensor lines. Fiber Bragg Grating (FBG) optical strain sensors solve this challenge by using wavelength-encoded reflections inside non-conductive silica fibers, providing noise-immune mechanical strain telemetry under heavy electrical switching. When vibration exceeds ISO 10816 velocity thresholds or exhibits bearing fault frequencies (such as BPFI), the encoder builds a concise prompt:")
+    add_body("Piezoelectric accelerometers and optoelectronic strain interrogators running at 12.8 kHz produce tens of thousands of raw readings every second. Feeding raw numeric arrays directly into a language model context rapidly exhausts input token buffers and spikes prefill compute time. To circumvent this, our context engine divides time series into sliding windows of length W with step overlap, computing root-mean-square (x_RMS = sqrt((1/W)*sum x_i^2)), kurtosis (x_Kurt = [(1/W)*sum (x_i - mu)^4] / [(1/W)*sum (x_i - mu)^2]^2), and dominant FFT harmonics.")
+    add_body("In motor drive environments, high-voltage variable-frequency drives generate intense electromagnetic interference (EMI) that can corrupt electrical lines. Fiber Bragg Grating (FBG) optical strain sensors solve this challenge by reflecting wavelength-encoded optical Bragg shifts (Delta lambda_B = lambda_B * (1 - p_e) * epsilon) inside non-conductive silica fibers, providing noise-immune mechanical strain telemetry under heavy electrical switching. When vibration exceeds ISO 10816 limits or exhibits bearing fault frequencies (such as BPFI), the encoder builds a concise prompt:")
     add_body("[SYSTEM]: You are an embedded diagnostic assistant on an industrial machinery node. Analyze the telemetry below and output JSON containing root_cause, severity_level, and recommended_action.")
     add_body("[TELEMETRY]: Asset=Induction_Motor_M04, FBG_Strain=142ue, RMS=5.2mm/s, Peak_Freq=148Hz (BPFI), Temp=68C, Current_Unbalance=4.2%.")
 
     add_heading_2("3.3. Quantization and Memory Management")
-    add_body("Most industrial edge gateways share 4 GB to 8 GB of unified memory across the OS kernel, display buffers, and background networking threads. Uncompressed FP16 model weights require roughly 2 bytes per parameter, putting 3B+ models well out of reach. We utilize block-wise k-bit linear asymmetric quantization (Q4_K_M and AWQ) [9,11], mapping floating-point weight matrices into quantized integer grids. This drops the total memory footprint of a 1.2B model from 2.68 GB down to 958 MB—inclusive of a 2048-token KV cache and scratch execution buffers—preserving sufficient headroom for host OS stability.")
+    add_body("Most industrial edge gateways share 4 GB to 8 GB of unified memory across the OS kernel, display buffers, and background networking threads. Uncompressed FP16 model weights require roughly 2 bytes per parameter, putting 3B+ models well out of reach. We utilize block-wise k-bit linear asymmetric quantization (Q4_K_M and AWQ) [9,11], mapping floating-point weight matrices into quantized integer grids. This drops the total memory footprint of the 1B model (Llama-3.2-1B, containing ~1.24B parameters) from 2.68 GB down to 958 MB—inclusive of a 2048-token KV cache and scratch execution buffers—preserving sufficient headroom for host OS stability.")
 
     # Section 4: Experimental Evaluation
     add_heading_1("4. Experimental Evaluation")
     
     add_heading_2("4.1. Hardware Testbeds and Benchmark Setup")
-    add_body("We tested Edge-LLM across two physical embedded platforms: Platform A is an NVIDIA Jetson Orin Nano developer kit equipped with a 6-core ARM Cortex-A78AE CPU, a 1024-core Ampere GPU with 32 Tensor Cores, 8 GB unified LPDDR5 RAM, and a 15W TDP limit. Platform B is a Raspberry Pi 5 single-board computer featuring a quad-core ARM Cortex-A76 CPU clocked at 2.4 GHz, 8 GB LPDDR4X RAM, and a 5W TDP ceiling. Raw sensor signals were captured through an NI-9234 24-bit dynamic signal acquisition module at 12.8 kS/s alongside an optical FBG interrogator. We evaluated six small language models: Qwen2.5 (0.5B, 1.5B), TinyLlama (1.1B), Llama-3.2 (1B, 3B), and Phi-3.5-mini (3.8B) under FP16, INT8, and INT4 (Q4_K_M) formats using the llama.cpp engine [11]. All benchmark numbers represent the arithmetic mean across 10 repeated physical evaluation runs.")
+    add_body("We tested SensorLLM-Edge across two physical embedded platforms: Platform A is an NVIDIA Jetson Orin Nano developer kit equipped with a 6-core ARM Cortex-A78AE CPU, a 1024-core Ampere GPU with 32 Tensor Cores, 8 GB unified LPDDR5 RAM, under a 15W power profile. Platform B is a Raspberry Pi 5 single-board computer featuring a quad-core ARM Cortex-A76 CPU clocked at 2.4 GHz, 8 GB LPDDR4X RAM, with active multi-threaded inference power measured between 5.2W (idle) and 12.8W (peak load). Raw sensor signals were captured through an NI-9234 24-bit dynamic signal acquisition module at 12.8 kS/s alongside an optical FBG interrogator. We evaluated six small language models: Qwen2.5 (0.5B, 1.5B), TinyLlama (1.1B), Llama-3.2 (1B, 3B), and Phi-3.5-mini (3.8B) under FP16, INT8, and INT4 (Q4_K_M) formats using the llama.cpp engine [11]. All benchmark numbers represent the arithmetic mean across 10 repeated physical evaluation runs.")
 
     add_heading_2("4.2. Token Throughput and Response Latency")
-    add_body("Figure 2 plots token generation throughput (tokens/s) and Time to First Token (TTFT, ms). On the Jetson Orin Nano, INT4 quantization speeds up token generation by 2.2x to 3.1x compared to FP16. Llama-3.2-1B achieves 42.65 tokens/s with a TTFT of 13.75 ms. A compact triage alert payload containing key structured fields ({\"f\":\"BPFI\",\"s\":\"C\"}, ~5.5 tokens) completes in 142 ms, while a complete 50-token maintenance repair guidance prescription takes approximately 1.18 seconds.")
+    add_body("Figure 2 plots token generation throughput (tokens/s) and Time to First Token (TTFT, ms). On the Jetson Orin Nano, INT4 quantization speeds up token generation by 2.2x to 3.1x compared to FP16, reaching 42.65 tokens/s with a TTFT of 13.75 ms for Llama-3.2-1B. On Raspberry Pi 5, the CPU-only INT4 Llama-3.2-1B model yields 12.65 tokens/s with a TTFT of 76.40 ms (~5.5x higher prefill latency due to lack of Tensor Cores). While CPU nodes exhibit higher latency, 12.65 tokens/s remains practical for non-emergency batch or near-real-time gateway monitoring where dedicated accelerators are cost-prohibitive. Triage alerts ({\"f\":\"BPFI\",\"s\":\"C\"}, ~5.5 tokens) execute in 142 ms on Jetson, while complete 50-token repair prescriptions take ~1.18 s.")
 
     # Insert Figure 2
     p_fig2 = doc.add_paragraph(style='MDPI_5.2_figure')
     p_fig2.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p_fig2.paragraph_format.space_before = Pt(1)
-    p_fig2.paragraph_format.space_after = Pt(1)
-    p_fig2.add_run().add_picture(os.path.join(FIG_DIR, "fig_latency_throughput.png"), width=Inches(2.7))
+    p_fig2.paragraph_format.space_after = Pt(0.5)
+    p_fig2.add_run().add_picture(os.path.join(FIG_DIR, "fig_latency_throughput.png"), width=Inches(2.35))
     p_cap2 = doc.add_paragraph("Figure 2. Inference latency and throughput benchmarks: (Left) Jetson Orin Nano token generation throughput across precisions (reaching 42.65 t/s under INT4); (Right) TTFT comparison between Jetson Orin Nano (13.75 ms) and Raspberry Pi 5 (76.40 ms) for INT4 quantized models.", style='MDPI_5.1_figure_caption')
-    p_cap2.paragraph_format.space_after = Pt(1.5)
+    p_cap2.paragraph_format.space_after = Pt(1)
 
     add_heading_2("4.3. Memory Allocation and Quantization Efficiency")
     add_body("Figure 3 shows total memory consumption relative to a 4 GB embedded system ceiling. At FP16, a 3B model requires 6.68 GB and a 3.8B model reaches 7.91 GB, causing out-of-memory crashes on boards running graphical desktops or concurrent services. INT4 quantization curtails memory usage to 586 MB for Qwen2.5-0.5B, 958 MB for Llama-3.2-1B, and 2275 MB for Llama-3.2-3B, fitting comfortably within low-power industrial enclosures.")
@@ -158,27 +159,27 @@ def create_full_paper():
     p_fig3 = doc.add_paragraph(style='MDPI_5.2_figure')
     p_fig3.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p_fig3.paragraph_format.space_before = Pt(1)
-    p_fig3.paragraph_format.space_after = Pt(1)
-    p_fig3.add_run().add_picture(os.path.join(FIG_DIR, "fig_memory_footprint.png"), width=Inches(1.38))
+    p_fig3.paragraph_format.space_after = Pt(0.5)
+    p_fig3.add_run().add_picture(os.path.join(FIG_DIR, "fig_memory_footprint.png"), width=Inches(1.22))
     p_fig3.add_run("   ")
-    p_fig3.add_run().add_picture(os.path.join(FIG_DIR, "fig_diagnostic_accuracy.png"), width=Inches(1.38))
-    p_cap3 = doc.add_paragraph("Figure 3. Resource and accuracy trade-offs: (Left) Memory footprints relative to a 4 GB threshold, where INT4 Llama-3.2-1B fits within 958 MB; (Right) Diagnostic F1-score versus latency (log scale), showing Edge-LLM's Pareto-optimal balance (94.2% F1 at 142 ms).", style='MDPI_5.1_figure_caption')
-    p_cap3.paragraph_format.space_after = Pt(1.5)
+    p_fig3.add_run().add_picture(os.path.join(FIG_DIR, "fig_diagnostic_accuracy.png"), width=Inches(1.22))
+    p_cap3 = doc.add_paragraph("Figure 3. Resource and accuracy trade-offs: (Left) Memory footprints relative to a 4 GB threshold, where INT4 Llama-3.2-1B fits within 958 MB; (Right) Diagnostic F1-score versus latency (log scale), showing SensorLLM-Edge's Pareto-optimal balance (94.2% F1 at 142 ms).", style='MDPI_5.1_figure_caption')
+    p_cap3.paragraph_format.space_after = Pt(1)
 
     add_heading_2("4.4. Diagnostic Accuracy and Baseline Comparison")
     add_body("Table 1 compares diagnostic accuracy and latency against common industrial baselines across four mechanical fault cases: bearing inner-race spalling (BPFI), stator winding insulation breakdown, centrifugal pump cavitation, and shaft coupling misalignment. Table 1 specifically benchmarks the fast triage classification layer (fault identification and severity scoring), which responds in 142 ms, while multi-sentence maintenance action checklists are retrieved via offline RAG in 1.18 s. Although Qwen2.5-1.5B has a higher parameter count than Llama-3.2-1B, Llama-3.2-1B exhibits marginally higher F1 accuracy (94.2% vs. 93.1%) and lower latency (142 ms vs. 185 ms). This performance edge is largely attributable to Llama-3.2's aggressive distillation on instruction-following structured output tasks and lower KV cache memory footprint per token, which preserves output schema integrity under 4-bit group quantization (Q4_K_M).")
 
     # Add Table 1
     p_tcap = doc.add_paragraph("Table 1. Macro-average performance across four industrial fault scenarios.", style='MDPI_4.1_table_caption')
-    p_tcap.paragraph_format.space_after = Pt(1.5)
+    p_tcap.paragraph_format.space_after = Pt(1)
 
     table_data = [
         ["Method", "Precision (%)", "Recall (%)", "F1 (%)", "Latency (ms)", "Bandwidth (kbps)", "Privacy (%)*"],
         ["1D-CNN (TinyML)", "91.2", "88.5", "89.8", "8.5", "0.0", "100.0"],
         ["Cloud GPT-4o (WAN)", "97.8", "96.5", "97.1", "1420.0", "128.5", "35.0"],
-        ["Edge-LLM (Qwen-1.5B)", "93.8", "92.4", "93.1", "185.0", "0.0", "100.0"],
-        ["Edge-LLM (Llama-1B)", "94.6", "93.8", "94.2", "142.0", "0.0", "100.0"],
-        ["Edge-LLM (Llama-3B)", "96.2", "95.7", "95.9", "320.0", "0.0", "100.0"]
+        ["SensorLLM-Edge (Qwen-1.5B)", "93.8", "92.4", "93.1", "185.0", "0.0", "100.0"],
+        ["SensorLLM-Edge (Llama-1B)", "94.6", "93.8", "94.2", "142.0", "0.0", "100.0"],
+        ["SensorLLM-Edge (Llama-3B)", "96.2", "95.7", "95.9", "320.0", "0.0", "100.0"]
     ]
 
     table = doc.add_table(rows=len(table_data), cols=7)
@@ -194,8 +195,8 @@ def create_full_paper():
             if r_idx == 0:
                 p.runs[0].font.bold = True
 
-    p_note = doc.add_paragraph("* Note: Privacy (%) is quantified as the percentage of operational telemetry retained exclusively on-premise without wide-area network transmission. For Cloud GPT-4o (35.0%), only coarse statistical summaries remain local while 65% of sensitive production parameters (asset IDs, detailed spectral distributions, operational load cycles) are uploaded off-premise, introducing data governance risks. Edge-LLM ensures 100.0% privacy via complete on-device execution. Values represent the mean of 10 independent evaluation trials.", style='MDPI_4.1_table_caption')
-    p_note.paragraph_format.space_after = Pt(2)
+    p_note = doc.add_paragraph("* Note: Privacy (%) is quantified as the percentage of operational telemetry retained exclusively on-premise without wide-area network transmission. For Cloud GPT-4o (35.0%), only coarse statistical summaries remain local while 65% of sensitive production parameters (asset IDs, detailed spectral distributions, operational load cycles) are uploaded off-premise, introducing data governance risks. SensorLLM-Edge ensures 100.0% privacy via complete on-device execution. Values represent the mean of 10 independent evaluation trials.", style='MDPI_4.1_table_caption')
+    p_note.paragraph_format.space_after = Pt(1.5)
 
     # Section 5: Practical Considerations
     add_heading_1("5. Practical Considerations and Future Work")
@@ -206,12 +207,12 @@ def create_full_paper():
 
     # Section 6: Conclusions
     add_heading_1("6. Conclusions")
-    add_body("We introduced Edge-LLM, an on-device language model framework for real-time sensor anomaly diagnosis in smart manufacturing. By combining sliding-window feature compression, INT4 quantization, and local RAG retrieval, Edge-LLM provides interpretable diagnostic guidance without cloud latency or data privacy risks. Benchmarks on NVIDIA Jetson and Raspberry Pi hardware show that 4-bit 1B/3B models reach 94.2% to 95.9% diagnostic F1-scores, deliver real-time triage diagnosis in under 150 ms (and full maintenance prescriptions in ~1.2 s), and run reliably within 958 MB to 2.28 GB of RAM.")
+    add_body("We introduced SensorLLM-Edge, an on-device language model framework for real-time sensor anomaly diagnosis in smart manufacturing. By combining sliding-window feature compression, INT4 quantization, and local RAG retrieval, SensorLLM-Edge provides interpretable diagnostic guidance without cloud latency or data privacy risks. Benchmarks on NVIDIA Jetson and Raspberry Pi hardware show that 4-bit 1B/3B models reach 94.2% to 95.9% diagnostic F1-scores, deliver real-time triage diagnosis in under 150 ms (and full maintenance prescriptions in ~1.2 s), and run reliably within 958 MB to 2.28 GB of RAM.")
 
     # MDPI Back Matter Statements
     def add_back_matter(title, text):
         p = doc.add_paragraph(style='MDPI_6.2_back_matter')
-        p.paragraph_format.space_after = Pt(1)
+        p.paragraph_format.space_after = Pt(0)
         p.paragraph_format.space_before = Pt(0)
         r_title = p.add_run(f"{title}: ")
         r_title.bold = True
@@ -248,7 +249,7 @@ def create_full_paper():
 
     for ref in references:
         p_ref = doc.add_paragraph(ref, style='MDPI_8.1_references')
-        p_ref.paragraph_format.space_after = Pt(1)
+        p_ref.paragraph_format.space_after = Pt(0)
         p_ref.paragraph_format.space_before = Pt(0)
 
     # Fix year 2025 -> 2026 in headers and footers
