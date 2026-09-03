@@ -88,12 +88,12 @@ def create_full_paper():
 
     # Section 1: Introduction
     add_heading_1("1. Introduction")
-    add_body("Factory operations depend heavily on continuous duty from induction motors, centrifugal pumps, gear trains, and high-speed machine spindles [2,3]. When dynamic load imbalances or lubrication starvation damage a rolling bearing surface, micro-cracks propagate quickly under cyclic stress. Industrial facilities monitor this equipment using condition-based maintenance (CBM) setups equipped with piezoelectric vibration sensors, fiber Bragg grating (FBG) optical strain gauges, thermal probes, and current transformers [2,3].")
-    add_body("Even with continuous multi-channel sensing, converting dense raw telemetry into rapid, safe repair actions runs into two practical hurdles:")
-    add_bullet("Microcontroller TinyML classifiers (such as 1D-CNNs and SVMs) run in milliseconds but function as strict black boxes. When an inner bearing race develops spalling, the firmware outputs an isolated label like 'Class 3' or an arbitrary anomaly scalar. Maintenance crews cannot tell from a raw number whether to grease the housing immediately or trigger an emergency line shutdown without halting production to inspect FFT plots by hand.")
-    add_bullet("Remote cloud LLMs offer broad reasoning capability, but pumping gigabytes of shop-floor telemetry over wide-area networks incurs latency swings well above 1.4 s (averaging 1420 ms in our trials). Worse yet, sudden factory broadband disconnects leave protective systems blind, while corporate data policies strictly prohibit uploading proprietary process parameters outside local firewalls [4].")
-    add_body("We built Edge-LLM to solve this impasse on local silicon. Instead of uploading telemetry, our framework executes post-training quantized small language models (chiefly Llama-3.2 1B/3B [5] and Qwen2.5 0.5B/1.5B [6]) on ruggedized edge computers situated next to the machines. A local statistical encoder extracts time- and frequency-domain markers from incoming signals, cross-references an onboard vector database of factory manuals using offline Retrieval-Augmented Generation (RAG) [7], and prints structured JSON repair prescriptions directly to technician terminals.")
-    add_body("The specific contributions of this work include:")
+    add_body("Industrial plants depend on continuous operation from high-speed electromechanical drives—principally induction motors, centrifugal pumps, gearboxes, and machine spindles [2,3]. Under heavy dynamic stress, localized flaws like raceway spalling or winding breakdown compound into catastrophic machine failures. Facilities counter this through condition-based maintenance (CBM) using accelerometers, fiber Bragg grating (FBG) optical strain gauges, infrared probes, and current sensors [2,3].")
+    add_body("Yet, converting dense sensor streams into immediate, decisive repair actions faces two systemic hurdles in factory settings:")
+    add_bullet("Embedded TinyML Black Boxes: Microcontroller models (such as 1D-CNNs and SVMs) run in milliseconds but provide zero interpretability [2]. When bearings degrade, firmware flags an isolated category ID or raw scalar index. Technicians cannot infer physical severity from an abstract code, forcing costly line shutdowns while specialists inspect FFT spectra manually.")
+    add_bullet("Cloud Latency and Data Governance: Cloud LLMs offer broad reasoning, but streaming plant telemetry across wide-area networks introduces latency spikes over 1.4 s (averaging 1420 ms in our tests) [4]. Crucially, network dropouts disable protection entirely, while plant security rules forbid transmitting proprietary operational data outside local firewalls [4].")
+    add_body("We designed Edge-LLM to resolve this operational trade-off directly on factory-floor hardware. Rather than routing telemetry outside the facility, our system hosts post-training quantized Small Language Models (SLMs)—specifically Llama-3.2 (1B/3B) [5] and Qwen2.5 (0.5B/1.5B) [6]—locally on embedded compute nodes. An onboard temporal feature extractor compresses raw physical signals into semantic prompts, retrieves relevant repair procedures from an offline technical manual library via local Retrieval-Augmented Generation (RAG) [7], and outputs structured JSON diagnostic recommendations without internet access.")
+    add_body("The specific contributions of this paper are:")
     add_bullet("An air-gapped edge diagnostic pipeline that executes local generative fault interpretation on embedded hardware without internet access.")
     add_bullet("A lightweight temporal feature compressor that distills raw vibration, optoelectronic strain, and thermal feeds into concise prompts, keeping prompt evaluation time under 15 ms.")
     add_bullet("Hardware profiling of memory allocation, token throughput, and time-to-first-token across FP16, INT8, and INT4 (Q4_K_M) precisions on GPU-accelerated (NVIDIA Jetson Orin Nano) and CPU-only (Raspberry Pi 5) platforms.")
@@ -102,13 +102,13 @@ def create_full_paper():
     # Section 2: Related Work
     add_heading_1("2. Related Work")
     add_heading_2("2.1. Embedded Classifiers and TinyML in IIoT")
-    add_body("Deploying machine learning models directly onto edge microcontrollers slashes transmission bandwidth and guarantees sub-10 ms alert triggers [2]. In manufacturing setups, 1D-CNNs and shallow autoencoders routinely run on ARM Cortex-M or Cortex-A chips to flag abnormal vibration spikes. Nevertheless, because these models produce only discrete integer class labels, they cannot explain failure mechanics, assess secondary wear symptoms, or walk maintenance personnel through remedial physical tasks [2].")
+    add_body("Deploying compact statistical and deep learning classifiers directly on microcontrollers eliminates network overhead and yields sub-10 ms anomaly alerts [2]. In smart manufacturing, 1D-CNNs and shallow autoencoders routinely run on low-power ARM cores to flag vibration anomalies. However, as noted in foundational edge intelligence reviews [2], these classifiers output only discrete labels without explanatory context. They cannot explain failure mechanics, evaluate secondary wear, or guide technicians through physical recovery steps [2].")
 
     add_heading_2("2.2. Generative IoT and Industrial Edge Intelligence")
-    add_body("Generative IoT (GIoT) merges generative artificial intelligence with physical sensor networks to deliver contextual reasoning [1,4]. Recent surveys document growing interest in deploying small language models for interpreting equipment log files and linking multi-sensor telemetry with natural language summaries in constrained IoT environments [8]. However, the vast majority of existing deployments rely on remote cloud APIs, leaving assembly lines vulnerable to WAN latency spikes and plant network disconnects.")
+    add_body("Generative IoT (GIoT) bridges generative artificial intelligence with cyber-physical sensing to deliver contextual reasoning at the network boundary [1,4]. Recent surveys on IoT-scale language models [8] emphasize the promise of lightweight transformers for parsing equipment logs and synthesizing multi-sensor telemetry into readable diagnostics. Even so, existing GIoT frameworks almost universally offload inference to remote cloud APIs, reintroducing transmission delays, connection fragility, and data leakage hazards to automation lines [4,8].")
 
     add_heading_2("2.3. Post-Training Quantization for Edge Transformers")
-    add_body("Running transformer architectures on embedded platforms with 4 GB to 8 GB of shared system RAM demands substantial weight compression. Post-training algorithms like AWQ [9], GPTQ [10], and GGUF quantization runtimes [11] pack 16-bit floating-point weights into 4-bit and 8-bit integer formats while keeping classification accuracy intact. Complementary methods including speculative decoding (such as EdgeLLM on mobile platforms [12,13]) and memory-efficient microcontroller inference [14] further boost token generation. Drawing upon these quantization strategies, our architecture builds a fully self-contained diagnostic engine designed for factory-floor hardware.")
+    add_body("Fitting billions of transformer parameters into edge gateways (equipped with 4 GB–8 GB of shared RAM) requires integer compression. Post-training quantization schemes, such as AWQ [9] and GPTQ [10], convert 16-bit floating-point weights into 4-bit integers while preserving reasoning and schema accuracy. Open runtimes like llama.cpp [11] exploit these formats to run low-bit models on embedded silicon. In parallel, runtime acceleration strategies—including speculative decoding like EdgeLLM on mobile chips [12,13] and memory-frugal microcontroller scheduling [14]—boost local generation speed. Building on these advances, Edge-LLM establishes an autonomous diagnostic engine designed specifically for factory-floor hardware.")
 
     # Section 3: Proposed Edge-LLM Framework
     add_heading_1("3. Proposed Edge-LLM Framework")
@@ -120,7 +120,7 @@ def create_full_paper():
     p_fig1.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p_fig1.paragraph_format.space_before = Pt(1)
     p_fig1.paragraph_format.space_after = Pt(1)
-    p_fig1.add_run().add_picture(os.path.join(FIG_DIR, "fig_architecture.png"), width=Inches(2.95))
+    p_fig1.add_run().add_picture(os.path.join(FIG_DIR, "fig_architecture.png"), width=Inches(2.7))
     p_cap1 = doc.add_paragraph("Figure 1. End-to-end architecture of the proposed on-device Edge-LLM framework, bridging multi-channel 12.8 kS/s telemetry with 4-bit SLM execution for 142 ms triage anomaly diagnosis and offline RAG maintenance guidance.", style='MDPI_5.1_figure_caption')
     p_cap1.paragraph_format.space_after = Pt(1.5)
 
@@ -147,7 +147,7 @@ def create_full_paper():
     p_fig2.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p_fig2.paragraph_format.space_before = Pt(1)
     p_fig2.paragraph_format.space_after = Pt(1)
-    p_fig2.add_run().add_picture(os.path.join(FIG_DIR, "fig_latency_throughput.png"), width=Inches(2.95))
+    p_fig2.add_run().add_picture(os.path.join(FIG_DIR, "fig_latency_throughput.png"), width=Inches(2.7))
     p_cap2 = doc.add_paragraph("Figure 2. Inference latency and throughput benchmarks: (Left) Jetson Orin Nano token generation throughput across precisions (reaching 42.65 t/s under INT4); (Right) TTFT comparison between Jetson Orin Nano (13.75 ms) and Raspberry Pi 5 (76.40 ms) for INT4 quantized models.", style='MDPI_5.1_figure_caption')
     p_cap2.paragraph_format.space_after = Pt(1.5)
 
@@ -159,9 +159,9 @@ def create_full_paper():
     p_fig3.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p_fig3.paragraph_format.space_before = Pt(1)
     p_fig3.paragraph_format.space_after = Pt(1)
-    p_fig3.add_run().add_picture(os.path.join(FIG_DIR, "fig_memory_footprint.png"), width=Inches(1.48))
+    p_fig3.add_run().add_picture(os.path.join(FIG_DIR, "fig_memory_footprint.png"), width=Inches(1.38))
     p_fig3.add_run("   ")
-    p_fig3.add_run().add_picture(os.path.join(FIG_DIR, "fig_diagnostic_accuracy.png"), width=Inches(1.48))
+    p_fig3.add_run().add_picture(os.path.join(FIG_DIR, "fig_diagnostic_accuracy.png"), width=Inches(1.38))
     p_cap3 = doc.add_paragraph("Figure 3. Resource and accuracy trade-offs: (Left) Memory footprints relative to a 4 GB threshold, where INT4 Llama-3.2-1B fits within 958 MB; (Right) Diagnostic F1-score versus latency (log scale), showing Edge-LLM's Pareto-optimal balance (94.2% F1 at 142 ms).", style='MDPI_5.1_figure_caption')
     p_cap3.paragraph_format.space_after = Pt(1.5)
 
@@ -200,8 +200,8 @@ def create_full_paper():
     # Section 5: Practical Considerations
     add_heading_1("5. Practical Considerations and Future Work")
     add_body("Deploying language models within physical industrial enclosures involves two key operational factors:")
-    add_bullet("Long-Term Degradation Tracking: Streaming weeks of raw vibration logs into a prompt rapidly exhausts context capacity. Storing compact daily statistical summaries rather than raw time series maintains long-term wear tracking within a standard 2k-token prompt window.")
-    add_bullet("Thermal Management in Sealed IP67 Enclosures: Continuous autoregressive generation within fanless industrial enclosures generates steady heat buildup. Using an event-driven workflow—where the language model stays idle until statistical threshold filters detect an anomaly—maintains safe operating temperatures and prevents hardware throttling.")
+    add_bullet("Long-Term Degradation Tracking: Streaming weeks of raw vibration logs into a prompt quickly exhausts context limits. Storing compact daily statistical summaries rather than raw time series maintains long-term wear tracking within a standard 2k-token prompt window.")
+    add_bullet("Thermal Management in Sealed IP67 Enclosures: Continuous autoregressive generation within fanless enclosures generates steady heat buildup. Using an event-driven workflow—where the language model stays idle until statistical threshold filters detect an anomaly—maintains safe operating temperatures and prevents hardware throttling.")
     add_body("Future work will explore on-device parameter-efficient fine-tuning via QLoRA [15] for equipment-specific adaptation and decentralized multi-node collaborative diagnostics across factory gateway networks.")
 
     # Section 6: Conclusions
