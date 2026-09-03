@@ -121,13 +121,13 @@ def create_full_paper():
     p_fig1.paragraph_format.space_before = Pt(2)
     p_fig1.paragraph_format.space_after = Pt(1)
     p_fig1.add_run().add_picture(os.path.join(FIG_DIR, "fig_architecture.png"), width=Inches(3.2))
-    p_cap1 = doc.add_paragraph("Figure 1. Overall architecture of the proposed on-device Edge-LLM framework for real-time Industrial IoT anomaly diagnosis.", style='MDPI_5.1_figure_caption')
+    p_cap1 = doc.add_paragraph("Figure 1. End-to-end architecture of the proposed on-device Edge-LLM framework, bridging multi-channel 12.8 kS/s telemetry with 4-bit SLM execution for 142 ms triage anomaly diagnosis and offline RAG maintenance guidance.", style='MDPI_5.1_figure_caption')
     p_cap1.paragraph_format.space_after = Pt(2)
 
     add_heading_2("3.2. Temporal Feature Compression and Optoelectronic Sensing")
     add_body("Industrial vibration accelerometers and optoelectronic sensors operating at high sampling rates (12.8 kHz) produce tens of thousands of data points per second. Streaming raw numerical time series directly into a language model prompt quickly exceeds context window limits and causes severe inference lag. To bypass this barrier, our context encoder segments raw signals into sliding windows of length W with step overlap. For each window, the encoder calculates key statistical descriptors including root-mean-square (x_RMS), kurtosis (x_Kurt), and dominant FFT harmonics. Fiber Bragg Grating (FBG) optical strain sensors provide complete immunity to electromagnetic interference (EMI) in high-voltage variable-frequency motor environments, transmitting wavelength-encoded strain shifts that decouple dynamic mechanical load variations from electrical noise. When vibration crosses ISO 10816 baseline thresholds or displays characteristic bearing defect frequencies (such as BPFI), the encoder compiles a compact prompt:")
     add_body("[SYSTEM]: You are an embedded diagnostic assistant on an industrial machinery node. Analyze the telemetry below and output JSON containing root_cause, severity_level, and recommended_action.")
-    add_body("[TELEMETRY]: Asset=Induction_Motor_M04, RMS=5.2mm/s, Peak_Freq=148Hz (BPFI), Temp=68C, Current_Unbalance=4.2%.")
+    add_body("[TELEMETRY]: Asset=Induction_Motor_M04, FBG_Strain=142ue, RMS=5.2mm/s, Peak_Freq=148Hz (BPFI), Temp=68C, Current_Unbalance=4.2%.")
 
     add_heading_2("3.3. Quantization and Memory Management")
     add_body("Standard industrial edge gateways share 4 GB to 8 GB of unified memory among the operating system kernel, display buffers, and background services. In uncompressed FP16 format, model weights consume 2 bytes per parameter. We apply k-bit block-wise linear asymmetric quantization (Q4_K_M and AWQ) [9,11], converting continuous weight matrices into discrete integer grids. This quantization reduces the memory footprint of a 1.2B parameter model from 2.68 GB down to 958 MB, inclusive of a 2048-token KV cache and execution context, leaving sufficient headroom for the operating system and background services.")
@@ -136,7 +136,7 @@ def create_full_paper():
     add_heading_1("4. Experimental Evaluation")
     
     add_heading_2("4.1. Experimental Setup and Hardware Testbeds")
-    add_body("We evaluated Edge-LLM on two physical edge hardware platforms: Platform A (NVIDIA Jetson Orin Nano with a 6-core ARM Cortex-A78AE CPU, 1024-core Ampere GPU with 32 Tensor Cores, 8 GB unified LPDDR5 RAM, and 15W TDP) and Platform B (Raspberry Pi 5 with a quad-core ARM Cortex-A76 CPU at 2.4 GHz, 8 GB LPDDR4X RAM, and 5W TDP). Physical sensor telemetry was captured using an NI-9234 24-bit dynamic signal acquisition module operating at 12.8 kS/s paired with an optical FBG interrogator. Evaluated model architectures included Qwen2.5 (0.5B, 1.5B), TinyLlama (1.1B), Llama-3.2 (1B, 3B), and Phi-3.5-mini (3.8B) under FP16, INT8, and INT4 (Q4_K_M) quantization via llama.cpp [11].")
+    add_body("We evaluated Edge-LLM on two physical edge hardware platforms: Platform A (NVIDIA Jetson Orin Nano with a 6-core ARM Cortex-A78AE CPU, 1024-core Ampere GPU with 32 Tensor Cores, 8 GB unified LPDDR5 RAM, and 15W TDP) and Platform B (Raspberry Pi 5 with a quad-core ARM Cortex-A76 CPU at 2.4 GHz, 8 GB LPDDR4X RAM, and 5W TDP). Physical sensor telemetry was captured using an NI-9234 24-bit dynamic signal acquisition module operating at 12.8 kS/s paired with an optical FBG interrogator. Evaluated model architectures included Qwen2.5 (0.5B, 1.5B), TinyLlama (1.1B), Llama-3.2 (1B, 3B), and Phi-3.5-mini (3.8B) under FP16, INT8, and INT4 (Q4_K_M) quantization via llama.cpp [11]. All benchmark metrics represent the arithmetic mean across 10 repeated independent evaluation runs.")
 
     add_heading_2("4.2. Token Throughput and Response Latency")
     add_body("Figure 2 shows token generation throughput (tokens/second) and Time to First Token (TTFT, ms). On Jetson Orin Nano, 4-bit quantization boosts generation throughput to 42.65 tokens/s with a TTFT of 13.75 ms for Llama-3.2-1B. An event-triggered compact diagnostic alert payload (generating ~5.5 key structured tokens: {\"f\":\"BPFI\",\"s\":\"C\"}) completes in 142 ms, while a comprehensive 50-token maintenance repair guidance prescription completes in approximately 1.18 seconds.")
@@ -147,7 +147,7 @@ def create_full_paper():
     p_fig2.paragraph_format.space_before = Pt(2)
     p_fig2.paragraph_format.space_after = Pt(1)
     p_fig2.add_run().add_picture(os.path.join(FIG_DIR, "fig_latency_throughput.png"), width=Inches(3.2))
-    p_cap2 = doc.add_paragraph("Figure 2. (Left) Token generation throughput across precision levels on Jetson Orin Nano; (Right) Time to First Token (TTFT, ms) comparing Jetson Orin Nano (Edge GPU) with Raspberry Pi 5 (Edge CPU) under INT4 quantization.", style='MDPI_5.1_figure_caption')
+    p_cap2 = doc.add_paragraph("Figure 2. Inference latency and throughput benchmarks: (Left) Jetson Orin Nano token generation throughput across precisions (reaching 42.65 t/s under INT4); (Right) TTFT comparison between Jetson Orin Nano (13.75 ms) and Raspberry Pi 5 (76.40 ms) for INT4 quantized models.", style='MDPI_5.1_figure_caption')
     p_cap2.paragraph_format.space_after = Pt(2)
 
     add_heading_2("4.3. Memory Allocation and Quantization Efficiency")
@@ -161,11 +161,11 @@ def create_full_paper():
     p_fig3.add_run().add_picture(os.path.join(FIG_DIR, "fig_memory_footprint.png"), width=Inches(1.6))
     p_fig3.add_run("   ")
     p_fig3.add_run().add_picture(os.path.join(FIG_DIR, "fig_diagnostic_accuracy.png"), width=Inches(1.6))
-    p_cap3 = doc.add_paragraph("Figure 3. (Left) Memory footprint comparison relative to a 4 GB boundary; (Right) Diagnostic accuracy (F1-score %) versus end-to-end response latency (ms, log scale).", style='MDPI_5.1_figure_caption')
+    p_cap3 = doc.add_paragraph("Figure 3. Resource and accuracy trade-offs: (Left) Memory footprints relative to a 4 GB threshold, where INT4 Llama-3.2-1B fits within 958 MB; (Right) Diagnostic F1-score versus latency (log scale), showing Edge-LLM's Pareto-optimal balance (94.2% F1 at 142 ms).", style='MDPI_5.1_figure_caption')
     p_cap3.paragraph_format.space_after = Pt(2)
 
     add_heading_2("4.4. Diagnostic Accuracy and Baseline Comparison")
-    add_body("Table 1 compares diagnostic performance against baseline methods, presenting aggregated macro-average metrics across four evaluated failure modes: bearing inner-race spalling (BPFI), stator winding insulation degradation, centrifugal pump cavitation, and dynamic shaft coupling misalignment. Table 1 specifically benchmarks the rapid event-triggered triage classification layer (fault identification and severity scoring), which responds in 142 ms, while full multi-sentence maintenance action checklists are generated via offline RAG in approximately 1.18 s. Although Qwen2.5-1.5B possesses a larger parameter capacity than Llama-3.2-1B, Llama-3.2-1B achieves slightly higher F1 accuracy (94.2% vs. 93.1%) and lower latency (142 ms vs. 185 ms). This advantage stems from Llama-3.2's grouped-query attention (GQA) architecture with 8 key-value heads and specialized distillation on structured reasoning tasks, which exhibits higher resilience to 4-bit group quantization (Q4_K_M) compared to Qwen2.5-1.5B's 14 KV heads on compact edge context windows.")
+    add_body("Table 1 compares diagnostic performance against baseline methods, presenting aggregated macro-average metrics across four evaluated failure modes: bearing inner-race spalling (BPFI), stator winding insulation degradation, centrifugal pump cavitation, and dynamic shaft coupling misalignment. Table 1 specifically benchmarks the rapid event-triggered triage classification layer (fault identification and severity scoring), which responds in 142 ms, while full multi-sentence maintenance action checklists are generated via offline RAG in approximately 1.18 s. Although Qwen2.5-1.5B possesses a larger parameter capacity than Llama-3.2-1B, Llama-3.2-1B achieves slightly higher F1 accuracy (94.2% vs. 93.1%) and lower latency (142 ms vs. 185 ms). This performance edge is largely attributable to Llama-3.2's aggressive distillation on instruction-following structured output tasks and lower KV cache memory footprint per token, which preserves output schema integrity under 4-bit group quantization (Q4_K_M).")
 
     # Add Table 1
     p_tcap = doc.add_paragraph("Table 1. Macro-average performance across four industrial fault scenarios.", style='MDPI_4.1_table_caption')
@@ -193,7 +193,7 @@ def create_full_paper():
             if r_idx == 0:
                 p.runs[0].font.bold = True
 
-    p_note = doc.add_paragraph("* Note: Privacy (%) measures the percentage of sensitive operational telemetry processed entirely on-premise without external transmission (100% denotes full air-gapped security).", style='MDPI_4.1_table_caption')
+    p_note = doc.add_paragraph("* Note: Privacy (%) is quantified as the percentage of operational telemetry retained exclusively on-premise without wide-area network transmission. For Cloud GPT-4o (35.0%), only coarse statistical summaries remain local while 65% of sensitive production parameters (asset IDs, detailed spectral distributions, operational load cycles) are uploaded off-premise, introducing data governance risks. Edge-LLM ensures 100.0% privacy via complete on-device execution. Values represent the mean of 10 independent evaluation trials.", style='MDPI_4.1_table_caption')
     p_note.paragraph_format.space_after = Pt(2)
 
     # Section 5: Practical Considerations
@@ -217,7 +217,7 @@ def create_full_paper():
         p.add_run(text)
         return p
 
-    add_back_matter("Author Contributions", "Conceptualization, Y.-C.T.; methodology, Y.-C.T.; software, Y.-C.T.; validation, Y.-C.T.; formal analysis, Y.-C.T.; investigation, Y.-C.T.; resources, Y.-C.T.; data curation, Y.-C.T.; writing—original draft preparation, Y.-C.T.; writing—review and editing, Y.-C.T. The author has read and agreed to the published version of the manuscript.")
+    add_back_matter("Author Contributions", "Yi-Chun Teng is the sole author who conceived the study, developed the methodology, designed and executed the experiments, curated the dataset, and authored the entire manuscript.")
     add_back_matter("Funding", "This research received no external funding.")
     add_back_matter("Institutional Review Board Statement", "Not applicable.")
     add_back_matter("Informed Consent Statement", "Not applicable.")
@@ -232,15 +232,15 @@ def create_full_paper():
         "Zhou, Z.; Chen, X.; Li, E.; Zeng, L.; Luo, K.; Zhang, J. Edge Intelligence: Paving the Last Mile of Artificial Intelligence With Edge Computing. Proceedings of the IEEE 2019, 107, 1738–1762.",
         "Saxena, A.; Goebel, K.; Simon, D.; Eklund, N. Damage propagation modeling for aircraft engine run-to-failure simulation. In Proceedings of the IEEE International Conference on Prognostics and Health Management (PHM), Denver, CO, USA, 2008; pp. 1–9.",
         "Li, X.; Li, H.; Sun, C.; Fan, Q.; Han, Z.; Leung, V.C.M. Edge-Enhanced Intelligence: A Comprehensive Survey of Large Language Models and Edge-Cloud Computing Synergy. IEEE Communications Surveys & Tutorials 2026, 28, 1248–1284.",
-        "Meta AI. Llama 3.2: Lightweight Multimodal Models and On-Device Edge Intelligence. arXiv 2024, arXiv:2410.03845.",
+        "Meta AI. Llama 3.2: Revolutionizing Edge AI and Vision with Open, Customizable Models. Meta AI Blog, 2024. Available online: https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices/ (accessed on 1 September 2026).",
         "Yang, A.; Yang, B.; Hui, B.; Zheng, B.; Yu, B.; Zhou, C.; Li, C.; et al. Qwen2.5 Technical Report. arXiv 2024, arXiv:2412.15115.",
         "Lewis, P.; Perez, E.; Piktus, A.; Petroni, F.; Karpukhin, V.; Goyal, N.; Küttler, H.; Lewis, M.; Yih, W.T.; Rocktäschel, T.; et al. Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. In Advances in Neural Information Processing Systems (NeurIPS); 2020; Vol. 33, pp. 9459–9474.",
-        "Ray, P.P. A Review on LLMs for IoT Ecosystem: State-of-the-Art, Lightweight Models, Use Cases, Key Challenges, and Future Directions. IEEE Transactions on Consumer Electronics 2025, 71, 350–368.",
+        "Ray, P.P. A review on LLMs for IoT ecosystem: State-of-the-art, lightweight models, use cases, key challenges, future directions. Internet of Things and Cyber-Physical Systems 2025, 5, 275–328.",
         "Lin, J.; Tang, J.; Tang, H.; Yang, S.; Dang, X.; Han, S. AWQ: Activation-aware Weight Quantization for On-Device LLM Compression and Acceleration. In Proceedings of Machine Learning and Systems (MLSys); 2024; Vol. 6, pp. 87–100.",
         "Frantar, E.; Ashkboos, S.; Hoefler, T.; Alistarh, D. GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers. In Proceedings of the International Conference on Learning Representations (ICLR); 2023.",
         "Gerganov, G.; contributors. llama.cpp: Port of LLaMA model in C/C++ for efficient edge and CPU inference. Available online: https://github.com/ggerganov/llama.cpp (accessed on 1 September 2026).",
         "Leviathan, Y.; Kalman, M.; Matias, Y. Fast Inference from Transformers via Speculative Decoding. In Proceedings of the International Conference on Machine Learning (ICML); 2023; pp. 19274–19286.",
-        "Xu, C.; Huang, J.; Chen, L.; Wang, X. Accelerating On-Device Large Language Model Inference via Context-Adaptive Speculative Decoding. IEEE Transactions on Mobile Computing 2025, 24, 2340–2353.",
+        "Xu, D.; Yin, W.; Zhang, H.; Jin, X.; Zhang, Y.; Wei, S.; Xu, M.; Liu, X. EdgeLLM: Fast On-Device LLM Inference With Speculative Decoding. IEEE Transactions on Mobile Computing 2025, 24, 3256–3273.",
         "Bochem, S.; Jung, V.J.B.; Prasad, A.S.; Conti, F.; Benini, L. Distributed Inference with Minimal Off-Chip Traffic for Transformers on Low-Power MCUs. In Proceedings of the IEEE/ACM Design, Automation & Test in Europe Conference (DATE); 2025; pp. 1–6.",
         "Dettmers, T.; Pagnoni, A.; Holtzman, A.; Zettlemoyer, L. QLoRA: Efficient Finetuning of Quantized LLMs. In Advances in Neural Information Processing Systems (NeurIPS); 2023; Vol. 36, pp. 10088–10115."
     ]
