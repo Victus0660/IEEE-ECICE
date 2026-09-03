@@ -116,14 +116,14 @@ def create_full_paper():
     add_heading_2("3.1. System Architecture Overview")
     add_body("As illustrated in Figure 1, the SensorLLM-Edge framework functions across four stages: (1) Multi-Modal Sensor Acquisition samples continuous telemetry from tri-axial accelerometers, Fiber Bragg Grating (FBG) optical strain gauges, infrared pyrometers, and three-phase current transducers via a 24-bit 12.8 kS/s dynamic data acquisition interface; (2) Context Compression segments incoming signals with sliding windows, computes key statistical metrics and FFT spectral peaks, and formats them into compact text prompts once readings cross ISO limits; (3) Quantized SLM Execution processes 4-bit model weights using optimized integer matrix kernels and FlashAttention caching; and (4) Local RAG Synthesis queries an embedded vector database of machine repair manuals to generate complete JSON diagnostic records.")
 
-    # Insert Figure 1
+    # Insert Figure 1 (Enlarged to publication size: 4.8 inches)
     p_fig1 = doc.add_paragraph(style='MDPI_5.2_figure')
     p_fig1.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_fig1.paragraph_format.space_before = Pt(1)
-    p_fig1.paragraph_format.space_after = Pt(0.5)
-    p_fig1.add_run().add_picture(os.path.join(FIG_DIR, "fig_architecture.png"), width=Inches(2.35))
+    p_fig1.paragraph_format.space_before = Pt(2)
+    p_fig1.paragraph_format.space_after = Pt(1)
+    p_fig1.add_run().add_picture(os.path.join(FIG_DIR, "fig_architecture.png"), width=Inches(4.8))
     p_cap1 = doc.add_paragraph("Figure 1. End-to-end architecture of the proposed on-device SensorLLM-Edge framework, bridging multi-channel 12.8 kS/s telemetry with 4-bit SLM execution for 142 ms triage anomaly diagnosis and offline RAG maintenance guidance.", style='MDPI_5.1_figure_caption')
-    p_cap1.paragraph_format.space_after = Pt(1)
+    p_cap1.paragraph_format.space_after = Pt(1.5)
 
     add_heading_2("3.2. Temporal Feature Compression and Optoelectronic Sensing")
     add_body("Piezoelectric accelerometers and optoelectronic strain interrogators running at 12.8 kHz produce tens of thousands of raw readings every second. Feeding raw numeric arrays directly into a language model context rapidly exhausts input token buffers and spikes prefill compute time. To circumvent this, our context engine divides time series into sliding windows of length W with step overlap, computing root-mean-square (x_RMS = sqrt((1/W)*sum x_i^2)), kurtosis (x_Kurt = [(1/W)*sum (x_i - mu)^4] / [(1/W)*sum (x_i - mu)^2]^2), and dominant FFT harmonics.")
@@ -143,28 +143,28 @@ def create_full_paper():
     add_heading_2("4.2. Token Throughput and Response Latency")
     add_body("Figure 2 plots token generation throughput (tokens/s) and Time to First Token (TTFT, ms). On the Jetson Orin Nano, INT4 quantization speeds up token generation by 2.2x to 3.1x compared to FP16, reaching 42.65 tokens/s with a TTFT of 13.75 ms for Llama-3.2-1B. On Raspberry Pi 5, the CPU-only INT4 Llama-3.2-1B model yields 12.65 tokens/s with a TTFT of 76.40 ms (~5.5x higher prefill latency due to lack of Tensor Cores). While CPU nodes exhibit higher latency, 12.65 tokens/s remains practical for non-emergency batch or near-real-time gateway monitoring where dedicated accelerators are cost-prohibitive. Triage alerts ({\"f\":\"BPFI\",\"s\":\"C\"}, ~5.5 tokens) execute in 142 ms on Jetson, while complete 50-token repair prescriptions take ~1.18 s.")
 
-    # Insert Figure 2
+    # Insert Figure 2 (Enlarged to publication size: 4.8 inches)
     p_fig2 = doc.add_paragraph(style='MDPI_5.2_figure')
     p_fig2.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_fig2.paragraph_format.space_before = Pt(1)
-    p_fig2.paragraph_format.space_after = Pt(0.5)
-    p_fig2.add_run().add_picture(os.path.join(FIG_DIR, "fig_latency_throughput.png"), width=Inches(2.35))
+    p_fig2.paragraph_format.space_before = Pt(2)
+    p_fig2.paragraph_format.space_after = Pt(1)
+    p_fig2.add_run().add_picture(os.path.join(FIG_DIR, "fig_latency_throughput.png"), width=Inches(4.8))
     p_cap2 = doc.add_paragraph("Figure 2. Inference latency and throughput benchmarks: (Left) Jetson Orin Nano token generation throughput across precisions (reaching 42.65 t/s under INT4); (Right) TTFT comparison between Jetson Orin Nano (13.75 ms) and Raspberry Pi 5 (76.40 ms) for INT4 quantized models.", style='MDPI_5.1_figure_caption')
-    p_cap2.paragraph_format.space_after = Pt(1)
+    p_cap2.paragraph_format.space_after = Pt(1.5)
 
     add_heading_2("4.3. Memory Allocation and Quantization Efficiency")
     add_body("Figure 3 shows total memory consumption relative to a 4 GB embedded system ceiling. At FP16, a 3B model requires 6.68 GB and a 3.8B model reaches 7.91 GB, causing out-of-memory crashes on boards running graphical desktops or concurrent services. INT4 quantization curtails memory usage to 586 MB for Qwen2.5-0.5B, 958 MB for Llama-3.2-1B, and 2275 MB for Llama-3.2-3B, fitting comfortably within low-power industrial enclosures.")
 
-    # Insert Figure 3 & Figure 4
+    # Insert Figure 3 & Figure 4 (Enlarged to publication size: 2.38 inches each, 4.8 inches total)
     p_fig3 = doc.add_paragraph(style='MDPI_5.2_figure')
     p_fig3.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_fig3.paragraph_format.space_before = Pt(1)
-    p_fig3.paragraph_format.space_after = Pt(0.5)
-    p_fig3.add_run().add_picture(os.path.join(FIG_DIR, "fig_memory_footprint.png"), width=Inches(1.22))
+    p_fig3.paragraph_format.space_before = Pt(2)
+    p_fig3.paragraph_format.space_after = Pt(1)
+    p_fig3.add_run().add_picture(os.path.join(FIG_DIR, "fig_memory_footprint.png"), width=Inches(2.38))
     p_fig3.add_run("   ")
-    p_fig3.add_run().add_picture(os.path.join(FIG_DIR, "fig_diagnostic_accuracy.png"), width=Inches(1.22))
+    p_fig3.add_run().add_picture(os.path.join(FIG_DIR, "fig_diagnostic_accuracy.png"), width=Inches(2.38))
     p_cap3 = doc.add_paragraph("Figure 3. Resource and accuracy trade-offs: (Left) Memory footprints relative to a 4 GB threshold, where INT4 Llama-3.2-1B fits within 958 MB; (Right) Diagnostic F1-score versus latency (log scale), showing SensorLLM-Edge's Pareto-optimal balance (94.2% F1 at 142 ms).", style='MDPI_5.1_figure_caption')
-    p_cap3.paragraph_format.space_after = Pt(1)
+    p_cap3.paragraph_format.space_after = Pt(1.5)
 
     add_heading_2("4.4. Diagnostic Accuracy and Baseline Comparison")
     add_body("Table 1 compares diagnostic accuracy and latency against common industrial baselines across four mechanical fault cases: bearing inner-race spalling (BPFI), stator winding insulation breakdown, centrifugal pump cavitation, and shaft coupling misalignment. Table 1 specifically benchmarks the fast triage classification layer (fault identification and severity scoring), which responds in 142 ms, while multi-sentence maintenance action checklists are retrieved via offline RAG in 1.18 s. Although Qwen2.5-1.5B has a higher parameter count than Llama-3.2-1B, Llama-3.2-1B exhibits marginally higher F1 accuracy (94.2% vs. 93.1%) and lower latency (142 ms vs. 185 ms). This performance edge is largely attributable to Llama-3.2's aggressive distillation on instruction-following structured output tasks and lower KV cache memory footprint per token, which preserves output schema integrity under 4-bit group quantization (Q4_K_M).")
