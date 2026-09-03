@@ -147,9 +147,9 @@ def plot_pareto_frontier(acc_data):
     labels = {
         'Traditional_TinyML (1D-CNN)': 'TinyML 1D-CNN (Binary only)',
         'Cloud_LLM (GPT-4o via WAN)': 'Cloud LLM (GPT-4o + WAN)',
-        'Edge_LLM_Qwen2.5_1.5B (INT4)': 'Edge Qwen2.5-1.5B (INT4)',
-        'Proposed_Edge_LLM_Llama3.2_1B (INT4)': 'Ours: Llama-3.2-1B (INT4)',
-        'Proposed_Edge_LLM_Llama3.2_3B (INT4)': 'Ours: Llama-3.2-3B (INT4)'
+        'Edge_LLM_Qwen2.5_1.5B (INT4)': 'SensorLLM-Edge: Qwen-1.5B',
+        'Proposed_Edge_LLM_Llama3.2_1B (INT4)': 'SensorLLM-Edge: Llama-1B',
+        'Proposed_Edge_LLM_Llama3.2_3B (INT4)': 'SensorLLM-Edge: Llama-3B'
     }
     
     for key, val in methods.items():
