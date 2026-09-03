@@ -229,21 +229,21 @@ def create_full_paper():
     # References
     add_heading_1("References")
     references = [
-        "Firouzi, F.; Ray, A.; Farahani, B.; Daneshmand, M.; Song, J.; Wu, S.; Chakrabarty, K. Generative IoT (GIoT): Advancing IoT With Generative AI and Large Language Models. Digital Communications and Networks 2026, 12, 100802.",
-        "Zhou, Z.; Chen, X.; Li, E.; Zeng, L.; Luo, K.; Zhang, J. Edge Intelligence: Paving the Last Mile of Artificial Intelligence With Edge Computing. Proceedings of the IEEE 2019, 107, 1738–1762.",
-        "Saxena, A.; Goebel, K.; Simon, D.; Eklund, N. Damage propagation modeling for aircraft engine run-to-failure simulation. In Proceedings of the IEEE International Conference on Prognostics and Health Management (PHM), Denver, CO, USA, 2008; pp. 1–9.",
-        "Li, X.; Li, H.; Sun, C.; Fan, Q.; Han, Z.; Leung, V.C.M. Edge-Enhanced Intelligence: A Comprehensive Survey of Large Language Models and Edge-Cloud Computing Synergy. IEEE Communications Surveys & Tutorials 2026, 28, 1248–1284.",
-        "Meta AI. Llama 3.2: Revolutionizing Edge AI and Vision with Open, Customizable Models. Meta AI Blog, 2024. Available online: https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices/ (accessed on 1 September 2026).",
-        "Yang, A.; Yang, B.; Hui, B.; Zheng, B.; Yu, B.; Zhou, C.; Li, C.; et al. Qwen2.5 Technical Report. arXiv 2024, arXiv:2412.15115.",
-        "Lewis, P.; Perez, E.; Piktus, A.; Petroni, F.; Karpukhin, V.; Goyal, N.; Küttler, H.; Lewis, M.; Yih, W.T.; Rocktäschel, T.; et al. Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. In Advances in Neural Information Processing Systems (NeurIPS); 2020; Vol. 33, pp. 9459–9474.",
-        "Ray, P.P. A review on LLMs for IoT ecosystem: State-of-the-art, lightweight models, use cases, key challenges, future directions. Internet of Things and Cyber-Physical Systems 2025, 5, 275–328.",
-        "Lin, J.; Tang, J.; Tang, H.; Yang, S.; Dang, X.; Han, S. AWQ: Activation-aware Weight Quantization for On-Device LLM Compression and Acceleration. In Proceedings of Machine Learning and Systems (MLSys); 2024; Vol. 6, pp. 87–100.",
-        "Frantar, E.; Ashkboos, S.; Hoefler, T.; Alistarh, D. GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers. In Proceedings of the International Conference on Learning Representations (ICLR); 2023.",
-        "Gerganov, G.; contributors. llama.cpp: Port of LLaMA model in C/C++ for efficient edge and CPU inference. Available online: https://github.com/ggerganov/llama.cpp (accessed on 1 September 2026).",
-        "Leviathan, Y.; Kalman, M.; Matias, Y. Fast Inference from Transformers via Speculative Decoding. In Proceedings of the International Conference on Machine Learning (ICML); 2023; pp. 19274–19286.",
-        "Xu, D.; Yin, W.; Zhang, H.; Jin, X.; Zhang, Y.; Wei, S.; Xu, M.; Liu, X. EdgeLLM: Fast On-Device LLM Inference With Speculative Decoding. IEEE Transactions on Mobile Computing 2025, 24, 3256–3273.",
-        "Bochem, S.; Jung, V.J.B.; Prasad, A.S.; Conti, F.; Benini, L. Distributed Inference with Minimal Off-Chip Traffic for Transformers on Low-Power MCUs. In Proceedings of the IEEE/ACM Design, Automation & Test in Europe Conference (DATE); 2025; pp. 1–6.",
-        "Dettmers, T.; Pagnoni, A.; Holtzman, A.; Zettlemoyer, L. QLoRA: Efficient Finetuning of Quantized LLMs. In Advances in Neural Information Processing Systems (NeurIPS); 2023; Vol. 36, pp. 10088–10115."
+        "Firouzi, F.; Ray, A.; Farahani, B.; Daneshmand, M.; Song, J.; Wu, S.; Chakrabarty, K. Generative IoT (GIoT): Advancing IoT with generative AI and large language models. Digit. Commun. Netw. 2026, 12, 100802, doi:10.1016/j.dcan.2025.100802.",
+        "Zhou, Z.; Chen, X.; Li, E.; Zeng, L.; Luo, K.; Zhang, J. Edge intelligence: Paving the last mile of artificial intelligence with edge computing. Proc. IEEE 2019, 107, 1738–1762, doi:10.1109/JPROC.2019.2918951.",
+        "Saxena, A.; Goebel, K.; Simon, D.; Eklund, N. Damage propagation modeling for aircraft engine run-to-failure simulation. In Proc. IEEE Int. Conf. Progn. Health Manag. (PHM), Denver, CO, USA, 2008; pp. 1–9.",
+        "Li, X.; Li, H.; Sun, C.; Fan, Q.; Han, Z.; Leung, V.C.M. Edge-enhanced intelligence: A comprehensive survey of large language models and edge-cloud computing synergy. IEEE Commun. Surv. Tutorials 2026, 28, 1248–1284, doi:10.1109/COMST.2025.3512801.",
+        "Meta AI. Llama 3.2: Revolutionizing edge AI and vision with open, customizable models. Meta AI Blog, 25 September 2024. Available online: https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices/ (accessed on 1 September 2026).",
+        "Yang, A.; Yang, B.; Hui, B.; Zheng, B.; Yu, B.; Zhou, C.; Li, C.; et al. Qwen2.5 technical report. arXiv 2024, arXiv:2412.15115.",
+        "Lewis, P.; Perez, E.; Piktus, A.; Petroni, F.; Karpukhin, V.; Goyal, N.; Küttler, H.; Lewis, M.; Yih, W.T.; Rocktäschel, T.; et al. Retrieval-augmented generation for knowledge-intensive NLP tasks. In Adv. Neural Inf. Process. Syst. (NeurIPS); 2020; Vol. 33, pp. 9459–9474.",
+        "Ray, P.P. A review on LLMs for IoT ecosystem: State-of-the-art, lightweight models, use cases, key challenges, future directions. Internet of Things Cyber-Phys. Syst. 2025, 5, 275–328, doi:10.1016/j.iotcps.2024.06.002.",
+        "Lin, J.; Tang, J.; Tang, H.; Yang, S.; Dang, X.; Han, S. AWQ: Activation-aware weight quantization for on-device LLM compression and acceleration. In Proc. Mach. Learn. Syst. (MLSys); 2024; Vol. 6, pp. 87–100.",
+        "Frantar, E.; Ashkboos, S.; Hoefler, T.; Alistarh, D. GPTQ: Accurate post-training quantization for generative pre-trained transformers. In Proc. Int. Conf. Learn. Represent. (ICLR), Kigali, Rwanda, 2023.",
+        "Gerganov, G. llama.cpp: Port of LLaMA model in C/C++ for efficient edge and CPU inference. Available online: https://github.com/ggerganov/llama.cpp (accessed on 1 September 2026).",
+        "Leviathan, Y.; Kalman, M.; Matias, Y. Fast inference from transformers via speculative decoding. In Proc. Int. Conf. Mach. Learn. (ICML), Honolulu, HI, USA, 2023; pp. 19274–19286.",
+        "Xu, D.; Yin, W.; Zhang, H.; Jin, X.; Zhang, Y.; Wei, S.; Xu, M.; Liu, X. EdgeLLM: Fast on-device LLM inference with speculative decoding. IEEE Trans. Mob. Comput. 2025, 24, 3256–3273, doi:10.1109/TMC.2024.3513457.",
+        "Bochem, S.; Jung, V.J.B.; Prasad, A.S.; Conti, F.; Benini, L. Distributed inference with minimal off-chip traffic for transformers on low-power MCUs. In Proc. IEEE/ACM Des. Autom. Test Eur. Conf. (DATE), Lyon, France, 2025; pp. 1–6.",
+        "Dettmers, T.; Pagnoni, A.; Holtzman, A.; Zettlemoyer, L. QLoRA: Efficient finetuning of quantized LLMs. In Adv. Neural Inf. Process. Syst. (NeurIPS); 2023; Vol. 36, pp. 10088–10115."
     ]
 
     for ref in references:
